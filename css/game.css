@@ -1,0 +1,61 @@
+@media (orientation: portrait) {
+    html{
+        height: 100%;
+    }
+    div:not(#portrait){
+        display: none;
+    }
+    #portrait{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        margin: 5px;
+        height: 100%;
+    }
+    body{
+        height: 100%;
+    }
+}
+
+@media (orientation: landscape) {
+    html{
+        height: 100%;
+        width: 100%;
+    }
+    #portrait{
+        display: none;
+    }
+    body{
+        display: flex;
+        flex-direction: row;
+        background-color: lightblue;
+        height: 100%;
+        margin: 0px;
+    }
+    div:not(#portrait){
+        display: unset;
+    }
+}
+
+/* Esto es lo que cuenta */
+
+* {
+    box-sizing: border-box;
+}
+
+#map{
+    width: 56.25%;
+    height: auto;
+    background-color: burlywood;
+    display: grid;
+}
+
+#controls{
+    height: 100%;
+}
+
+#menu{
+    width: 20%;
+    height: 100%;
+}
