@@ -1,0 +1,28 @@
+body{
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+div{
+    background-color: lightgoldenrodyellow;
+    border: 3px solid brown;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+}
+
+button{
+    background-color: lightsteelblue;
+    border: 3px outset blue;
+    margin: auto;
+    height: 200%;
+    width: 200%;
+}
