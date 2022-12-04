@@ -49,6 +49,7 @@
     height: auto;
     background-color: burlywood;
     display: grid;
+    scroll-behavior: smooth;
 }
 
 #controls{
