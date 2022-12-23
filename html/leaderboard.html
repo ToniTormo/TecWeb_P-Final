@@ -1,0 +1,125 @@
+<html>
+<head>
+    <title>leaderboard</title>
+</head>
+<body>
+    <h1>leaderboard</h1>
+
+    <form>
+        <label>
+            <input type="text" id="buscador">
+        </label>
+        <button onclick="">Buscar</button>
+    </form>
+
+
+    <table id="tabla">
+        <thead>
+            <th>posicion</th>
+            <th>Nombres</th>
+            <th>Puntos</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="1"></td>
+                <td id="name1"></td>
+                <td id="puntos1"></td>
+            </tr>
+            <tr>
+                <td id="2"></td>
+                <td id="name2"></td>
+                <td id="puntos2"></td>
+            </tr>
+            <tr>
+                <td id="3"></td>
+                <td id="name3"></td>
+                <td id="puntos3"></td>
+            </tr>
+            <tr>
+                <td id="4"></td>
+                <td id="name4"></td>
+                <td id="puntos4"></td>
+            </tr>
+            <tr>
+                <td id="5"></td>
+                <td id="name5"></td>
+                <td id="puntos5"></td>
+            </tr>
+            <tr>
+                <td id="6"></td>
+                <td id="name6"></td>
+                <td id="puntos6"></td>
+            </tr>
+            <tr>
+                <td id="7"></td>
+                <td id="name7"></td>
+                <td id="puntos7"></td>
+            </tr>
+            <tr>
+                <td id="8"></td>
+                <td id="name8"></td>
+                <td id="puntos8"></td>
+            </tr>
+            <tr>
+                <td id="9"></td>
+                <td id="name9"></td>
+                <td id="puntos9"></td>
+            </tr>
+            <tr>
+                <td id="10"></td>
+                <td id="name10"></td>
+                <td id="puntos10"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+<script>
+/* funcion ordenar los datos*/
+/* la funcion requiere dos listas, una con los nombres y una con su puntuacion*/
+/* ej [lucia,abel,jacobo] [10,15,1]*/
+/* esta funcion deberia devolver las listas de esta manera */
+/*[abel,lucia,jacobo] [15,10,1]*/
+var x=["lucia","abel","jacobo","pablo","carlos","marisol"]
+var y=[10,15,1,20,2,45]
+
+
+
+/* problema, el sort se rinde cuando se repite le bucle 4 veces*/
+function ordenar(lista_nombres,lista_puntos){
+
+    console.log(lista_nombres);
+    console.log(lista_puntos);
+
+
+    for(var i=0;i<lista_puntos.length-1;i++){
+        
+        for(var j=0;j<(lista_puntos.length-1);j++){
+            console.log(j)
+            if(lista_puntos[i]>lista_puntos[i+1]){
+
+                /*cambiamos el numero de posicion*/
+                var temp1 = lista_puntos[j]
+                lista_puntos[j] = lista_puntos[j + 1]
+                lista_puntos[j+1] = temp1
+                
+                /*cambiamos el nombre de posicion*/
+                var temp2 = lista_nombres[j]
+                lista_nombres[j] = lista_nombres[j + 1]
+                lista_nombres[j+1] = temp2
+                console.log(lista_nombres);
+                console.log(lista_puntos);
+            }
+        }
+    }
+
+    
+
+}
+ordenar(x,y)
+
+/*funcion insertar*/
+/*inserta el contenido de la lista en la tabla*/
+function insertar(){}
+</script>
