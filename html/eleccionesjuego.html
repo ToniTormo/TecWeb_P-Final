@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../css/menu.css">
+    <style>
+        input{
+            border: 0px;
+            width: auto;
+        }
+        #color {
+            width: 150px ;
+            height: 40px;
+        }
+        legend{
+            border: 2px;
+            border-style: solid;
+            border-radius: 6px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Iniciar partida</h1>
+    </header>
+    <p><h4>Elija los jugadores para poder iniciar el juego:</h4></p>
+
+    <form action="" method="post" name="forms1">
+        <fieldset id="jugadores">
+            <legend>Jugador 1</legend>
+            <label><b>Nombre del jugador:</b> 
+                <input type="text" placeholder="Jugador1">
+            </label><br>
+            <label style="align-items: center;"><b>Elija un color</b> 
+                <input id="color" type="color" value="#00ffff" onchange="cambio_color()">
+                
+            </label><br>
+            <label><b></b>
+                <input type="text">
+            </label>
+        </fieldset>
+    </form>
+    
+    
+
+    <script>
+        /* Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, tambien aplica el opuesto a el elegido para el titulo del jugador */
+        var fondo_personaje = document.getElementById("jugadores")
+        var inputs_fondo = document.querySelectorAll("input")
+        var legen_fondo = document.querySelector("legend")
+        
+        
+        function cambio_color(){
+            var color_elegido = document.getElementById("color").value
+
+            /*Crea el color opuesto a el elegido */
+            var RgbHex = color_elegido.slice(1,7).match(/.{1,2}/g);
+            var Rgb = [
+                parseInt(RgbHex[0], 16),
+                parseInt(RgbHex[1], 16),
+                parseInt(RgbHex[2], 16)
+            ];
+            var color_inverso = [255-Rgb[0],255-Rgb[1],255-Rgb[2]]
+
+            function ColorToHex(color) {
+                var hexadecimal = color.toString(16);
+                return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
+                }
+                function ConvertRGBtoHex(red, green, blue) {
+                return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
+                }
+
+            /*Aplica los cambios*/
+            legen_fondo.style.backgroundColor = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2])
+            fondo_personaje.style.backgroundColor = `${color_elegido}`
+            for(var inp_fondo = 0; inp_fondo < inputs_fondo.length; inp_fondo++){
+                inputs_fondo[inp_fondo].style.backgroundColor = `${color_elegido}`
+            }
+
+            /*Aplica los cambios al texto*/
+            legen_fondo.style.color = `${color_elegido}` 
+            fondo_personaje.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2])
+            for(var inp_color = 0; inp_color < inputs_fondo.length; inp_color++){
+                inputs_fondo[inp_color].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2])
+            }
+        }
+        
+        
+    </script>
+</body>
+</html>
+
+<!--
+Forms:
+- Nº de jugadores
+- Nombre de jugadores (depende del numero)
+- Color de jugadores (depende del numero)
+- Generar color personalizado (RGB)
+- Duración de turno (Tiempo para jugar un turno)
+- Duración de juego (cantidad de fichas a jugar)
+- Tamaño del tablero (espacio para jugar las fichas)
+- Selección de extensiones (inhabilitado)
+-->
