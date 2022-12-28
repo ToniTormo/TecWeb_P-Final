@@ -1,12 +1,154 @@
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carcasonne</title>
-    <link href="../css/menu.css" rel="stylesheet">
+    <title>Registro</title>
+    <!-- <link rel="stylesheet" href="../css/menu.css"> -->
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input{
+            border: 1px;
+            border-style: ridge;
+            border-color: black;
+            border-radius: 2px;
+            width: 86px;
+        }
+        #color {
+            width: 30px ;
+            height: 30px;
+        }
+        legend{
+            border: 4px;
+            border-style: solid;
+            border-radius: 5px;
+            border-color: black;
+        }
+        fieldset{
+            border: 4px;
+            border-style: ridge;
+            border-color: black;
+            margin-bottom: 5px;
+        }
+        .ajustes_label{
+            display: inline-block;
+            width: 395px;
+            margin-bottom: 5px;
+        }
+        button{
+            color: black; burlywood;
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Iniciar partida</h1>
+    </header>
+    <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
     
+    <form action="" method="post" name="forms1" id="formulario">
+        <fieldset>
+            <legend>Ajustes básicos</legend>
+            <label class="ajustes_label"><b>Duración de juego:</b> </label>
+            <input type="number" min="1" value="72" class="1">
+            <br>
+            <label class="ajustes_label"><b>Duración de cada turno:</b></label>
+            <input type="number" min="0" step="15" value="60" class="1">
+            <br>
+            <label class="ajustes_label"><b>Tamaño del tablero:</b></label>
+            <input type="number" value="16" min="9" class="1">
+            <br>
+            <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
+            <select style="border: 1px; border-style:ridge; border-color:black;">
+                <option value="Inhabilitado">Inhabilitado</option>
+            </select>
+            <br>
+        </fieldset>
+        <div style="text-align: center;"><h4>Elija el numero de jugadores:</h4></div>
+        <fieldset id="jugadores">
+            <legend class="legends_jugadores">Jugador 1</legend>
+            <label><b>Jugador:</b> 
+                <input type="text" value="Jugador1" style="width: auto;">
+            </label>
+            <label style="margin-left: 120px;"><b>Color</b> 
+                <input id="color" type="color" value="#00ffff" onchange="cambio_color()">
+            </label><br>
+        </fieldset>
+        
+        <button id="ubi_new_nodo" onclick="añadir_jugador()">
+            <b>Añadir jugador</b> 
+        </button>
+        <button onclick="eliminar_jugador()">
+            <b>Eliminar jugador jugador</b> 
+        </button>
+        
+        <br><br>
+        <button onclick="">
+            <b>Empezar a jugar</b>
+        </button>
+    </form>
+    
+    <script>
+        /* Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, tambien aplica el opuesto a el elegido para el titulo del jugador */
+        var fondo_personaje = document.getElementById("jugadores");
+        var inputs_fondo = document.querySelectorAll("#jugadores input");
+        var legen_fondo = document.querySelector(".legends_jugadores");
+        
+        function cambio_color(){
+            var color_elegido = document.getElementById("color").value;
+
+            /*Crea el color opuesto a el elegido */
+            var RgbHex = color_elegido.slice(1,7).match(/.{1,2}/g);
+            var Rgb = [
+                parseInt(RgbHex[0], 16),
+                parseInt(RgbHex[1], 16),
+                parseInt(RgbHex[2], 16)
+            ];
+            var color_inverso = [255-Rgb[0],255-Rgb[1],255-Rgb[2]];
+
+            function ColorToHex(color) {
+                var hexadecimal = color.toString(16);
+                return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
+            }
+            function ConvertRGBtoHex(red, green, blue) {
+                return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
+            }
+
+            /*Aplica los cambios*/
+            legen_fondo.style.backgroundColor = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            fondo_personaje.style.backgroundColor = `${color_elegido}`;
+            for(var inp_fondo = 0; inp_fondo < inputs_fondo.length; inp_fondo++){
+                inputs_fondo[inp_fondo].style.backgroundColor = `${color_elegido}`;
+            }
+
+            /*Aplica los cambios al texto*/
+            legen_fondo.style.color = `${color_elegido}`;
+            fondo_personaje.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            for(var inp_color = 0; inp_color < inputs_fondo.length; inp_color++){
+                inputs_fondo[inp_color].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            }
+        }
+
+        /*Añade un jugador nuevo*/
+        function añadir_jugador(){
+            var new_player = document.getElementById("formulario");
+            var nodo_fieldset = document.getElementById("jugadores");
+            var ubi_nodo = document.getElementById("ubi_new_nodo")
+
+            var new_nodo = nodo_fieldset.cloneNode(true);
+            console.log(new_nodo)
+            new_player.insertBefore(new_nodo,ubi_nodo)
+        }
+        /*Eliminar un jugador */
+        function eliminar_jugador(){
+
+        }
+    </script>
 </body>
 </html>
