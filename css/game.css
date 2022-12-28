@@ -1,3 +1,7 @@
+:root{
+    --map_size: 16
+}
+
 @media (orientation: portrait) {
     html{
         height: 100%;
@@ -33,7 +37,7 @@
         height: 100%;
         margin: 0px;
     }
-    div:not(#portrait){
+    div:not(#portrait):not(#map){
         display: unset;
     }
 }
@@ -45,18 +49,47 @@
 }
 
 #map{
-    width: 56.25%;
+    width: 60%;
     height: auto;
     background-color: burlywood;
     display: grid;
     scroll-behavior: smooth;
+    grid-template-columns: repeat(var(--map_size), "1fr");
+    grid-template-rows: repeat(var(--map_size), "1fr");
+    overflow-x: scroll;
+    overflow-y: scroll;
+    zoom: normal;
+    padding: 5px;
 }
 
-#controls{
+#controles{
+    width: 20%;
     height: 100%;
 }
 
 #menu{
     width: 20%;
     height: 100%;
+}
+
+.casilla{
+    width: 1fr;
+    height: 1fr;
+    margin: 0px;
+    border: 1px ridge black;
+    background-color: lightgrey;
+}
+
+::-webkit-scrollbar{
+    background-color: burlywood;
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-corner{
+    background-color: burlywood;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: black;
 }

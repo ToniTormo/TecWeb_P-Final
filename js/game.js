@@ -1,5 +1,5 @@
-import {save, read, quit, clear} from "./datamanager.js";
-import {diccionario, base, rio} from "../data/fichas.json";
+// import {save, read, quit, clear} from "../datamanager.js";
+// import {diccionario, base, rio} from "../data/fichas.json";
 
 // Esquemas
 
@@ -16,6 +16,41 @@ const modelo_ficha = {
         church: null
     }
 };
+
+class Ficha {
+    pos = [NaN,NaN];
+    ori = 0;
+
+    constructor(img, side, ocup) {
+        this.img = img;
+        this.side = side;
+        ocup.forEach(i => {
+            this.ocup[i] = null;
+        })
+
+        // Crear el objeto HTML
+        this.dom = document.createElement("img");
+        this.dom.src = mod.img;
+        this.dom.style.display = "match";
+
+        this.dom.draggable = true;
+        this.dom.ondragstart = (event) => {
+            event.dataTransfer.setData("side", String(this.side));
+        }
+
+        this.dom.dataset = this;
+    }
+
+    /* Se puede completar */
+}
+
+
+// Variables de DOM
+
+var mapa;
+var controles;
+var menu;
+var size;
 
 // Variables estandar de juego
 
@@ -43,6 +78,12 @@ var listaJugadores = [
 
 // Funciones de partida
 
+const ponerFicha = (event) => {
+    /* Falta acabar */
+}
+
+// Setup
+
 const crearJugadores = (lista_jugadores) => {
     jugadores = [];
     var jugador;
@@ -56,28 +97,28 @@ const crearFichas = () => {
     var ficha;
     base.forEach(mod => {
         for (let i=0; i<mod.num; i++){
-            var ficha = document.createElement("img");
-            ficha.src = mod.img
-            ficha.style.display = "match"
-            /* falta completar */
-            fichas.push(ficha)
+            // Crear el objeto Ficha
+            ficha = new Ficha(mod.img, mod.side, mod.ocup);
+            // Añadir la ficha al monton
+            fichas.push(ficha);
         }
     });
 };
 
-// Setup
-
 const crearMapa = () => {
     var casilla;
-    for (let x=0; x < 16; x++) {
-    for (let y=0; y < 16; y++) {
+    for (let x=1; x <= t_tablero; x++) {
+    for (let y=1; y <= t_tablero; y++) {
         casilla = document.createElement("div");
+        casilla.style.display = "block"
         casilla.style.gridColumnStart = y;
-        casilla.style.gridColumnEnd = y;
+        casilla.style.gridColumnEnd = y + 1;
         casilla.style.gridRowStart = x;
-        casilla.style.gridRowEnd = x;
+        casilla.style.gridRowEnd = x + 1;
         casilla.className = "casilla";
-        map.appendChild(casilla);
+        casilla.innerHTML = ""
+        casilla.ondrop = ponerFicha
+        mapa.appendChild(casilla);
     }};
 };
 
@@ -86,17 +127,23 @@ const crearMenu = () => {
     listaJugadores.forEach(element => {
         jugador = document.createElement("div");
         /* Falta acabar */
+        menu.appendChild(jugador);
     });
 }
 
 // Run Window
 
-document.addEventListener("DOMContentLoaded") = () => {
-    var map = document.querySelector("#map");
-    var controles = document.querySelector("#controles");
-    var menu = document.querySelector("#menu");
+window.onload = () => {
+    console.log("pagina cargada");
+
+    size = [window.screen.width, window.screen.height];
+
+    mapa = document.querySelector("#map");
+    controles = document.querySelector("#controles");
+    menu = document.querySelector("#menu");
 
     crearMenu();
     crearMapa();
 
+    console.log("¡listo!");
 }
