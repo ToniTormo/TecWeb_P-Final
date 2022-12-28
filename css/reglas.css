@@ -1,0 +1,23 @@
+/*CSS general*/
+/*CSS de la NAV bar*/
+nav {
+    list-style-type:decimal;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 25px;
+    border-color: black;
+    border-radius: 15px;
+    background-color: #ebee82;
+
+}
+ul {
+    list-style-type:lower-alpha;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+/*CSS esquema (texto + imágenes)*/
+/*CSS imágenes*/
