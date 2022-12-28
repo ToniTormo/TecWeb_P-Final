@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carcasonne</title>
-    <link href="./css/menu.css" rel="stylesheet">
+    <link href="./css/inicio.css" rel="stylesheet">
 </head>
 <body>
     <img src="./media/logo_carcassone.png" width="50%" height="auto">
     <div>
-        <button>Start</button><br>
-        <button>Reglas</button><br>
-        <button>Leaderboard</button><br>
+        <button onclick="st()">Start</button><br>
+        <button onclick="re()">Reglas</button><br>
+        <button onclick="le()">Leaderboard</button><br>
+        <button onclick="op()">Opciones</button>
     </div>
+    <script>
+        function st(){
+            location.href="html/start.html";
+        }
+        function re(){
+            location.href="html/reglas.html";
+        }
+        function le(){
+            location.href="html/leaderboard.html";
+        }
+        function op(){
+            location.href="html/opciones.html";
+        }
+    </script>
 </body>
 </html>
