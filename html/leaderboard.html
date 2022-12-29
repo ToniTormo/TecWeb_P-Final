@@ -9,7 +9,7 @@
         <label>
             <input type="text" id="buscador">
         </label>
-        <button onclick="">Buscar</button>
+        <button onclick="buscar()">Buscar</button>
     </form>
 
 
@@ -81,86 +81,116 @@
     /* ej [lucia,abel,jacobo] [10,15,1]*/
     /* esta funcion deberia devolver las listas de esta manera */
     /*[abel,lucia,jacobo] [15,10,1]*/
-    var x=["lucia","abel","jacobo","pablo","carlos","marisol","el pibe motosierra","toni","69420","dani"]
-    var y=[10,7,8,2,3,4,100,0,69,420]
 
+    /*var x=["lucia","abel","jacobo","pablo","carlos","marisol","el pibe motosierra","toni","69420","dani"]
+    var y=[10,7,8,2,3,4,100,0,69,420]
+    */
     var name=["javi","n2","n3","n4","n5","n6","n7","n8","n9"]
     var points=[10,9,8,7,6,5,4,3,2,1]
     
-    ordenar2(x,y)
-    insertar(x,y)
+    var datos ={
+        lucia:10,
+        abel:7,
+        jacobo:3,
+        hola:20,
+        pepe:34,
+        pepo:20,
+        javi:0,
+        dani:5,
+        oldone:12,
+        newname:123
+    }
+    
+    var [n,p]= ordenarobjetos(datos)
+    insertar(n,p)
 
-    /* problema, el sort se rinde cuando se repite le bucle 4 veces*/
-    function ordenar(lista_nombres,lista_puntos){
+    /*ordenar datos*/
+    function ordenarobjetos(lista){
+        /*pasar de objeto a lista*/
+        var listas_nombre=[]
+        var listas_puntos=[]
+        for (var j in lista){
+            listas_nombre.push(j)
+            listas_puntos.push(lista[j])
+        }
 
-        console.log(lista_nombres);
-        console.log(lista_puntos);
-
-
-        for(var i=0;i<lista_puntos.length-1;i++){
-            console.log("i")
-            console.log(i)
-            console.log("j")
-            for(var j=0;j<(lista_puntos.length-1-i);j++){
-                console.log(j)
-                if(lista_puntos[i]<lista_puntos[i+1]){
+        for(var i=0;i<listas_puntos.length-1;i++){
+            for(var j=0;j<(listas_puntos.length-1-i);j++){
+                if(listas_puntos[j]<listas_puntos[j+1]){
 
                     /*cambiamos el numero de posicion*/
-                    var temp1 = lista_puntos[j]
-                    lista_puntos[j] = lista_puntos[j + 1]
-                    lista_puntos[j+1] = temp1
+                    var temp1 = listas_puntos[j]
+                    listas_puntos[j] = listas_puntos[j + 1]
+                    listas_puntos[j+1] = temp1 
                     
                     /*cambiamos el nombre de posicion*/
-                    var temp2 = lista_nombres[j]
-                    lista_nombres[j] = lista_nombres[j + 1]
-                    lista_nombres[j+1] = temp2
-                    console.log(lista_nombres);
-                    console.log(lista_puntos);
+                    var temp2 = listas_nombre[j]
+                    listas_nombre[j] = listas_nombre[j + 1]
+                    listas_nombre[j+1] = temp2
                 }
             }
-        }
+        }  
+        return [listas_nombre,listas_puntos];
     }
-    
-    function ordenar2(lista_nombres,lista_puntos){
-        for( let i=0;i<lista_puntos.lenght;i++){
-            if(lista_puntos[i]<lista_puntos[i+1]){
-                var a =lista_puntos[i]
-                var b= lista_puntos[i+1]
-                lista_puntos[i]=b
-                lista_puntos[i+1]=a
-            }
 
-        }
-    }
-    
+
     /*funcion insertar*/
     /*inserta el contenido de la lista en la tabla*/
     function insertar(lista_nombres,lista_puntos){
         for (let i in lista_nombres){
-            console.log(lista_nombres)
-            console.log(lista_puntos)
-            console.log(i)
+           
             let names=lista_nombres[i]
             let puntos=lista_puntos[i]
             let id_name="name"+i
             let id_puntos="puntos"+i
 
-            /*
-            console.log(names)
-            console.log(puntos)
-            console.log(id_name)
-            console.log(id_puntos)
-            */
             document.getElementById(i).innerHTML=Number(i)+1
             document.getElementById(id_name).innerHTML=names
             document.getElementById(id_puntos).innerHTML=puntos
-            console.log("fin")
-        }
+        }    
     }
 
     /*funcion que se encarga de buscar en la lista el nombre de alguien y mostralo en pantalla*/
     function buscar(){
         var search =document.getElementById("buscador").value /*no seleciona el valor que metes*/
-        console.log(search)
+        
+        var variable=n.includes(search)
+        if (variable){
+            /*selecionamos los valores de search*/
+            var posicion_temp=n.indexOf(search)+1
+            var name_temp=search
+            var puntuacion_temp=p[n.indexOf(search)]
+            
+            /*limpiamos la tabla*/
+            for (let i=0;i<10;i++){
+                let n1=i
+                let n2="name"+i
+                let n3="puntos"+i
+
+                /*selecionamos casillas*/
+                let p1=document.getElementById(n1).innerHTML=""
+                let p2=document.getElementById(n2).innerHTML=""
+                let p3=document.getElementById(n3).innerHTML=""
+
+                console.log(p1)
+                console.log(p2)
+                console.log(p3)
+
+                /*limpiamos*/
+                
+                console.log("fin")
+            }
+
+        }
+        else{
+            alert("Este nombre no se encueantra el la lista, intentalo de de nuevo.")
+        }
+        
     }
+    /*
+    p1.removeChild(p1.firstChild)
+    p2.removeChild(p2.firstChild)
+    p3.removeChild(p3.firstChild)
+    console.log("fin")*/
+    
 </script>
