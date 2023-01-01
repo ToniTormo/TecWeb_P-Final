@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <!-- <link rel="stylesheet" href="../css/menu.css"> -->
+    <script src="../js/datamanager.js"></script>
     <style>
         body{
             display: flex;
@@ -28,6 +28,7 @@
             border-style: solid;
             border-radius: 5px;
             border-color: black;
+            
         }
         fieldset{
             border: 4px;
@@ -51,10 +52,10 @@
         <h1>Iniciar partida</h1>
     </header>
     <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
-    
-    <form action="" method="post" name="forms1" id="formulario">
+    <!-- action="game.html" -->
+    <form id="formulario" >
         <fieldset>
-            <legend>Ajustes básicos</legend>
+            <legend style="background-color: black; color:white">Ajustes básicos</legend>
             <label class="ajustes_label"><b>Duración de juego:</b> </label>
             <input type="number" min="1" value="72" class="1">
             <br>
@@ -65,7 +66,7 @@
             <input type="number" value="16" min="9" class="1">
             <br>
             <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
-            <select style="border: 1px; border-style:ridge; border-color:black;">
+            <select id="extension" style="border: 1px; border-style:ridge; border-color:black;">
                 <option value="Inhabilitado">Inhabilitado</option>
             </select>
             <br>
@@ -73,13 +74,14 @@
 
         <div style="text-align: center;"><h4>Elija el numero de jugadores:</h4></div>
 
-        <fieldset class="jugadores">
-            <legend class="legends_jugadores">Jugador 1</legend>
+        <fieldset id="jugadores">
+            <legend style="background-color: black; color:white">Jugador 1</legend>
             <label><b>Jugador:</b> 
                 <input type="text" value="Jugador1" style="width: auto;">
             </label>
             <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#00ffff" onchange="cambio_color(this)">
+                <input id="color" type="color" value="#ffffff" 
+                onchange="cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this)">
             </label><br>
         </fieldset>
         
@@ -91,31 +93,32 @@
         </button>
         
         <br><br>
-        <button type="submit" onclick="">
+        <button type="submit" onclick="enviar_datos()">
             <b>Empezar a jugar</b>
         </button>
     </form>
     
-    <script> 
+    <script>
+        //Crea el jugador default
+        const nodo_fieldset = document.querySelector("#jugadores");
+        var nodo_constante = nodo_fieldset.cloneNode(true);
         //Añade un jugador nuevo
-        var nodo_fieldset = document.querySelector(".jugadores");
         var control_del_player = 2;
-
         function añadir_jugador(){
             if (control_del_player <= 8){
                 var new_player = document.getElementById("formulario");
                 var ubi_nodo = document.getElementById("ubi_new_nodo");
                 
-                var new_nodo = nodo_fieldset.cloneNode(true);
-                
-                new_nodo.childNodes[1].textContent = "Jugador " + control_del_player
-                new_nodo.childNodes[3].childNodes[2].value = "Jugador" + control_del_player
+                var new_nodo = nodo_constante.cloneNode(true);
+
+                new_nodo.childNodes[1].textContent = "Jugador " + control_del_player;
+                new_nodo.childNodes[3].childNodes[2].value = "Jugador" + control_del_player;
 
                 new_player.insertBefore(new_nodo,ubi_nodo);
                 control_del_player += 1;
             }
             else{
-                alert("El máximo de jugadores es 8")
+                alert("El máximo de jugadores es 8");
             }
         }
         //Eliminar un jugador 
@@ -125,28 +128,16 @@
                 var nodos_player = del_player.children;
                 var del_nodo = nodos_player.item(nodos_player.length - 6);
                 del_player.removeChild(del_nodo);
-                control_del_player -= 1
+                control_del_player -= 1;
             }
             else{
-                alert("El mínimo de jugadores es 1")
+                alert("El mínimo de jugadores es 1");
             }  
         }
 
-
-
-        Tengo que cambiar, para que se cambie unicamente el color de el jugador deseado, para ello tengo que selecionar unicamente el fildset que que
-        quiera cada vez, probar con alguna variable que vaya sumando o restando, sino probar un boton de confirmar que indicara el fildset que se debe modificar
-        y hacer una funcion sin parametros tan determinados, sino mas bien con amplitud para añadir cualquier cosa.
-
-
-
-        // Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, también aplica el opuesto a el elegido para el titulo del jugador 
-        function cambio_color(color){
-            var fondo_personaje = document.querySelectorAll(".jugadores");
-            console.log(fondo_personaje)
-            var inputs_fondo = document.querySelectorAll(".jugadores input");
-            var legen_fondo = document.querySelector(".legends_jugadores");
-
+        // Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, también aplica el opuesto al texto que hay
+        function cambio_color(fieldset, legend, inputs, color){
+            var legen_fondo = legend[0];
             var color_elegido = color.value;
 
             //Crea el color opuesto a el elegido 
@@ -165,20 +156,42 @@
             function ConvertRGBtoHex(red, green, blue) {
                 return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
             }
-
             //Aplica los cambios
             legen_fondo.style.backgroundColor = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
-            fondo_personaje.style.backgroundColor = `${color_elegido}`;
-            for(var inp_fondo = 0; inp_fondo < inputs_fondo.length; inp_fondo++){
-                inputs_fondo[inp_fondo].style.backgroundColor = `${color_elegido}`;
+            fieldset.style.backgroundColor = `${color_elegido}`;
+            for(var inp_fondo = 0; inp_fondo < inputs.length; inp_fondo++){
+                inputs[inp_fondo].style.backgroundColor = `${color_elegido}`;
             }
-
             //Aplica los cambios al texto
             legen_fondo.style.color = `${color_elegido}`;
-            fondo_personaje.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
-            for(var inp_color = 0; inp_color < inputs_fondo.length; inp_color++){
-                inputs_fondo[inp_color].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            fieldset.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            for(var inp_color = 0; inp_color < inputs.length; inp_color++){
+                inputs[inp_color].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
             }
+        }
+        //Envía los datos
+        function enviar_datos(){
+            var datos_formulario = document.getElementsByTagName("input");
+            
+            const extensiones = document.getElementById("extension");
+            const ext_selc = extensiones.selectedIndex;
+            var datos_basicos = {
+                duracion: datos_formulario[0].value,
+                turno: datos_formulario[1].value,
+                tablero: datos_formulario[2].value,
+                extension: extensiones.options[ext_selc].value
+            }
+            console.log(datos_basicos)
+            
+            var datos_player = {}
+            for(var player = 0; player < 3; player++){
+                var player_name = datos_formulario[player].value;
+                var player_color =
+                var datos_player = {}
+            }
+            
+        
+            save("datosjuego", "datos")
         }
 
     </script>
