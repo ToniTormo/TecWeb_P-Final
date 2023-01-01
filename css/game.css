@@ -1,5 +1,8 @@
 :root{
-    --map_size: 16
+    --map_size: 16;
+    --casilla: 0px;
+    --i_scale: 0;
+    --font_size: 0px;
 }
 
 @media (orientation: portrait) {
@@ -37,9 +40,6 @@
         height: 100%;
         margin: 0px;
     }
-    div:not(#portrait):not(#map){
-        display: unset;
-    }
 }
 
 /* Esto es lo que cuenta */
@@ -48,14 +48,21 @@
     box-sizing: border-box;
 }
 
+#menu > img{
+    width: 100%;
+    height: auto;
+}
+
 #map{
     width: 60%;
     height: auto;
     background-color: burlywood;
     display: grid;
     scroll-behavior: smooth;
-    grid-template-columns: repeat(var(--map_size), "1fr");
-    grid-template-rows: repeat(var(--map_size), "1fr");
+    scroll-snap-stop: always;
+    scroll-snap-align: var(--casilla);
+    grid-template-columns: repeat(var(--map_size), var(--casilla));
+    grid-template-rows: repeat(var(--map_size), var(--casilla));
     overflow-x: scroll;
     overflow-y: scroll;
     zoom: normal;
@@ -65,19 +72,142 @@
 #controles{
     width: 20%;
     height: 100%;
+    padding: 0.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}#controles>div>:not(span){
+    margin: 0px;
+    padding: 1%;
+}
+
+#n_ficha{
+    display: flex;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-style: outset;
+    border-color: brown;
+    border-width: 0.1%;
+    border-radius: 50%;
+    background-color: lightgrey;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1%;
+}
+
+#caja{
+    height: calc(var(--casilla));
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font_size);
+    border-style: outset;
+    border-color: brown;
+    border-width: 0.1%;
+    background-color: lightgrey;
+}
+
+#info{
+    height: calc(var(--font_size)*12.5);
+    width: 100%;
+    font-size: var(--font_size);
+    border-style: outset;
+    border-color: brown;
+    border-width: 0.1%;
+    background-color: lightgrey;
+}#info>ul>li{
+    height: calc(var(--font_size)*2);
+    width: 80%;
+    margin-left: 20%;
+    padding-top: 5%;
+    padding-left: 2%;
 }
 
 #menu{
     width: 20%;
     height: 100%;
+    padding: 0.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+}
+
+#jugadores{
+    margin: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#opciones{
+    width: 100%;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    align-self: flex-end;
 }
 
 .casilla{
-    width: 1fr;
-    height: 1fr;
+    width: var(--casilla);
+    height: var(--casilla);
     margin: 0px;
-    border: 1px ridge black;
+    border: 1px ridge grey;
+    padding: 0px;
     background-color: lightgrey;
+}
+
+.ficha{
+    display: "match";
+    width: var(--casilla);
+    height: var(--casilla);
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+div.jugador{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: min-content;
+    margin-top: 5px;
+    border-width: 2px;
+    border-style: outset;
+    padding: 1px;
+    font-size: var(--font_size);
+}div.jugador>span{
+    color: inherit;
+    margin: 2px;
+}div.jugador>input[type="number"]{
+    width: calc(var(--font_size)*1.5);
+    text-align: end;
+}div.jugador>input[type="radio"]{
+    justify-self: center;
+}
+
+.b_1{
+    width: 48%;
+    height: auto;
+    background-color: lightsteelblue;
+    border: 2px outset blue;
+    text-align: center;
+    font-size: var(--font_size);
+}
+
+.b_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 ::-webkit-scrollbar{

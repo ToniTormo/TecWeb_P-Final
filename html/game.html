@@ -6,6 +6,8 @@
     <title>Carcasonne</title>
     <link rel="stylesheet" href="../css/game.css">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
+    <script src="../js/datamanager.js" defer></script>
+    <script src="../data/fichas.js" defer></script>
     <script src="../js/game.js" defer></script>
 </head>
 <body>
@@ -14,13 +16,59 @@
     </div>
     <div id="menu">
         <img src="../media/logo_carcassone.png" alt="Carcasonne" 
-        srcset="../media/logo_carcassone.png" style="width:90%;height:auto;">
+        srcset="../media/logo_carcassone.png">
+        <div id="jugadores">
+            <!-- Jugadores -->
+            <div class="jugador" style="display: none;" id="modelo">
+                <span>Name: </span>
+                <span style="width: calc(var(--font_size)*1.5); text-align: center;">
+                    10
+                </span>
+                <span style="padding: 0px; text-align:center;">
+                    &#10003;
+                </span>
+            </div>
+        </div>
+        <div id="opciones" class="b_box">
+            <input class="b_1" value="Salir" type="button" onclick="salir()"
+            onmousedown="buttonDown(event, this)"
+            onmouseup="buttonUp(event, this)">
+            <input class="b_1" value="Pausa" type="button" onclick="pausa()"
+            onmousedown="buttonDown(event, this)"
+            onmouseup="buttonUp(event, this)">
+        </div>
     </div>
     <div id="map">
-        <!-- iframe -->
+        <!-- casillas -->
     </div>
     <div id="controles">
+        <div>
+            <div id="n_ficha" ondrop="ponerFicha(event, this)"
+            ondragover="overFicha(event, this)"></div>
+            <!-- Fichas -->
+            <div class="b_box">
+            <input class="b_1" value="Rotar" type="button"
+            onclick="fichas[id_ficha].rotar()"
+            onmousedown="buttonDown(event, this)"
+            onmouseup="buttonUp(event, this)">
+            <input class="b_1" value="Hecho" type="button"
+            onclick="fichas[id_ficha].fijar()"
+            onmousedown="buttonDown(event, this)"
+            onmouseup="buttonUp(event, this)">
+            </div>
+        </div>
+        <div id="caja">
+            <svg>
 
+            </svg>
+            <span>
+
+            </span>
+        </div>
+        <div id="info">
+            <p>Info:</p>
+            <ul></ul>
+        </div>
     </div>
 </body>
 </html>
