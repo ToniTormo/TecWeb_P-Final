@@ -70,40 +70,86 @@
             </select>
             <br>
         </fieldset>
+
         <div style="text-align: center;"><h4>Elija el numero de jugadores:</h4></div>
-        <fieldset id="jugadores">
+
+        <fieldset class="jugadores">
             <legend class="legends_jugadores">Jugador 1</legend>
             <label><b>Jugador:</b> 
                 <input type="text" value="Jugador1" style="width: auto;">
             </label>
             <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#00ffff" onchange="cambio_color()">
+                <input id="color" type="color" value="#00ffff" onchange="cambio_color(this)">
             </label><br>
         </fieldset>
         
-        <button id="ubi_new_nodo" onclick="añadir_jugador()">
+        <button type="button" id="ubi_new_nodo" onclick="añadir_jugador()">
             <b>Añadir jugador</b> 
         </button>
-        <button onclick="eliminar_jugador()">
+        <button type="button" onclick="eliminar_jugador()">
             <b>Eliminar jugador jugador</b> 
         </button>
         
         <br><br>
-        <button onclick="">
+        <button type="submit" onclick="">
             <b>Empezar a jugar</b>
         </button>
     </form>
     
-    <script>
-        /* Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, tambien aplica el opuesto a el elegido para el titulo del jugador */
-        var fondo_personaje = document.getElementById("jugadores");
-        var inputs_fondo = document.querySelectorAll("#jugadores input");
-        var legen_fondo = document.querySelector(".legends_jugadores");
-        
-        function cambio_color(){
-            var color_elegido = document.getElementById("color").value;
+    <script> 
+        //Añade un jugador nuevo
+        var nodo_fieldset = document.querySelector(".jugadores");
+        var control_del_player = 2;
 
-            /*Crea el color opuesto a el elegido */
+        function añadir_jugador(){
+            if (control_del_player <= 8){
+                var new_player = document.getElementById("formulario");
+                var ubi_nodo = document.getElementById("ubi_new_nodo");
+                
+                var new_nodo = nodo_fieldset.cloneNode(true);
+                
+                new_nodo.childNodes[1].textContent = "Jugador " + control_del_player
+                new_nodo.childNodes[3].childNodes[2].value = "Jugador" + control_del_player
+
+                new_player.insertBefore(new_nodo,ubi_nodo);
+                control_del_player += 1;
+            }
+            else{
+                alert("El máximo de jugadores es 8")
+            }
+        }
+        //Eliminar un jugador 
+        function eliminar_jugador(){
+            if (control_del_player >= 3){
+                var del_player = document.getElementById("formulario");
+                var nodos_player = del_player.children;
+                var del_nodo = nodos_player.item(nodos_player.length - 6);
+                del_player.removeChild(del_nodo);
+                control_del_player -= 1
+            }
+            else{
+                alert("El mínimo de jugadores es 1")
+            }  
+        }
+
+
+
+        Tengo que cambiar, para que se cambie unicamente el color de el jugador deseado, para ello tengo que selecionar unicamente el fildset que que
+        quiera cada vez, probar con alguna variable que vaya sumando o restando, sino probar un boton de confirmar que indicara el fildset que se debe modificar
+        y hacer una funcion sin parametros tan determinados, sino mas bien con amplitud para añadir cualquier cosa.
+
+
+
+        // Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, también aplica el opuesto a el elegido para el titulo del jugador 
+        function cambio_color(color){
+            var fondo_personaje = document.querySelectorAll(".jugadores");
+            console.log(fondo_personaje)
+            var inputs_fondo = document.querySelectorAll(".jugadores input");
+            var legen_fondo = document.querySelector(".legends_jugadores");
+
+            var color_elegido = color.value;
+
+            //Crea el color opuesto a el elegido 
             var RgbHex = color_elegido.slice(1,7).match(/.{1,2}/g);
             var Rgb = [
                 parseInt(RgbHex[0], 16),
@@ -120,14 +166,14 @@
                 return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
             }
 
-            /*Aplica los cambios*/
+            //Aplica los cambios
             legen_fondo.style.backgroundColor = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
             fondo_personaje.style.backgroundColor = `${color_elegido}`;
             for(var inp_fondo = 0; inp_fondo < inputs_fondo.length; inp_fondo++){
                 inputs_fondo[inp_fondo].style.backgroundColor = `${color_elegido}`;
             }
 
-            /*Aplica los cambios al texto*/
+            //Aplica los cambios al texto
             legen_fondo.style.color = `${color_elegido}`;
             fondo_personaje.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
             for(var inp_color = 0; inp_color < inputs_fondo.length; inp_color++){
@@ -135,20 +181,6 @@
             }
         }
 
-        /*Añade un jugador nuevo*/
-        function añadir_jugador(){
-            var new_player = document.getElementById("formulario");
-            var nodo_fieldset = document.getElementById("jugadores");
-            var ubi_nodo = document.getElementById("ubi_new_nodo")
-
-            var new_nodo = nodo_fieldset.cloneNode(true);
-            console.log(new_nodo)
-            new_player.insertBefore(new_nodo,ubi_nodo)
-        }
-        /*Eliminar un jugador */
-        function eliminar_jugador(){
-
-        }
     </script>
 </body>
 </html>
