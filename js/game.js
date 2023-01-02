@@ -167,16 +167,16 @@ const inv_color = (color) => {
 }
 
 const sePuedePoner = (x, y, id_ficha, cas) => {
-    if(cas[x, y + 1].innerHTML != ""){
+    if(document.queryselector("div.casilla[data-posicion = '${x},${y + 1}']").innerHTML != ""){
         return(id_ficha.side[0] == pos[x + 1, y].cas.side[2]);
     }
-    else if(cas[x + 1, y].innerHTML != ""){
+    else if(document.queryselector("div.casilla[data-posicion = '${x + 1},${y}']").innerHTML != ""){
         return(id_ficha.side[1] == pos[x + 1, y].cas.side[3]);
     }
-    else if(cas[x, y - 1].innerHTML != ""){
+    else if(document.queryselector("div.casilla[data-posicion = '${x},${y - 1}']").innerHTML != ""){
         return(id_ficha.side[2] == pos[x + 1, y].cas.side[0]);
     }
-    else if(cas[x - 1, y].innerHTML != ""){
+    else if(document.queryselector("div.casilla[data-posicion = '${x - 1},${y}']").innerHTML != ""){
         return(id_ficha.side[3] == pos[x + 1, y].cas.side[1]);
     }
     else{return true;}
@@ -308,7 +308,7 @@ const ponerFicha = (event, cas) => {
 }
 
 const overFicha = (event, cas) => {
-    if (cas.innerHTML == "" && sePuedePoner(cas.dataset["x"], cas.dataset["y"], id_ficha)){
+    if (cas.innerHTML == "" && sePuedePoner(dataset["posicion"], id_ficha)){
         event.preventDefault();
     }
     /* falta por acabar */
