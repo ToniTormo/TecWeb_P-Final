@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body >
-
+ <!--
   <svg height="1000px" width="1000px" id="cir">
     <circle cx="50" cy="50" r="40" stroke="black" stroke-width="1" fill="red" 	transform="scale(3,3)" />
 
@@ -9,43 +9,50 @@
 
     <circle cx="65" cy="50" r="5" stroke="black" stroke-width="1" fill="black" transform="scale(3,3)" />
     
-  </svg>
+  </svg>-->
+
   </body>
   <script>
     function escala(escalaX,escalaY,colour,colour2){
-      var n=document.getElementById("cir")
-      n.setAttribute("height",escalaX)
-      n.setAttribute("width",escalaY)
+      var monigote=document.createElement("svg")
+      monigote.setAttribute("height",escalaX)
+      monigote.setAttribute("width",escalaY)
+      
+      var c1=document.createElement("circle")
+      c1.setAttribute("cx",50*escalaX/1000)
+      c1.setAttribute("cy",50*escalaY/1000)
+      c1.setAttribute("r",40*escalaX/1000)
+      c1.setAttribute("stroke",colour)
+      c1.setAttribute("stroke-width","1")
+      c1.setAttribute("fill",colour)
+      c1.setAttribute("transform","scale(3,3)")
+      
 
-      var c=document.getElementById("cir").children
-      for (i in c){
-        circulo=c[i]
-        if (i==0){
-          
-          circulo.setAttribute("cx",50*escalaX/1000)
-          circulo.setAttribute("cy",50*escalaY/1000)
-          circulo.setAttribute("r",40*escalaX/1000)
-          circulo.setAttribute("fill",colour)
-          circulo.setAttribute("stroke",colour)
-          
-        }
-        if (i==1){
-          
-          circulo.setAttribute("cx",35*escalaX/1000)
-          circulo.setAttribute("cy",50*escalaY/1000)
-          circulo.setAttribute("r",5*escalaX/1000)
-          circulo.setAttribute("fill",colour2)
-          circulo.setAttribute("stroke",colour2)
-        }
-        if (i==2){
-          
-          circulo.setAttribute("cx",65*escalaX/1000)
-          circulo.setAttribute("cy",50*escalaY/1000)
-          circulo.setAttribute("r",5*escalaX/1000)
-          circulo.setAttribute("fill",colour2)
-          circulo.setAttribute("stroke",colour2)
-        }
-      }
+      var c2=document.createElement("circle")
+      c2.setAttribute("cx",35*escalaX/1000)
+      c2.setAttribute("cy",50*escalaY/1000)
+      c2.setAttribute("r",5*escalaX/1000)
+      c2.setAttribute("stroke",colour2)
+      c2.setAttribute("stroke-width","1")
+      c2.setAttribute("fill",colour2)
+      c2.setAttribute("transform","scale(3,3)")
+     
+
+      var c3=document.createElement("circle")
+      c3.setAttribute("cx",65*escalaX/1000)
+      c3.setAttribute("cy",50*escalaY/1000)
+      c3.setAttribute("r",5*escalaX/1000)
+      c3.setAttribute("stroke",colour2)
+      c3.setAttribute("stroke-width","1")
+      c3.setAttribute("fill",colour2)
+      c3.setAttribute("transform","scale(3,3)")
+      
+
+      monigote.appendChild(c1)
+      monigote.appendChild(c2)
+      monigote.appendChild(c3) 
+      
+      return monigote;
     }
 
 
