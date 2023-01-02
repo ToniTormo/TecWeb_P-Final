@@ -134,4 +134,6 @@ const base = [
     }
 ];
 
-const rio = [];
+const ext = {
+    "rio": []
+}
