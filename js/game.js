@@ -189,7 +189,7 @@ var id_ficha = 0;
 
 var t_tablero = 16;
 
-var d_turno = NaN;
+var d_turno = 1000;
 
 var n_fichas = 75;
 
@@ -217,6 +217,24 @@ const nuevaFicha = () => {
     document.getElementById("n_ficha").appendChild(fichas[ind].dom);
     id_ficha = ind;
     console.log("Nueva ficha: " + ind); // Se puede quitar
+}
+
+const contador = () => {
+    if (d_turno != 0){
+        let contador = 0;
+        let t_restante = d_turno;
+        let tiempo = setInterval(function() {
+            contador++;
+            t_restante = d_turno-contador;
+            document.getElementById("contador").innerHTML = "Tiempo restante: " + t_restante;
+        }, 1000);
+        setTimeout(function() {
+            clearInterval(tiempo);
+        }, d_turno*1000);
+    }
+    else{
+        document.getElementById("contador").innerHTML = "Tiempo infinito";
+    }
 }
 
 // Eventos

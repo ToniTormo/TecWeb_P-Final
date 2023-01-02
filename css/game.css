@@ -48,9 +48,19 @@
     box-sizing: border-box;
 }
 
-#menu > img{
+#menu > div img{
     width: 100%;
     height: auto;
+}
+
+#contador{
+    text-align: center;
+    font-size: var(--font_size);
+    width: 100%;
+    background-color: lightgray;
+    border: 3px;
+    border-style: ridge;
+    border-color: brown;
 }
 
 #map{
