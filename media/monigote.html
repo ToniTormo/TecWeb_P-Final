@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <body >
- <!--
+  <body style="height: 1000px; width:1000px;">
+  <!--
   <svg height="1000px" width="1000px" id="cir">
     <circle cx="50" cy="50" r="40" stroke="black" stroke-width="1" fill="red" 	transform="scale(3,3)" />
 
@@ -12,8 +12,9 @@
   </svg>-->
 
   </body>
-  <script>
-    function escala(escalaX,escalaY,colour,colour2){
+  <script src="./monigote.js">
+    /*
+    function monigote(escalaX,escalaY,colour,colour2){
       var monigote=document.createElement("svg")
       monigote.setAttribute("height",escalaX)
       monigote.setAttribute("width",escalaY)
@@ -36,7 +37,7 @@
       c2.setAttribute("stroke-width","1")
       c2.setAttribute("fill",colour2)
       c2.setAttribute("transform","scale(3,3)")
-     
+    
 
       var c3=document.createElement("circle")
       c3.setAttribute("cx",65*escalaX/1000)
@@ -54,8 +55,9 @@
       
       return monigote;
     }
-
-
+    */
 </script>
-
+<script>
+  document.body.appendChild(monigote(1000,1000,"#ff0000","#000000"))
+</script>
 </html>

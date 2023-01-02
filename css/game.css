@@ -58,8 +58,8 @@
     font-size: var(--font_size);
     width: 100%;
     background-color: lightgray;
-    border: 3px;
-    border-style: ridge;
+    border: 1%;
+    border-style: outset;
     border-color: brown;
 }
 
@@ -76,7 +76,7 @@
     overflow-x: scroll;
     overflow-y: scroll;
     zoom: normal;
-    padding: 5px;
+    padding: 0.5%;
 }
 
 #controles{
@@ -172,7 +172,9 @@
     width: var(--casilla);
     height: var(--casilla);
     margin: 0px;
-    border: 1px ridge grey;
+    border-style: ridge;
+    border-color: grey;
+    border-width: 1px;
     padding: 0px;
     background-color: lightgrey;
 }
@@ -194,13 +196,13 @@ div.jugador{
     width: 100%;
     height: min-content;
     margin-top: 5px;
-    border-width: 2px;
+    border-width: 0.1%;
     border-style: outset;
-    padding: 1px;
+    padding: 0.1%;
     font-size: var(--font_size);
 }div.jugador>span{
     color: inherit;
-    margin: 2px;
+    padding: 1%;
 }div.jugador>input[type="number"]{
     width: calc(var(--font_size)*1.5);
     text-align: end;
@@ -212,7 +214,9 @@ div.jugador{
     width: 48%;
     height: auto;
     background-color: lightsteelblue;
-    border: 2px outset blue;
+    border-width: 10%;
+    border-style: outset;
+    border-color: blue;
     text-align: center;
     font-size: var(--font_size);
     padding: 0.1%;
@@ -242,8 +246,4 @@ div.jugador{
 
 #map::-webkit-scrollbar-thumb{
     background-color: black;
-}
-
-div.casilla[data-posicion = '1,1']{
-    background-color: aqua;
 }

@@ -263,13 +263,18 @@ const contador = () => {
 }
 
 const nuevoMonigote = () => {
-    var box = document.querySelector("#caja:first-child");
-
-    var mon = document.createElement("svg");
+    var box = document.querySelector("#caja").children[0];
+    console.log(box);
+    var escala = (size[0]/42).toFixed();
+    var jug = jugadores[turno]
+    var mon = monigote(escala,escala,jug.color, jug._color);
+    mon.style.height = "100%"
+    mon.style.aspectRatio = "1 / 1"
     mon.dataset["jugador"] = turno;
     mon.ondragstart = (event) => {
         event.dataTransfer.setData("jugador", turno);
     }
+    box.appendChild(mon);
 }
 
 // Eventos ============================================================================
@@ -308,7 +313,8 @@ const ponerFicha = (event, cas) => {
 }
 
 const overFicha = (event, cas) => {
-    if (cas.innerHTML == "" && sePuedePoner(dataset["posicion"], id_ficha)){
+    // var aux = sePuedePoner(cas.dataset["posicion"], id_ficha);
+    if (cas.innerHTML == "" /* &&  aux */){
         event.preventDefault();
     }
     /* falta por acabar */
@@ -317,6 +323,12 @@ const overFicha = (event, cas) => {
 // Setup  ===============================================================================
 
 const ajustesCSS = () =>{
+    size = [
+        document.documentElement.clientWidth,
+        document.documentElement.clientHeight,
+        window.screen.width,
+        window.screen.height];
+
     var r = document.querySelector(":root");
     r.style.setProperty("--map_size", t_tablero);
     r.style.setProperty("--casilla", (size[0]/15).toFixed().toString() + "px");
@@ -401,12 +413,6 @@ const crearMenu = () => {
 window.onload = () => {
     console.log("pagina cargada");
 
-    size = [
-        document.documentElement.clientWidth,
-        document.documentElement.clientHeight,
-        window.screen.width,
-        window.screen.height];
-
     mapa = document.querySelector("#map");
     controles = document.querySelector("#controles");
     menu = document.querySelector("#jugadores");
@@ -417,17 +423,19 @@ window.onload = () => {
     crearMenu();
     crearMapa();
 
-    ajustesCSS()
+    ajustesCSS();
+    resize = (size[0]/15).toFixed().toString() + "px";
 
     console.log("¡listo!");
 }
 
+var resize;
 window.addEventListener("resize", () => {
-    size = [
-        document.documentElement.clientWidth,
-        document.documentElement.clientHeight,
-        window.screen.width,
-        window.screen.height];
-
     ajustesCSS();
+    mapa.style.gridTemplateColumns = (new Array(t_tablero).fill(resize)).join(" ");
+    mapa.style.gridTemplateRows = (new Array(t_tablero).fill(resize)).join(" ");
+    document.querySelectorAll(".casilla, .ficha").forEach(el => {
+        el.style.height = resize;
+        el.style.width = resize;
+    } )
 });
