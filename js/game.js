@@ -166,7 +166,6 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
-<<<<<<< HEAD
 const sePuedePoner = (x, y, id_ficha, cas) => {
     if(cas[x, y + 1].innerHTML != ""){
         return(id_ficha.side[0] == pos[x + 1, y].cas.side[2]);
@@ -184,9 +183,6 @@ const sePuedePoner = (x, y, id_ficha, cas) => {
 }
 
 // Variables de DOM
-=======
-// Variables de DOM  ==========================================================================
->>>>>>> de16d6653c6a81d17a8b9dcdb90718001194c772
 
 var mapa;
 var controles;
@@ -294,12 +290,7 @@ const ponerFicha = (event, cas) => {
 }
 
 const overFicha = (event, cas) => {
-<<<<<<< HEAD
     if (cas.innerHTML == "" && sePuedePoner(cas.dataset["x"], cas.dataset["y"], id_ficha)){
-=======
-    // var aux = tufuncion(cas.dataset["posicion"], id_ficha);
-    if (cas.innerHTML == ""){
->>>>>>> de16d6653c6a81d17a8b9dcdb90718001194c772
         event.preventDefault();
     }
     /* falta por acabar */
