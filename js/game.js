@@ -56,8 +56,8 @@ class Ficha {
                 if(this.ocup[x] == null){
                     li.textContent = x + ": ";
                 }else{
-                    li.style.color = jugadores[this.ocup[x]].color;
-                    li.style.backgroundColor = jugadores[this.ocup[x]]._color;
+                    li.style.color = jugadores[this.ocup[x]]._color;
+                    li.style.backgroundColor = jugadores[this.ocup[x]].color;
                     li.textContent = x + ": " + jugadores[this.ocup[x]].name;
                 }
                 info.appendChild(li);
@@ -203,6 +203,10 @@ var listaJugadores = [
     ["Lucia","#ff0000"]
 ];
 
+const guardar_datos = () => {
+    var datos = JSON.parse(read("datosjuego"));
+    
+}
 
 // Funciones de partida
 
@@ -244,9 +248,10 @@ const buttonUp = (e, obj) => {
 const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
+        cas.dataset["i"] = event.dataTransfer.getData("index")
         cas.appendChild(fichas[event.dataTransfer.getData("index")].dom);
     }
-    
+    /* falta por acabar */
 }
 
 const overFicha = (event, cas) => {
@@ -276,8 +281,12 @@ const crearJugadores = (lista_jugadores) => {
 
 const crearFichas = () => {
     var ficha;
-    var j = 0
-    base.forEach(mod => {
+    var j = 0;
+    var total = base;
+    for(i of extensiones){
+        total.concat(i);
+    }
+    total.forEach(mod => {
         for (let i=0; i<mod.num; i++){
             // Crear el objeto Ficha
             ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
@@ -286,6 +295,19 @@ const crearFichas = () => {
             j++;
         }
     });
+    while(fichas.length > n_fichas){
+        fichas.splice(Math.floor(Math.random() * n_fichas),1);
+    }
+    while(fichas.length < n_fichas){
+        let mod = total[Math.floor(Math.random() * total.length)]
+        for (let i=0; i<mod.num; i++){
+            // Crear el objeto Ficha
+            ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
+            // Añadir la ficha al monton
+            fichas.push(ficha);
+            j++;
+        }
+    }
 };
 
 const crearMapa = () => {
