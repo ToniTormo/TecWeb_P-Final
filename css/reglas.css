@@ -1,4 +1,21 @@
 /*CSS general*/
+body {
+    background-color: beige;
+}
+header {
+    text-align: center;
+    background-color: beige;
+}
+article > h3 {
+    background-color: rgb(255, 214, 126);
+    text-decoration: underline;
+}
+
+section > h4 {
+    background-color: khaki;
+    text-decoration:underline ;
+}
+
 /*CSS de la NAV bar*/
 nav {
     list-style-type:decimal;
@@ -11,7 +28,7 @@ nav {
     background-color: #ebee82;
 
 }
-ul {
+nav > ol > ul {
     list-style-type:lower-alpha;
 }
 
@@ -20,4 +37,13 @@ a {
     text-decoration: none;
 }
 /*CSS esquema (texto + imágenes)*/
-/*CSS imágenes*/
+/*CSS imágenes y videos*/
+#piezas_img {
+    text-align: center;
+}
+
+#video {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

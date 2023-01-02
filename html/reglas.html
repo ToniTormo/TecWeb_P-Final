@@ -26,14 +26,18 @@
             <li><a href="#carcassonne">¿Qué es Carcassonne?</a></li>
             <li><a href="#juego">Componentes del juego</a></li>
             <li><a href="#como">¿Cómo se juega al Carcassonne?</a></li>
-                <ul><a href="#piezas">Colocar las piezas de territorio en juego</a></ul>
-                <ul><a href="#seguidores">Desplegar a los seguidores</a></ul>
-                <ul><a href="#completar">Puntuar por completar claustros, caminos y ciudades</a></ul>
-                <ul><a href="#recuperar">seguidores</a></ul>
-            <li><a href="#puntos">Puntos</a></li>
-                <ul><a href="#caminos">Camino completado</a></ul>
-                <ul><a href="#ciudad">Ciudad completada</a></ul>
-                <ul><a href="#claustro">Claustro completado</a></ul>
+            <ul>
+                <li><a href="#piezas">Colocar las piezas de territorio en juego</a></li>
+                <li><a href="#seguidores">Desplegar a los seguidores</a></li>
+                <li><a href="#completar">Puntuar por completar claustros, caminos y ciudades</a></li>
+                <li><a href="#recuperar">Seguidores</a></li>
+            </ul>
+            <li><a href="#puntos">Puntos</a></li> 
+            <ul>
+                <li><a href="#caminos">Camino completado</a></li>
+                <li><a href="#ciudad">Ciudad completada</a></li>
+                <li><a href="#claustro">Claustro completado</a></li>
+            </ul>
             <li><a href="#recuento">Recuento final</a></li>
         </ol>    
     </nav>
@@ -51,18 +55,48 @@
     </article>
     <article><!--APARTADO 2-->
         <h3 id="juego">2. Componentes del juego</h3>
-        <ol>
-            <ul>
-                72 piezas de territorio (incluyendo una pieza de inicio), 
-                ilustradas con segmentos de ciudades, caminos, campos y claustros.
-            </ul>
-            <ul>
-                40 fichas de seguidores, en 5 colores.
-            </ul>
-            <ul>
-                Un marcador, para llevar la cueta de los puntos que suman los jugadores.
-            </ul>
-        </ol>
+        <ul>
+            <li>33 piezas de territorio (incluyendo una pieza de inicio), 
+                ilustradas con segmentos de ciudades, caminos, campos y claustros.</li>
+                <div id="piezas_img">
+                    <img src="fotos/1.png" height="100" width="100">
+                    <img src="fotos/2.png" height="100" width="100">
+                    <img src="fotos/3.png" height="100" width="100">
+                    <img src="fotos/4.png" height="100" width="100">
+                    <img src="fotos/5.png" height="100" width="100">
+                    <img src="fotos/6.png" height="100" width="100">
+                    <img src="fotos/7.png" height="100" width="100">
+                    <img src="fotos/8.png" height="100" width="100">
+                    <img src="fotos/9.png" height="100" width="100">
+                    <img src="fotos/10.png" height="100" width="100">
+                    <img src="fotos/11.png" height="100" width="100">
+                    <img src="fotos/12.png" height="100" width="100">
+                    <img src="fotos/13.png" height="100" width="100">
+                    <img src="fotos/14.png" height="100" width="100">
+                    <img src="fotos/15.png" height="100" width="100">
+                    <img src="fotos/16.png" height="100" width="100">
+                    <img src="fotos/17.png" height="100" width="100"><br>
+                    <img src="fotos/18.png" height="100" width="100">
+                    <img src="fotos/19.png" height="100" width="100">
+                    <img src="fotos/20.png" height="100" width="100">
+                    <img src="fotos/21.png" height="100" width="100">
+                    <img src="fotos/23.png" height="100" width="100">
+                    <img src="fotos/24.png" height="100" width="100">
+                    <img src="fotos/25.png" height="100" width="100">
+                    <img src="fotos/26.png" height="100" width="100">
+                    <img src="fotos/27.png" height="100" width="100">
+                    <img src="fotos/28.png" height="100" width="100">
+                    <img src="fotos/29.png" height="100" width="100">
+                    <img src="fotos/30.png" height="100" width="100">
+                    <img src="fotos/31.png" height="100" width="100">
+                    <img src="fotos/32.png" height="100" width="100">
+                    <img src="fotos/33.png" height="100" width="100">
+                </div>
+            <li>40 fichas de seguidores, en 5 colores.</li>
+            
+            <li>Un marcador, para llevar la cueta de los puntos que suman los jugadores.</li>
+        </ul>
+    
     </article>
     <article><!--APARTADO 3-->
         <h3 id="como">3. ¿Cómo se juega al Carcassonne?</h3>
@@ -71,19 +105,19 @@
             el jugador indicado. Durante su turno, el jugador llevará a cabo las siguientes acciones, en el
             orden indicado:
         </p>
-        <ol>
-            <ul>
+        <ul>
+            <li>
                 El jugador <b>reciirá una pieza de territorio</b> del montón, y debe colocarla en el juego.
-            </ul>
-            <ul>
+            </li>
+            <li>
                 El jugador <b>puede desplegar uno de los seguidores</b> de su provisión sobre la pieza de
                 territorio que acaba de poner en juego.
-            </ul>
-            <ul>
+            </li>
+            <li>
                 Si al colocar la pieza de territorio se cpmpletan uno o más <b>claustros, caminos o ciudades</b>
                 , se suman de inmediato sus puntos a sus contador.
-            </ul>
-        </ol>
+            </li>
+        </ul>
     </article>
         <section><!--SECCIÓN A-->
             <h4 id="piezas">a. Colocar las piezas de territorio en juego</h4>
@@ -91,19 +125,25 @@
                 Primero el jugador recibirá una pieza d territorio que todo el mundo podrá ver. A continuación, 
                 la coloca en el tablero de acuerdo a las sigueintes normas.
             </p>            
-            <ol>
-                <ul>
+            <ul>
+                <li>
                     La nueva pieza de territoio debe ser colocada con al menos uno de sus lados tocando directamente 
                     a otra pieza colocada antetriormente. Nótese que las dos piezas deben estarse tocando lado con lado; 
                     no es suficiente con que se toquen por uno de sus extremos.
-                </ul>
-                <ul>
+                </li>
+                <li>
                     La nueva pieza debe ser colocada de modo que todos sus segmentos de campo, ciudad y camino se vean
                     continuados por segmentos del mismo tipo, en todas las piezas  a las que 
                     esté tocando (los claustros son una exceppción a esta norma, ya que no se encuentran divididos en varios
                     segmentos, si no que siempre están completos en una únicapieza).
-                </ul>
-            </ol>
+                </li>
+            </ul>
+            <div id="video">
+                <video id="video1" height="240" width="360" preoload="metadata" controls>
+                    <source src="video.mp4" type="video/mp4">
+                    Su navegador no soporta el video actual. Por fovor, pruebe abrir esta página con otro navegador.
+                </video>
+            </div>
             <p>
                 Si se da la rara circunstancia de que la pieza que se acaba de robar no puede colocarse en jugeo de manera
                 legal ( y todo el mundó estáde acuerdo en esto), el jugador la descartará y se le entregará una nueva pieza.
@@ -127,7 +167,7 @@
                     El jugador sólo puede desplegar al seguidor en la pieza de territorio que acaba de poner en juego.
                 </ul>
                 <ul>
-                    El jugador debe elegir en qué parte de la pieza de territorio desplegar al seguidor...
+                    El jugador debe elegir en qué parte de la pieza de territorio desplegar al seguidor.
                 </ul>
                 <!--Añadir imagenes-->
                 <ul>
