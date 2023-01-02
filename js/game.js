@@ -166,6 +166,22 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
+const sePuedePoner = (x, y, id_ficha, cas) => {
+    if(cas[x, y + 1].innerHTML != ""){
+        return(id_ficha.side[0] == pos[x + 1, y].cas.side[2]);
+    }
+    else if(cas[x + 1, y].innerHTML != ""){
+        return(id_ficha.side[1] == pos[x + 1, y].cas.side[3]);
+    }
+    else if(cas[x, y - 1].innerHTML != ""){
+        return(id_ficha.side[2] == pos[x + 1, y].cas.side[0]);
+    }
+    else if(cas[x - 1, y].innerHTML != ""){
+        return(id_ficha.side[3] == pos[x + 1, y].cas.side[1]);
+    }
+    else{return true;}
+}
+
 // Variables de DOM
 
 var mapa;
@@ -248,14 +264,14 @@ const buttonUp = (e, obj) => {
 const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
-        cas.dataset["i"] = event.dataTransfer.getData("index")
+        cas.dataset["i"] = event.dataTransfer.getData("index");
         cas.appendChild(fichas[event.dataTransfer.getData("index")].dom);
     }
     /* falta por acabar */
 }
 
 const overFicha = (event, cas) => {
-    if (cas.innerHTML == ""){
+    if (cas.innerHTML == "" && sePuedePoner(cas.dataset["x"], cas.dataset["y"], id_ficha)){
         event.preventDefault();
     }
     /* falta por acabar */
