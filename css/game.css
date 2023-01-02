@@ -109,6 +109,8 @@
 #caja{
     height: calc(var(--casilla));
     width: 100%;
+    padding: 2%;
+    margin: 1%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -155,6 +157,7 @@
     align-self: center;
     align-items: center;
     justify-content: center;
+    overflow-y: scroll;
 }
 
 #opciones{
@@ -212,6 +215,7 @@ div.jugador{
     border: 2px outset blue;
     text-align: center;
     font-size: var(--font_size);
+    padding: 0.1%;
 }
 
 .b_box{
@@ -220,16 +224,26 @@ div.jugador{
     justify-content: space-around;
 }
 
-::-webkit-scrollbar{
+#jugadores::-webkit-scrollbar{
+    background-color: lightblue;
+    width: 0px;
+    height: 0px;
+}
+
+#map::-webkit-scrollbar{
     background-color: burlywood;
     width: 5px;
     height: 5px;
 }
 
-::-webkit-scrollbar-corner{
+#map::-webkit-scrollbar-corner{
     background-color: burlywood;
 }
 
-::-webkit-scrollbar-thumb{
+#map::-webkit-scrollbar-thumb{
     background-color: black;
+}
+
+div.casilla[data-posicion = '1,1']{
+    background-color: aqua;
 }

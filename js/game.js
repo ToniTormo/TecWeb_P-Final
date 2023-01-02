@@ -1,7 +1,7 @@
 // import {save, read, quit, clear} from "./datamanager.js";
 // import {diccionario, base, rio} from "../data/fichas.json";
 
-// Esquemas
+// Esquemas ===============================================================================
 
 const modelo_ficha = {
     pos: [NaN, NaN],
@@ -19,7 +19,7 @@ const modelo_ficha = {
     i: NaN
 };
 
-// Classes y Objetos
+// Classes y Objetos =======================================================================
 
 class Ficha {
     constructor(img, side, oc, i) {
@@ -47,7 +47,7 @@ class Ficha {
         this.dom.dataset["index"] = i;
 
         // Info
-        this.dom.onmouseover = () =>{
+        this.dom.onmouseover = () => {
             var li;
             var info = document.querySelector("#info>ul")
             info.innerHTML = "";
@@ -62,6 +62,10 @@ class Ficha {
                 }
                 info.appendChild(li);
             }
+        }
+        // Monigote
+        this.dom.ondragover = () => {
+            
         }
     }
 
@@ -85,10 +89,8 @@ class Ficha {
         catch {throw "la ficha no esta en una Casilla";}
         if (aux) {throw "la ficha no esta en una Casilla";}
 
-        var x = this.dom.parentElement.dataset["x"];
-        var y = this.dom.parentElement.dataset["y"];
         this.dom.parentElement.style.border = "none";
-        this.pos = [x,y];
+        this.pos = this.dom.parentElement.dataset["posicion"].split(",");
         this.dom.draggable = false;
 
         tablero.push(this.i);
@@ -100,8 +102,8 @@ class Ficha {
 }
 
 class Jugador {
-    constructor(name, color){
-        this.is_turno = false;
+    constructor(name, color, i){
+        this.i = i;
         this.puntos = 0;
         this.name = name;
         this.color = color;
@@ -123,18 +125,16 @@ class Jugador {
     }
     
     turno(){
-        if(this.is_turno){
-            this.is_turno = false;
+        if(this.i == turno){
             this.dom.childNodes[2].innerText = "&#10003;";
         }else{
-            this.is_turno = true;
             this.dom.childNodes[2].innerText = "&#x2717;";
         }
     } 
     /* Falta acabar */
 }
 
-// Funciones auxiliares
+// Funciones auxiliares  ======================================================================
 
 const all = (iter, func) => {
     var aux = true;
@@ -166,6 +166,22 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
+const sePuedePoner = (x, y, id_ficha, cas) => {
+    if(cas[x, y + 1].innerHTML != ""){
+        return(id_ficha.side[0] == pos[x + 1, y].cas.side[2]);
+    }
+    else if(cas[x + 1, y].innerHTML != ""){
+        return(id_ficha.side[1] == pos[x + 1, y].cas.side[3]);
+    }
+    else if(cas[x, y - 1].innerHTML != ""){
+        return(id_ficha.side[2] == pos[x + 1, y].cas.side[0]);
+    }
+    else if(cas[x - 1, y].innerHTML != ""){
+        return(id_ficha.side[3] == pos[x + 1, y].cas.side[1]);
+    }
+    else{return true;}
+}
+
 // Variables de DOM
 
 var mapa;
@@ -173,7 +189,7 @@ var controles;
 var menu;
 var size;
 
-// Variables estandar de juego
+// Variables estandar de juego  ===============================================================
 
 var jugadores = [];
 
@@ -185,30 +201,39 @@ var turno = 0;
 
 var id_ficha = 0;
 
-// Variables de partida
+// Variables de partida  =====================================================================
 
 var t_tablero = 16;
 
-var d_turno = 1000;
+var d_turno = 0;
 
 var n_fichas = 75;
 
 var n_jugadores = 3;
 
-var extensiones = [];
+var extensiones = "";
 
 var listaJugadores = [
     ["Abel", "#00ff00"],
     ["Toni", "#0000ff"],
-    ["Lucia","#ff0000"]
+    ["Lucia","#ff0000"],
+    ["Abel", "#00ff00"],
+    ["Toni", "#0000ff"],
+    ["Lucia","#ff0000"],
+    ["Abel", "#00ff00"],
+    ["Toni", "#0000ff"]
 ];
 
 const guardar_datos = () => {
     var datos = JSON.parse(read("datosjuego"));
-    
+    n_fichas = parseInt(datos["duracion"]);
+    d_turno = parseInt(datos["turno"]);
+    t_tablero = parseInt(datos["tableras"]);
+    extensiones = datos["extensiones"];
+    listaJugadores = JSON.parse(datos["jugadores"]);
 }
 
-// Funciones de partida
+// Funciones de partida  ===================================================================
 
 const nuevaFicha = () => {
     do{
@@ -237,7 +262,17 @@ const contador = () => {
     }
 }
 
-// Eventos
+const nuevoMonigote = () => {
+    var box = document.querySelector("#caja:first-child");
+
+    var mon = document.createElement("svg");
+    mon.dataset["jugador"] = turno;
+    mon.ondragstart = (event) => {
+        event.dataTransfer.setData("jugador", turno);
+    }
+}
+
+// Eventos ============================================================================
 
 const pausa = () => {
     /* Falta rellenar */
@@ -266,20 +301,20 @@ const buttonUp = (e, obj) => {
 const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
-        cas.dataset["i"] = event.dataTransfer.getData("index")
+        cas.dataset["i"] = event.dataTransfer.getData("index");
         cas.appendChild(fichas[event.dataTransfer.getData("index")].dom);
     }
     /* falta por acabar */
 }
 
 const overFicha = (event, cas) => {
-    if (cas.innerHTML == ""){
+    if (cas.innerHTML == "" && sePuedePoner(cas.dataset["x"], cas.dataset["y"], id_ficha)){
         event.preventDefault();
     }
     /* falta por acabar */
 }
 
-// Setup
+// Setup  ===============================================================================
 
 const ajustesCSS = () =>{
     var r = document.querySelector(":root");
@@ -291,9 +326,11 @@ const ajustesCSS = () =>{
 
 const crearJugadores = (lista_jugadores) => {
     var jugador;
+    var j = 0;
     for (i of listaJugadores){
-        jugador = new Jugador(i[0],i[1]);
-        jugadores.push(jugador)
+        jugador = new Jugador(i[0],i[1],j);
+        jugadores.push(jugador);
+        j++;
     };
 };
 
@@ -301,8 +338,8 @@ const crearFichas = () => {
     var ficha;
     var j = 0;
     var total = base;
-    for(i of extensiones){
-        total.concat(i);
+    for(i of extensiones.split(" ")){
+        total.concat(ext[i]);
     }
     total.forEach(mod => {
         for (let i=0; i<mod.num; i++){
@@ -344,8 +381,7 @@ const crearMapa = () => {
         }else {
             casilla.style.backgroundColor = "lightgrey";
         }
-        casilla.dataset["x"] = x;
-        casilla.dataset["y"] = y;
+        casilla.dataset["posicion"] = [x,y];
         casilla.className = "casilla";
         casilla.innerHTML = "";
         casilla.setAttribute("ondrop", "ponerFicha(event, this)");
@@ -360,7 +396,7 @@ const crearMenu = () => {
     });
 }
 
-// Run Window
+// Run Window  =============================================================================
 
 window.onload = () => {
     console.log("pagina cargada");
@@ -386,9 +422,12 @@ window.onload = () => {
     console.log("¡listo!");
 }
 
-/*
 window.addEventListener("resize", () => {
-    console.log("reS")
+    size = [
+        document.documentElement.clientWidth,
+        document.documentElement.clientHeight,
+        window.screen.width,
+        window.screen.height];
+
     ajustesCSS();
 });
-*/
