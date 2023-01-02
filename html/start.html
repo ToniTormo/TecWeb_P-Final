@@ -28,7 +28,6 @@
             border-style: solid;
             border-radius: 5px;
             border-color: black;
-            
         }
         fieldset{
             border: 4px;
@@ -52,12 +51,12 @@
         <h1>Iniciar partida</h1>
     </header>
     <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
-    <!-- action="game.html" -->
-    <form id="formulario" >
+    
+    <form id="formulario" action="game.html">
         <fieldset>
             <legend style="background-color: black; color:white">Ajustes básicos</legend>
             <label class="ajustes_label"><b>Duración de juego:</b> </label>
-            <input type="number" min="1" value="72" class="1">
+            <input type="number" min="1" value="75" class="1">
             <br>
             <label class="ajustes_label"><b>Duración de cada turno:</b></label>
             <input type="number" min="0" step="15" value="60" class="1">
@@ -181,19 +180,19 @@
                 tablero: datos_formulario[2].value,
                 extension: extensiones.options[ext_selc].value
             }
-            console.log(datos_basicos)
             
-            var datos_player = {}
-            for(var player = 0; player < 3; player++){
+            var datos_player = []
+            for(var player = 3; player < datos_formulario.length; player+=2){
                 var player_name = datos_formulario[player].value;
-                var player_color =
-                var datos_player = {}
+                var player_color = datos_formulario[player+1].value;
+                datos_player.push([player_name,player_color]);
             }
-            
-        
-            save("datosjuego", "datos")
-        }
 
+            datos_basicos["jugadores"] = datos_player
+
+            var datos = JSON.stringify(datos_basicos)
+            save("datosjuego", datos)
+        }
     </script>
 </body>
 </html>
