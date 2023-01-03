@@ -22,7 +22,7 @@ aside {
     width: 25%;
     padding: 25px;
     border-color: black;
-    margin: 2.5%;
+    margin-right: 2.5%;
     border-radius: 15px;
     background-color: #ebee82;
 
@@ -37,8 +37,8 @@ a {
     text-decoration: none;
 }
 /*CSS esquema (texto + imágenes)*/
-#texto {
-    padding-left: 25px;
+#texto { 
+    padding-left: 25px; /*Quitarlo*/
 }
 
 /*CSS imágenes y videos*/
