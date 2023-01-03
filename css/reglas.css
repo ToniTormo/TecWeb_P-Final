@@ -17,17 +17,17 @@ section > h4 {
 }
 
 /*CSS de la NAV bar*/
-nav {
-    list-style-type:decimal;
-    display: flex;
-    flex-direction: column;
-    width: 30%;
+aside {
+    float:left;
+    width: 25%;
     padding: 25px;
     border-color: black;
+    margin: 2.5%;
     border-radius: 15px;
     background-color: #ebee82;
 
 }
+
 nav > ol > ul {
     list-style-type:lower-alpha;
 }
@@ -37,6 +37,10 @@ a {
     text-decoration: none;
 }
 /*CSS esquema (texto + imágenes)*/
+#texto {
+    padding-left: 25px;
+}
+
 /*CSS imágenes y videos*/
 #piezas_img {
     text-align: center;
