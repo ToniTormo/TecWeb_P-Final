@@ -1,6 +1,41 @@
 <html>
 <head>
     <title>leaderboard</title>
+
+    <style>
+        table{
+            background-color: rgb(178, 210, 164);
+            width: 100%;
+            
+            
+        }
+        h1{
+            color:  rgb(218, 255, 200);
+            text-align: center; 
+        }
+        th,td{
+            padding: 10px;
+            text-align: left;
+            border: 1px solid;
+            color: black;
+            border-color: rgb(75, 43, 0);
+        }
+        th{
+            color:rgb(15, 57, 15);
+        }
+        body{
+            background-color: rgba(34, 139, 34, 0.759);
+        }
+        button{
+            background-color: limegreen;
+            border-color:  rgba(34, 139, 34, 0.759);
+            color: rgb(15, 57, 15);
+        }
+        input{
+            background-color: rgb(178, 210, 164);
+            color: rgb(15, 57, 15);
+        }
+    </style>
 </head>
 <body>
     <h1>leaderboard</h1>
@@ -10,6 +45,7 @@
             <input type="text" id="buscador">
         </label>
         <button onclick="buscar()">Buscar</button>
+        
     </form>
 
 
@@ -62,8 +98,8 @@
             </tr>
             <tr>
                 <td id="8"></td>
-                <td id="name8"></td>
-                <td id="puntos8"></td>
+                <td id="name8"> </td>
+                <td id="puntos8"> </td>
             </tr>
             <tr>
                 <td id="9"></td>
@@ -100,9 +136,17 @@
         oldone:12,
         newname:123
     }
+    var datos2 ={
+        lucia:10,
+        abel:7,
+        jacobo:3,
+        hola:20,
+       
+    }
     
     var [n,p]= ordenarobjetos(datos)
     insertar(n,p)
+    
 
     /*ordenar datos*/
     function ordenarobjetos(lista){
@@ -168,18 +212,24 @@
                 let n3="puntos"+i
 
                 /*selecionamos casillas*/
-                let p1=document.getElementById(n1).innerHTML=""
-                let p2=document.getElementById(n2).innerHTML=""
-                let p3=document.getElementById(n3).innerHTML=""
+                let p1=document.getElementById(n1).innerHTML=" "
+                let p2=document.getElementById(n2).innerHTML=" "
+                let p3=document.getElementById(n3).innerHTML=" "
 
-                console.log(p1)
-                console.log(p2)
-                console.log(p3)
+                
 
                 /*limpiamos*/
-                
                 console.log("fin")
+
             }
+            
+            /*los valores solo se cambian durante un instante de tiempo y luego
+            vuleven a tomar valores anteriores*/
+            document.getElementById("0").innerHTML=posicion_temp
+            document.getElementById("name0").innerHTML=name_temp
+            document.getElementById("puntos0").innerHTML=puntuacion_temp
+            console.log("se fini")    
+            
 
         }
         else{
@@ -187,10 +237,6 @@
         }
         
     }
-    /*
-    p1.removeChild(p1.firstChild)
-    p2.removeChild(p2.firstChild)
-    p3.removeChild(p3.firstChild)
-    console.log("fin")*/
+    
     
 </script>
