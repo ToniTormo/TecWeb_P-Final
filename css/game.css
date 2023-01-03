@@ -196,18 +196,13 @@ div.jugador{
     width: 100%;
     height: min-content;
     margin-top: 5px;
-    border-width: 0.1%;
+    border-width: 0.01%;
     border-style: outset;
     padding: 0.1%;
     font-size: var(--font_size);
 }div.jugador>span{
     color: inherit;
     padding: 1%;
-}div.jugador>input[type="number"]{
-    width: calc(var(--font_size)*1.5);
-    text-align: end;
-}div.jugador>input[type="radio"]{
-    justify-self: center;
 }
 
 .b_1{

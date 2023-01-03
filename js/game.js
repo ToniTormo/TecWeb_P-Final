@@ -85,13 +85,13 @@ class Ficha {
 
     fijar(){
         // fija la ficha en la casilla
+        this.dom.draggable = false;
         try {var aux = this.dom.parentElement.className != "casilla"}
         catch {throw "la ficha no esta en una Casilla";}
         if (aux) {throw "la ficha no esta en una Casilla";}
 
         this.dom.parentElement.style.border = "none";
         this.pos = this.dom.parentElement.dataset["posicion"].split(",");
-        this.dom.draggable = false;
 
         tablero.push(this.i);
 
@@ -103,6 +103,7 @@ class Ficha {
 
 class Jugador {
     constructor(name, color, i){
+        this.is_turno = false;
         this.i = i;
         this.puntos = 0;
         this.name = name;
@@ -125,10 +126,15 @@ class Jugador {
     }
     
     turno(){
-        if(this.i == turno){
-            this.dom.childNodes[2].innerText = "&#10003;";
+        if(!this.is_turno){
+            this.dom.childNodes[2].innerHTML = "&#10003;";
+            this.dom.style.borderStyle =  "dotted";
+            this.dom.focus()
+            this.is_turno = true;
         }else{
-            this.dom.childNodes[2].innerText = "&#x2717;";
+            this.dom.childNodes[2].innerHTML = "&#x2717;";
+            this.dom.style.borderStyle =  "outset";
+            this.is_turno = false;
         }
     } 
     /* Falta acabar */
@@ -166,20 +172,8 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
-const sePuedePoner = (x, y, id_ficha, cas) => {
-    if(document.queryselector("div.casilla[data-posicion = '${x},${y + 1}']").innerHTML != ""){
-        return(id_ficha.side[0] == pos[x + 1, y].cas.side[2]);
-    }
-    else if(document.queryselector("div.casilla[data-posicion = '${x + 1},${y}']").innerHTML != ""){
-        return(id_ficha.side[1] == pos[x + 1, y].cas.side[3]);
-    }
-    else if(document.queryselector("div.casilla[data-posicion = '${x},${y - 1}']").innerHTML != ""){
-        return(id_ficha.side[2] == pos[x + 1, y].cas.side[0]);
-    }
-    else if(document.queryselector("div.casilla[data-posicion = '${x - 1},${y}']").innerHTML != ""){
-        return(id_ficha.side[3] == pos[x + 1, y].cas.side[1]);
-    }
-    else{return true;}
+const sePuedePoner = (lugar, id_ficha) => {
+
 }
 
 // Variables de DOM
@@ -197,34 +191,27 @@ var fichas = [];
 
 var tablero = [];
 
-var turno = 0;
+var turno = -1;
 
 var id_ficha = 0;
 
 // Variables de partida  =====================================================================
 
-var t_tablero = 16;
+var t_tablero = 5;
 
 var d_turno = 0;
 
-var n_fichas = 75;
-
-var n_jugadores = 3;
+var n_fichas = 10;
 
 var extensiones = "";
 
 var listaJugadores = [
     ["Abel", "#00ff00"],
     ["Toni", "#0000ff"],
-    ["Lucia","#ff0000"],
-    ["Abel", "#00ff00"],
-    ["Toni", "#0000ff"],
-    ["Lucia","#ff0000"],
-    ["Abel", "#00ff00"],
-    ["Toni", "#0000ff"]
+    ["Lucia","#ff0000"]
 ];
 
-const guardar_datos = () => {
+const guardarDatos = () => {
     var datos = JSON.parse(read("datosjuego"));
     n_fichas = parseInt(datos["duracion"]);
     d_turno = parseInt(datos["turno"]);
@@ -234,6 +221,36 @@ const guardar_datos = () => {
 }
 
 // Funciones de partida  ===================================================================
+
+const n_turno = () => {
+    if(turno != -1){
+        // Cambio de turno
+        jugadores[turno].turno();
+        try{
+            fichas[id_ficha].fijar();
+        }catch{
+            fichas[id_ficha].dom.remove();
+            tablero.push(id_ficha);
+        }
+        if(tablero.length == n_fichas){
+            // Fin de partida
+            console.log("fin de partida");
+            
+            document.querySelectorAll(".b_1:not([value='Salir'])").forEach(bt => {
+                bt.setAttribute("disabled","");
+            })
+
+            window.open("../html/leaderboard.html");
+            // reset();
+            return;
+        }
+    }
+    turno = (++turno) % listaJugadores.length;
+    jugadores[turno].turno();
+    nuevaFicha();
+    nuevoMonigote();
+    contador();
+}
 
 const nuevaFicha = () => {
     do{
@@ -246,6 +263,7 @@ const nuevaFicha = () => {
 
 const contador = () => {
     if (d_turno != 0){
+        document.getElementById("contador").innerHTML = "Tiempo restante: " + d_turno;
         let contador = 0;
         let t_restante = d_turno;
         let tiempo = setInterval(function() {
@@ -254,7 +272,9 @@ const contador = () => {
             document.getElementById("contador").innerHTML = "Tiempo restante: " + t_restante;
         }, 1000);
         setTimeout(function() {
+            document.getElementById("contador").innerHTML = "Tiempo restante: 0";
             clearInterval(tiempo);
+            n_turno();
         }, d_turno*1000);
     }
     else{
@@ -266,8 +286,8 @@ const nuevoMonigote = () => {
     var box = document.querySelector("#caja").children[0];
     console.log(box);
     var escala = (size[0]/42).toFixed();
-    var jug = jugadores[turno]
-    var mon = monigote(escala,escala,jug.color, jug._color);
+    var jug = jugadores[turno];
+    var mon = monigote(escala, escala, jug.color, jug._color);
     mon.style.height = "100%"
     mon.style.aspectRatio = "1 / 1"
     mon.dataset["jugador"] = turno;
@@ -280,14 +300,12 @@ const nuevoMonigote = () => {
 // Eventos ============================================================================
 
 const pausa = () => {
-    /* Falta rellenar */
     alert("El juego esta en pausa, ¿desea reanudar?");
 }
 
 const salir = () => {
-    /* Falta rellenar */
     if(confirm("¿Seguro que quiere salir al menú?\nLos datos se borrarán.")){
-        /* Falta rellenar */
+        window.location.replace("../inicio.html")
     }
 }
 
@@ -306,8 +324,9 @@ const buttonUp = (e, obj) => {
 const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
-        cas.dataset["i"] = event.dataTransfer.getData("index");
-        cas.appendChild(fichas[event.dataTransfer.getData("index")].dom);
+        var index = event.dataTransfer.getData("index")
+        cas.dataset["i"] = index;
+        cas.appendChild(fichas[index].dom);
     }
     /* falta por acabar */
 }
@@ -364,16 +383,15 @@ const crearFichas = () => {
     });
     while(fichas.length > n_fichas){
         fichas.splice(Math.floor(Math.random() * n_fichas),1);
+        j = 0;
+    }if(j == 0){
+        fichas.forEach((ficha, i) => {ficha.i = i})
     }
     while(fichas.length < n_fichas){
         let mod = total[Math.floor(Math.random() * total.length)]
-        for (let i=0; i<mod.num; i++){
-            // Crear el objeto Ficha
-            ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
-            // Añadir la ficha al monton
-            fichas.push(ficha);
-            j++;
-        }
+        ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
+        fichas.push(ficha);
+        j++;
     }
 };
 
@@ -427,6 +445,9 @@ window.onload = () => {
     resize = (size[0]/15).toFixed().toString() + "px";
 
     console.log("¡listo!");
+
+    // guardarDatos()
+    // n_turno()
 }
 
 var resize;
