@@ -40,8 +40,11 @@ a {
 /*CSS imágenes y videos*/
 #piezas_img {
     text-align: center;
-    height: "100";
-    width: "100";
+}
+
+img {
+    width: 100px;
+    height: 100px;
 }
 
 #video {
