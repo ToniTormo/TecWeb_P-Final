@@ -166,20 +166,41 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
-const sePuedePoner = (x, y, id_ficha, cas) => {
-    if(document.queryselector("div.casilla[data-posicion = '${x},${y + 1}']").innerHTML != ""){
-        return(id_ficha.side[0] == pos[x + 1, y].cas.side[2]);
+const sePuedePoner = (lugar, id_ficha) => {
+    var adjunto;
+    var side1;
+    var side2;
+    var ori1;
+    var ori2;
+
+    var x = parseInt(lugar[0]);
+    var y = parseInt(lugar[1]);
+
+    var iter = {
+        3: [x-1,y], 0: [x, y-1],
+        1: [x+1,y], 2: [x, y+1]
     }
-    else if(document.queryselector("div.casilla[data-posicion = '${x + 1},${y}']").innerHTML != ""){
-        return(id_ficha.side[1] == pos[x + 1, y].cas.side[3]);
+
+    var ret = true;
+    for(i in iter){
+        adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
+        //console.log(i, adjunto.dataset["posicion"], lugar);
+        try{
+            side1 = fichas[id_ficha].side;
+            side2 = fichas[adjunto.dataset["i"]].side;
+            ori1 = fichas[id_ficha].ori;
+            ori2 = fichas[adjunto.dataset["i"]].ori;
+
+            console.log(side1, side2, ori1, ori2, " gg");
+
+            ret = ret && side1[(ori1 + i) % 4] == side2[((ori2 + i) + 2) % 4];
+        }catch(err){
+            //console.log(err);
+            ret = ret && true;
+        }
     }
-    else if(document.queryselector("div.casilla[data-posicion = '${x},${y - 1}']").innerHTML != ""){
-        return(id_ficha.side[2] == pos[x + 1, y].cas.side[0]);
-    }
-    else if(document.queryselector("div.casilla[data-posicion = '${x - 1},${y}']").innerHTML != ""){
-        return(id_ficha.side[3] == pos[x + 1, y].cas.side[1]);
-    }
-    else{return true;}
+    //console.log(ret);
+    return ret;
 }
 
 // Variables de DOM
@@ -308,7 +329,12 @@ const ponerFicha = (event, cas) => {
 }
 
 const overFicha = (event, cas) => {
-    if (cas.innerHTML == "" && sePuedePoner(dataset["posicion"], id_ficha)){
+    if(cas.className == "casilla"){
+        if (cas.innerHTML == "" && sePuedePoner(cas.dataset["posicion"].split(","), id_ficha)){
+            event.preventDefault();
+        }
+    }
+    else if(cas.id == "n_ficha"){
         event.preventDefault();
     }
     /* falta por acabar */
