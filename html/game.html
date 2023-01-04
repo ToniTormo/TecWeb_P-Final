@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
     <script src="../js/datamanager.js" defer></script>
     <script src="../data/fichas.js" defer></script>
+    <script src="../media/monigote.js"></script>
     <script src="../js/game.js" defer></script>
 </head>
 <body>
@@ -18,7 +19,7 @@
         <div>
             <img src="../media/logo_carcassone.png" alt="Carcasonne" 
             srcset="../media/logo_carcassone.png">
-            <div id="contador">
+            <div id="contador" class="i_box">
                 Tiempo restante: 0
             </div> 
         </div>
@@ -50,7 +51,7 @@
     <div id="controles">
         <div style="width: 100%; padding:0px;">
             <div id="n_ficha" ondrop="ponerFicha(event, this)"
-            ondragover="overFicha(event, this)"></div>
+            ondragover="overFicha(event, this)" class="i_box"></div>
             <!-- Fichas -->
             <div class="b_box">
             <input class="b_1" value="Rotar" type="button"
@@ -58,20 +59,18 @@
             onmousedown="buttonDown(event, this)"
             onmouseup="buttonUp(event, this)">
             <input class="b_1" value="Hecho" type="button"
-            onclick="fichas[id_ficha].fijar()"
+            onclick="n_turno()"
             onmousedown="buttonDown(event, this)"
             onmouseup="buttonUp(event, this)">
             </div>
         </div>
-        <div id="caja">
+        <div id="caja" class="i_box">
+            <span style="height: 100%; aspect-ratio: 1 / 1;"></span>
             <span>
-
-            </span>
-            <span>
-                14
+                Restantes: 14
             </span>
         </div>
-        <div id="info">
+        <div id="info" class="i_box">
             <p>Info:</p>
             <ul></ul>
         </div>

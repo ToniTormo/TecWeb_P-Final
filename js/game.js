@@ -78,20 +78,22 @@ class Ficha {
 
     rotar(){
         // rota la ficha 90 grados
-        if(this.dom.parentElement.id == "n_ficha"){
-            this.oriSet(++this.ori);
-        }
+        try{
+            if(this.dom.parentElement.id == "n_ficha"){
+                this.oriSet(++this.ori);
+            }
+        }catch{};
     }
 
     fijar(){
         // fija la ficha en la casilla
+        this.dom.draggable = false;
         try {var aux = this.dom.parentElement.className != "casilla"}
         catch {throw "la ficha no esta en una Casilla";}
         if (aux) {throw "la ficha no esta en una Casilla";}
 
         this.dom.parentElement.style.border = "none";
         this.pos = this.dom.parentElement.dataset["posicion"].split(",");
-        this.dom.draggable = false;
 
         tablero.push(this.i);
 
@@ -103,6 +105,7 @@ class Ficha {
 
 class Jugador {
     constructor(name, color, i){
+        this.is_turno = false;
         this.i = i;
         this.puntos = 0;
         this.name = name;
@@ -125,10 +128,15 @@ class Jugador {
     }
     
     turno(){
-        if(this.i == turno){
-            this.dom.childNodes[2].innerText = "&#10003;";
+        if(!this.is_turno){
+            this.dom.childNodes[2].innerHTML = "&#10003;";
+            this.dom.style.borderStyle =  "dotted";
+            this.dom.focus()
+            this.is_turno = true;
         }else{
-            this.dom.childNodes[2].innerText = "&#x2717;";
+            this.dom.childNodes[2].innerHTML = "&#x2717;";
+            this.dom.style.borderStyle =  "outset";
+            this.is_turno = false;
         }
     } 
     /* Falta acabar */
@@ -218,34 +226,27 @@ var fichas = [];
 
 var tablero = [];
 
-var turno = 0;
+var turno = -1;
 
 var id_ficha = 0;
 
 // Variables de partida  =====================================================================
 
-var t_tablero = 16;
+var t_tablero = 10;
 
 var d_turno = 0;
 
 var n_fichas = 75;
-
-var n_jugadores = 3;
 
 var extensiones = "";
 
 var listaJugadores = [
     ["Abel", "#00ff00"],
     ["Toni", "#0000ff"],
-    ["Lucia","#ff0000"],
-    ["Abel", "#00ff00"],
-    ["Toni", "#0000ff"],
-    ["Lucia","#ff0000"],
-    ["Abel", "#00ff00"],
-    ["Toni", "#0000ff"]
+    ["Lucia","#ff0000"]
 ];
 
-const guardar_datos = () => {
+const guardarDatos = () => {
     var datos = JSON.parse(read("datosjuego"));
     n_fichas = parseInt(datos["duracion"]);
     d_turno = parseInt(datos["turno"]);
@@ -255,6 +256,36 @@ const guardar_datos = () => {
 }
 
 // Funciones de partida  ===================================================================
+
+const n_turno = () => {
+    if(turno != -1){
+        // Cambio de turno
+        jugadores[turno].turno();
+        try{
+            fichas[id_ficha].fijar();
+        }catch{
+            fichas[id_ficha].dom.remove();
+            tablero.push(id_ficha);
+        }
+        if(tablero.length == n_fichas){
+            // Fin de partida
+            console.log("fin de partida");
+            
+            document.querySelectorAll(".b_1:not([value='Salir'])").forEach(bt => {
+                bt.setAttribute("disabled","");
+            })
+
+            window.open("../html/leaderboard.html");
+            // reset();
+            return;
+        }
+    }
+    turno = (++turno) % listaJugadores.length;
+    jugadores[turno].turno();
+    nuevaFicha();
+    nuevoMonigote();
+    contador();
+}
 
 const nuevaFicha = () => {
     do{
@@ -267,6 +298,7 @@ const nuevaFicha = () => {
 
 const contador = () => {
     if (d_turno != 0){
+        document.getElementById("contador").innerHTML = "Tiempo restante: " + d_turno;
         let contador = 0;
         let t_restante = d_turno;
         let tiempo = setInterval(function() {
@@ -275,7 +307,9 @@ const contador = () => {
             document.getElementById("contador").innerHTML = "Tiempo restante: " + t_restante;
         }, 1000);
         setTimeout(function() {
+            document.getElementById("contador").innerHTML = "Tiempo restante: 0";
             clearInterval(tiempo);
+            n_turno();
         }, d_turno*1000);
     }
     else{
@@ -284,26 +318,29 @@ const contador = () => {
 }
 
 const nuevoMonigote = () => {
-    var box = document.querySelector("#caja:first-child");
-
-    var mon = document.createElement("svg");
+    var box = document.querySelector("#caja").children[0];
+    console.log(box);
+    var escala = (size[0]/23).toFixed();
+    var jug = jugadores[turno];
+    var mon = monigote(escala, escala, jug.color, jug._color);
+    mon.style.height = "100%"
+    mon.style.aspectRatio = "1 / 1"
     mon.dataset["jugador"] = turno;
     mon.ondragstart = (event) => {
         event.dataTransfer.setData("jugador", turno);
     }
+    box.appendChild(mon);
 }
 
 // Eventos ============================================================================
 
 const pausa = () => {
-    /* Falta rellenar */
     alert("El juego esta en pausa, ¿desea reanudar?");
 }
 
 const salir = () => {
-    /* Falta rellenar */
     if(confirm("¿Seguro que quiere salir al menú?\nLos datos se borrarán.")){
-        /* Falta rellenar */
+        window.location.replace("../inicio.html")
     }
 }
 
@@ -322,8 +359,9 @@ const buttonUp = (e, obj) => {
 const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
-        cas.dataset["i"] = event.dataTransfer.getData("index");
-        cas.appendChild(fichas[event.dataTransfer.getData("index")].dom);
+        var index = event.dataTransfer.getData("index")
+        cas.dataset["i"] = index;
+        cas.appendChild(fichas[index].dom);
     }
     /* falta por acabar */
 }
@@ -343,11 +381,21 @@ const overFicha = (event, cas) => {
 // Setup  ===============================================================================
 
 const ajustesCSS = () =>{
+    size = [
+        document.documentElement.clientWidth,
+        document.documentElement.clientHeight,
+        window.screen.width,
+        window.screen.height];
+
     var r = document.querySelector(":root");
     r.style.setProperty("--map_size", t_tablero);
-    r.style.setProperty("--casilla", (size[0]/15).toFixed().toString() + "px");
     r.style.setProperty("--i_scale", (size[0]/15).toFixed()/160);
     r.style.setProperty("--font_size", (size[0]/42).toFixed().toString() + "px");
+    if(t_tablero > 8){
+        r.style.setProperty("--casilla", (size[0]/15).toFixed().toString() + "px");
+    }else{
+        r.style.setProperty("--casilla", (size[0]/(1.8*t_tablero)).toFixed().toString() + "px");
+    }
 }
 
 const crearJugadores = (lista_jugadores) => {
@@ -364,10 +412,12 @@ const crearFichas = () => {
     var ficha;
     var j = 0;
     var total = base;
-    for(i of extensiones.split(" ")){
-        total.concat(ext[i]);
+    if(extensiones.trim() != ""){
+        for(i of extensiones.split(" ")){
+            ext[i][0]["init"](total)
+        }
     }
-    total.forEach(mod => {
+    base.forEach(mod => {
         for (let i=0; i<mod.num; i++){
             // Crear el objeto Ficha
             ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
@@ -376,18 +426,17 @@ const crearFichas = () => {
             j++;
         }
     });
+    while(fichas.length < n_fichas){
+        let mod = base[Math.floor(Math.random() * total.length)]
+        ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
+        fichas.push(ficha);
+        j++;
+    }
     while(fichas.length > n_fichas){
         fichas.splice(Math.floor(Math.random() * n_fichas),1);
-    }
-    while(fichas.length < n_fichas){
-        let mod = total[Math.floor(Math.random() * total.length)]
-        for (let i=0; i<mod.num; i++){
-            // Crear el objeto Ficha
-            ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
-            // Añadir la ficha al monton
-            fichas.push(ficha);
-            j++;
-        }
+        j = 0;
+    }if(j == 0){
+        fichas.forEach((ficha, i) => {ficha.i = i})
     }
 };
 
@@ -427,12 +476,6 @@ const crearMenu = () => {
 window.onload = () => {
     console.log("pagina cargada");
 
-    size = [
-        document.documentElement.clientWidth,
-        document.documentElement.clientHeight,
-        window.screen.width,
-        window.screen.height];
-
     mapa = document.querySelector("#map");
     controles = document.querySelector("#controles");
     menu = document.querySelector("#jugadores");
@@ -443,17 +486,22 @@ window.onload = () => {
     crearMenu();
     crearMapa();
 
-    ajustesCSS()
+    ajustesCSS();
+    resize = (size[0]/15).toFixed().toString() + "px";
 
     console.log("¡listo!");
+
+    // guardarDatos()
+    // n_turno()
 }
 
+var resize;
 window.addEventListener("resize", () => {
-    size = [
-        document.documentElement.clientWidth,
-        document.documentElement.clientHeight,
-        window.screen.width,
-        window.screen.height];
-
     ajustesCSS();
+    mapa.style.gridTemplateColumns = (new Array(t_tablero).fill(resize)).join(" ");
+    mapa.style.gridTemplateRows = (new Array(t_tablero).fill(resize)).join(" ");
+    document.querySelectorAll(".casilla, .ficha").forEach(el => {
+        el.style.height = resize;
+        el.style.width = resize;
+    } )
 });

@@ -53,14 +53,15 @@
     height: auto;
 }
 
+svg{
+    height: 100%;
+    width: 100%;
+}
+
 #contador{
     text-align: center;
     font-size: var(--font_size);
     width: 100%;
-    background-color: lightgray;
-    border: 3px;
-    border-style: ridge;
-    border-color: brown;
 }
 
 #map{
@@ -76,7 +77,7 @@
     overflow-x: scroll;
     overflow-y: scroll;
     zoom: normal;
-    padding: 5px;
+    padding: 0.5%;
 }
 
 #controles{
@@ -96,9 +97,6 @@
     display: flex;
     width: 100%;
     aspect-ratio: 1 / 1;
-    border-style: outset;
-    border-color: brown;
-    border-width: 0.1%;
     border-radius: 50%;
     background-color: lightgrey;
     justify-content: center;
@@ -107,7 +105,7 @@
 }
 
 #caja{
-    height: calc(var(--casilla));
+    height: calc(var(--font_size)*3);
     width: 100%;
     padding: 2%;
     margin: 1%;
@@ -116,9 +114,6 @@
     align-items: center;
     justify-content: space-between;
     font-size: var(--font_size);
-    border-style: outset;
-    border-color: brown;
-    border-width: 0.1%;
     background-color: lightgrey;
 }
 
@@ -126,10 +121,7 @@
     height: calc(var(--font_size)*12.5);
     width: 100%;
     font-size: var(--font_size);
-    border-style: outset;
-    border-color: brown;
-    border-width: 0.1%;
-    background-color: lightgrey;
+    overflow: scroll;
 }#info>ul>li{
     height: calc(var(--font_size)*2);
     width: 80%;
@@ -172,7 +164,9 @@
     width: var(--casilla);
     height: var(--casilla);
     margin: 0px;
-    border: 1px ridge grey;
+    border-style: ridge;
+    border-color: grey;
+    border-width: 1px;
     padding: 0px;
     background-color: lightgrey;
 }
@@ -194,25 +188,22 @@ div.jugador{
     width: 100%;
     height: min-content;
     margin-top: 5px;
-    border-width: 2px;
+    border-width: 0.01%;
     border-style: outset;
-    padding: 1px;
+    padding: 0.1%;
     font-size: var(--font_size);
 }div.jugador>span{
     color: inherit;
-    margin: 2px;
-}div.jugador>input[type="number"]{
-    width: calc(var(--font_size)*1.5);
-    text-align: end;
-}div.jugador>input[type="radio"]{
-    justify-self: center;
+    padding: 1%;
 }
 
 .b_1{
     width: 48%;
     height: auto;
     background-color: lightsteelblue;
-    border: 2px outset blue;
+    border-width: 10%;
+    border-style: outset;
+    border-color: blue;
     text-align: center;
     font-size: var(--font_size);
     padding: 0.1%;
@@ -222,6 +213,13 @@ div.jugador{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.i_box{
+    border-style: outset;
+    border-color: brown;
+    border-width: 0.1%;
+    background-color: lightgrey;
 }
 
 #jugadores::-webkit-scrollbar{
@@ -244,6 +242,16 @@ div.jugador{
     background-color: black;
 }
 
-div.casilla[data-posicion = '1,1']{
-    background-color: aqua;
+#info::-webkit-scrollbar{
+    background-color: lightgrey;
+    width: 2px;
+    height: 2px;
+}
+
+#info::-webkit-scrollbar-corner{
+    background-color: black;
+}
+
+#info::-webkit-scrollbar-thumb{
+    background-color: black;
 }
