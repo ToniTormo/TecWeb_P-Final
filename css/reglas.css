@@ -36,14 +36,15 @@ a {
     color: black;
     text-decoration: none;
 }
+
 /*CSS esquema (texto + imágenes)*/
-#texto { 
-    padding-left: 25px; /*Quitarlo*/
-}
 
 /*CSS imágenes y videos*/
 #piezas_img {
-    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(15, 100px);
+    grid-gap: 20px;
+    align-self: center;
 }
 
 img {
