@@ -78,9 +78,11 @@ class Ficha {
 
     rotar(){
         // rota la ficha 90 grados
-        if(this.dom.parentElement.id == "n_ficha"){
-            this.oriSet(++this.ori);
-        }
+        try{
+            if(this.dom.parentElement.id == "n_ficha"){
+                this.oriSet(++this.ori);
+            }
+        }catch{};
     }
 
     fijar(){
@@ -197,11 +199,11 @@ var id_ficha = 0;
 
 // Variables de partida  =====================================================================
 
-var t_tablero = 5;
+var t_tablero = 10;
 
 var d_turno = 0;
 
-var n_fichas = 10;
+var n_fichas = 75;
 
 var extensiones = "";
 
@@ -285,7 +287,7 @@ const contador = () => {
 const nuevoMonigote = () => {
     var box = document.querySelector("#caja").children[0];
     console.log(box);
-    var escala = (size[0]/42).toFixed();
+    var escala = (size[0]/23).toFixed();
     var jug = jugadores[turno];
     var mon = monigote(escala, escala, jug.color, jug._color);
     mon.style.height = "100%"
@@ -350,9 +352,13 @@ const ajustesCSS = () =>{
 
     var r = document.querySelector(":root");
     r.style.setProperty("--map_size", t_tablero);
-    r.style.setProperty("--casilla", (size[0]/15).toFixed().toString() + "px");
     r.style.setProperty("--i_scale", (size[0]/15).toFixed()/160);
     r.style.setProperty("--font_size", (size[0]/42).toFixed().toString() + "px");
+    if(t_tablero > 8){
+        r.style.setProperty("--casilla", (size[0]/15).toFixed().toString() + "px");
+    }else{
+        r.style.setProperty("--casilla", (size[0]/(1.8*t_tablero)).toFixed().toString() + "px");
+    }
 }
 
 const crearJugadores = (lista_jugadores) => {
@@ -369,10 +375,12 @@ const crearFichas = () => {
     var ficha;
     var j = 0;
     var total = base;
-    for(i of extensiones.split(" ")){
-        total.concat(ext[i]);
+    if(extensiones.trim() != ""){
+        for(i of extensiones.split(" ")){
+            ext[i][0]["init"](total)
+        }
     }
-    total.forEach(mod => {
+    base.forEach(mod => {
         for (let i=0; i<mod.num; i++){
             // Crear el objeto Ficha
             ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
@@ -381,17 +389,17 @@ const crearFichas = () => {
             j++;
         }
     });
+    while(fichas.length < n_fichas){
+        let mod = base[Math.floor(Math.random() * total.length)]
+        ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
+        fichas.push(ficha);
+        j++;
+    }
     while(fichas.length > n_fichas){
         fichas.splice(Math.floor(Math.random() * n_fichas),1);
         j = 0;
     }if(j == 0){
         fichas.forEach((ficha, i) => {ficha.i = i})
-    }
-    while(fichas.length < n_fichas){
-        let mod = total[Math.floor(Math.random() * total.length)]
-        ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
-        fichas.push(ficha);
-        j++;
     }
 };
 

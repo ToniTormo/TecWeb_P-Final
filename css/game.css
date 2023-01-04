@@ -53,14 +53,15 @@
     height: auto;
 }
 
+svg{
+    height: 100%;
+    width: 100%;
+}
+
 #contador{
     text-align: center;
     font-size: var(--font_size);
     width: 100%;
-    background-color: lightgray;
-    border: 1%;
-    border-style: outset;
-    border-color: brown;
 }
 
 #map{
@@ -96,9 +97,6 @@
     display: flex;
     width: 100%;
     aspect-ratio: 1 / 1;
-    border-style: outset;
-    border-color: brown;
-    border-width: 0.1%;
     border-radius: 50%;
     background-color: lightgrey;
     justify-content: center;
@@ -107,7 +105,7 @@
 }
 
 #caja{
-    height: calc(var(--casilla));
+    height: calc(var(--font_size)*3);
     width: 100%;
     padding: 2%;
     margin: 1%;
@@ -116,9 +114,6 @@
     align-items: center;
     justify-content: space-between;
     font-size: var(--font_size);
-    border-style: outset;
-    border-color: brown;
-    border-width: 0.1%;
     background-color: lightgrey;
 }
 
@@ -126,10 +121,7 @@
     height: calc(var(--font_size)*12.5);
     width: 100%;
     font-size: var(--font_size);
-    border-style: outset;
-    border-color: brown;
-    border-width: 0.1%;
-    background-color: lightgrey;
+    overflow: scroll;
 }#info>ul>li{
     height: calc(var(--font_size)*2);
     width: 80%;
@@ -223,6 +215,13 @@ div.jugador{
     justify-content: space-around;
 }
 
+.i_box{
+    border-style: outset;
+    border-color: brown;
+    border-width: 0.1%;
+    background-color: lightgrey;
+}
+
 #jugadores::-webkit-scrollbar{
     background-color: lightblue;
     width: 0px;
@@ -240,5 +239,19 @@ div.jugador{
 }
 
 #map::-webkit-scrollbar-thumb{
+    background-color: black;
+}
+
+#info::-webkit-scrollbar{
+    background-color: lightgrey;
+    width: 2px;
+    height: 2px;
+}
+
+#info::-webkit-scrollbar-corner{
+    background-color: black;
+}
+
+#info::-webkit-scrollbar-thumb{
     background-color: black;
 }
