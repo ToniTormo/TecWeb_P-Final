@@ -174,41 +174,79 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
+var comemeloscojones = false;
+
 const sePuedePoner = (lugar, id_ficha) => {
     var adjunto;
     var side1;
     var side2;
     var ori1;
     var ori2;
+    
 
     var x = parseInt(lugar[0]);
     var y = parseInt(lugar[1]);
 
     var iter = {
-        3: [x-1,y], 0: [x, y-1],
-        1: [x+1,y], 2: [x, y+1]
+        0: [x, y-1],
+        1: [x+1,y],
+        2: [x, y+1],
+        3: [x-1,y]
     }
 
     var ret = true;
     for(i in iter){
-        adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
+        console.log(comemeloscojones);
         //console.log(i, adjunto.dataset["posicion"], lugar);
         try{
-            side1 = fichas[id_ficha].side;
-            side2 = fichas[adjunto.dataset["i"]].side;
             ori1 = fichas[id_ficha].ori;
+            side1 = fichas[id_ficha].side;
+            while(ori1 > 0){
+                var a = side1.pop();
+                side1.unshift(a);
+                ori1--;
+            }
+
+            adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
+            //adjunto.style.backgroundColor = "blue";
             ori2 = fichas[adjunto.dataset["i"]].ori;
-
-            console.log(side1, side2, ori1, ori2, " gg");
-
-            ret = ret && side1[(ori1 + i) % 4] == side2[((ori2 + i) + 2) % 4];
+            //console.log(ori2);
+            side2 = fichas[adjunto.dataset["i"]].side;
+            while(ori2 > 0 && !comemeloscojones){ 
+                var a = side2.pop();
+                side2.unshift(a);
+                ori2--;
+            }
+            comemeloscojones = true;
+            console.log(comemeloscojones);s
+            console.log(side1, side2, ori1, ori2, "gg");
+            
+            ret = (side1[i]) == (side2[i + 2] % 4);
         }catch(err){
-            //console.log(err);
+            console.log(err);
             ret = ret && true;
         }
     }
     //console.log(ret);
     return ret;
+    
+
+    // for(i in iter){
+    //     try{
+    //         adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
+            
+    //         side1 = fichas[id_ficha].side;
+    //         side2 = fichas[adjunto.dataset["i"]].side;
+    //         ori1 = fichas[id_ficha].ori;
+    //         ori2 = fichas[adjunto.dataset["i"]].ori;
+
+    //         ret = ret && side1[(i + ori1) % 4] == side2[(i + 2 + ori2) % 4]
+    //     }catch(err){
+    //     ret = ret && true;
+    //     }
+    // }
+    // return ret;
+
 }
 
 // Variables de DOM
@@ -368,7 +406,7 @@ const ponerFicha = (event, cas) => {
 
 const overFicha = (event, cas) => {
     if(cas.className == "casilla"){
-        if (cas.innerHTML == "" && sePuedePoner(cas.dataset["posicion"].split(","), id_ficha)){
+        if (cas.innerHTML == "" && sePuedePoner(cas.dataset["posicion"].split(","), this.id_ficha)){
             event.preventDefault();
         }
     }
