@@ -11,7 +11,7 @@
         <label>
             <input type="text" id="buscador">
         </label>
-        <button onclick="buscar()">Buscar</button>
+        <button type="button" onclick="buscar()">Buscar</button>
         
     </form>
 
@@ -108,7 +108,6 @@
         abel:7,
         jacobo:3,
         hola:20,
-       
     }
     
     var [n,p]= ordenarobjetos(datos)
@@ -149,7 +148,7 @@
     /*inserta el contenido de la lista en la tabla*/
     function insertar(lista_nombres,lista_puntos){
         for (let i in lista_nombres){
-           
+            
             let names=lista_nombres[i]
             let puntos=lista_puntos[i]
             let id_name="name"+i
@@ -200,7 +199,7 @@
 
         }
         else{
-            alert("Este nombre no se encueantra el la lista, intentalo de de nuevo.")
+            alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.")
         }
         
     }
