@@ -203,7 +203,11 @@ const sePuedePoner = (lugar, id_ficha) => {
         try{
             ori1 = fichas[id_ficha].ori;
             side1 = fichas[id_ficha].side;
-            lado1 = Object.assign(side1);
+            lado1 = JSON.parse(JSON.stringify(side1));
+
+            console.log(side1.value)
+            console.log(lado1)
+
             //console.log(condi);
             while(ori1 > 0 && !condi){
                 var a = lado1.pop();
