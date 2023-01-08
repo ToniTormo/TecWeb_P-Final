@@ -74,6 +74,7 @@ class Ficha {
         var x = n % 4;
         this.ori = x;
         this.dom.style.transform = "rotate(" + (90*x).toString() + "deg)";
+        condi = false;
     }
 
     rotar(){
@@ -82,7 +83,7 @@ class Ficha {
             if(this.dom.parentElement.id == "n_ficha"){
                 this.oriSet(++this.ori);
             }
-        }catch{};
+        }catch{}      
     }
 
     fijar(){
@@ -174,7 +175,8 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
-var comemeloscojones = false;
+var condi = false;
+var condi2 = false;
 
 const sePuedePoner = (lugar, id_ficha) => {
     var adjunto;
@@ -182,6 +184,7 @@ const sePuedePoner = (lugar, id_ficha) => {
     var side2;
     var ori1;
     var ori2;
+    var lado1;
     
 
     var x = parseInt(lugar[0]);
@@ -196,57 +199,42 @@ const sePuedePoner = (lugar, id_ficha) => {
 
     var ret = true;
     for(i in iter){
-        console.log(comemeloscojones);
         //console.log(i, adjunto.dataset["posicion"], lugar);
         try{
             ori1 = fichas[id_ficha].ori;
             side1 = fichas[id_ficha].side;
-            while(ori1 > 0){
-                var a = side1.pop();
-                side1.unshift(a);
+            lado1 = Object.assign(side1);
+            //console.log(condi);
+            while(ori1 > 0 && !condi){
+                var a = lado1.pop();
+                lado1.unshift(a);
                 ori1--;
             }
+            //console.log(condi);
+            condi = true;
 
             adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
             //adjunto.style.backgroundColor = "blue";
             ori2 = fichas[adjunto.dataset["i"]].ori;
             //console.log(ori2);
             side2 = fichas[adjunto.dataset["i"]].side;
-            while(ori2 > 0 && !comemeloscojones){ 
+            while(ori2 > 0 && !condi2){ 
                 var a = side2.pop();
                 side2.unshift(a);
                 ori2--;
             }
-            comemeloscojones = true;
-            console.log(comemeloscojones);s
-            console.log(side1, side2, ori1, ori2, "gg");
+            condi2 = true;
+            //console.log(condi);
+            console.log(lado1, side2, ori1, ori2, "gg");
             
-            ret = (side1[i]) == (side2[i + 2] % 4);
+            ret = (lado1[i]) == (side2[i + 2] % 4);
         }catch(err){
-            console.log(err);
+            //console.log(err);
             ret = ret && true;
         }
     }
     //console.log(ret);
     return ret;
-    
-
-    // for(i in iter){
-    //     try{
-    //         adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
-            
-    //         side1 = fichas[id_ficha].side;
-    //         side2 = fichas[adjunto.dataset["i"]].side;
-    //         ori1 = fichas[id_ficha].ori;
-    //         ori2 = fichas[adjunto.dataset["i"]].ori;
-
-    //         ret = ret && side1[(i + ori1) % 4] == side2[(i + 2 + ori2) % 4]
-    //     }catch(err){
-    //     ret = ret && true;
-    //     }
-    // }
-    // return ret;
-
 }
 
 // Variables de DOM
@@ -323,6 +311,8 @@ const n_turno = () => {
     nuevaFicha();
     nuevoMonigote();
     contador();
+    condi2 = false;
+    condi = false;
 }
 
 const nuevaFicha = () => {
