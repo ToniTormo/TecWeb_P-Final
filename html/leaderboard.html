@@ -12,6 +12,7 @@
             <input type="text" id="buscador">
         </label>
         <button type="button" onclick="buscar()">Buscar</button>
+        <button type="button" onclick="insertar(n,p)">restablecer leaderboard</button>
         
     </form>
 
@@ -182,11 +183,6 @@
                 let p2=document.getElementById(n2).innerHTML=" "
                 let p3=document.getElementById(n3).innerHTML=" "
 
-                
-
-                /*limpiamos*/
-                console.log("fin")
-
             }
             
             /*los valores solo se cambian durante un instante de tiempo y luego
@@ -194,7 +190,19 @@
             document.getElementById("0").innerHTML=posicion_temp
             document.getElementById("name0").innerHTML=name_temp
             document.getElementById("puntos0").innerHTML=puntuacion_temp
-            console.log("se fini")    
+            
+            /*rellenar el resto de tabla*/
+            for (let i=1;i<10;i++){
+                let n1=i
+                let n2="name"+i
+                let n3="puntos"+i
+
+                /*selecionamos casillas*/
+                let p1=document.getElementById(n1).innerHTML="..."
+                let p2=document.getElementById(n2).innerHTML="... "
+                let p3=document.getElementById(n3).innerHTML="... "
+
+            }
             
 
         }
