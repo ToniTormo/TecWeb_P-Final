@@ -3,12 +3,11 @@
     <title>leaderboard</title>
     <link href="../css/leaderboard.css" rel="stylesheet">
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
-    
+    <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
 </head>
 <body>
     <h1>Leaderboard</h1>
     
-
     <form>
         <label>
             <input type="text" id="buscador">
@@ -27,17 +26,17 @@
         </thead>
         <tbody>
             <tr>
-                <td id="0"></td>
+                <td id="0"><img src="..//media/Primero.png"></td>
                 <td id="name0"></td>
                 <td id="puntos0"></td>
             </tr>
             <tr>
-                <td id="1"></td>
+                <td id="1"><img src="..//media/Segundo.png"></td>
                 <td id="name1"></td>
                 <td id="puntos1"></td>
             </tr>
             <tr>
-                <td id="2"></td>
+                <td id="2"><img src="..//media/Tercero.png"></td>
                 <td id="name2"></td>
                 <td id="puntos2"></td>
             </tr>
@@ -153,30 +152,24 @@
     function insertar(lista_nombres,lista_puntos){
         var i;
         for (i in lista_nombres){
-            switch (i) {
-                case "1":
-                    i = 1;
-
-                    i.style.color="#efb810";
-                    break;
-                case "2":
-                    i="#efb810";
-                    console.log(i);
-                    break;
-                case "3":
-                    i="#efb810";
-                    console.log(i);
-                    break;
-                default:
-            };
 
             let names=lista_nombres[i];
             let puntos=lista_puntos[i];
             let id_name="name"+i;
             let id_puntos="puntos"+i;
-            console.log(document.getElementById(i));
-            var puede = document.getElementById(i).innerHTML=Number(i)+1;
-            console.log(puede);
+
+            
+            switch (i) {
+                case "0":
+                    break;
+                case "1":
+                    break;
+                case "2":
+                    break;
+                default:
+                    document.getElementById(i).innerHTML=Number(i)+1;
+            };
+
             document.getElementById(id_name).innerHTML=names;
             document.getElementById(id_puntos).innerHTML=puntos;
         }
@@ -224,7 +217,6 @@
                 let p1=document.getElementById(n1).innerHTML="...";
                 let p2=document.getElementById(n2).innerHTML="... ";
                 let p3=document.getElementById(n3).innerHTML="... ";
-
             }
         }
         else{
