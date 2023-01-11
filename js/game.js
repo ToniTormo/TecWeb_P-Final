@@ -274,15 +274,18 @@ var listaJugadores = [
     ["Lucia","#ff0000"]
 ];
 
+var datos;
 const guardarDatos = () => {
-    var datos = JSON.parse(read("datosjuego"));
-    if(datos != ""){
-        console.log(datos)
+    try{
+        datos = JSON.parse(read("datosjuego"));
+
         n_fichas = parseInt(datos["duracion"]);
         d_turno = parseInt(datos["turno"]);
-        t_tablero = parseInt(datos["tableras"]);
+        t_tablero = parseInt(datos["tablero"]);
         extensiones = datos["extensiones"];
-        listaJugadores = JSON.parse(datos["jugadores"]);
+        listaJugadores = datos["jugadores"];
+    }catch(err){
+        console.log(err);
     }
 }
 
@@ -329,15 +332,20 @@ const nuevaFicha = () => {
     console.log("Nueva ficha: " + ind); // Se puede quitar
 }
 
+var tiempo;
+var pause = false;
 const contador = () => {
+    try{clearInterval(tiempo);}catch{}
     if (d_turno != 0){
         document.getElementById("contador").innerHTML = "Tiempo restante: " + d_turno;
-        let contador = 0;
-        let t_restante = d_turno;
-        let tiempo = setInterval(function() {
-            contador++;
-            t_restante = d_turno-contador;
-            document.getElementById("contador").innerHTML = "Tiempo restante: " + t_restante;
+        var contador = 0;
+        var t_restante = d_turno;
+        tiempo = setInterval(function() {
+            if(!pause){
+                contador++;
+                t_restante = d_turno-contador;
+                document.getElementById("contador").innerHTML = "Tiempo restante: " + t_restante;
+            }
         }, 1000);
         setTimeout(function() {
             document.getElementById("contador").innerHTML = "Tiempo restante: 0";
@@ -352,13 +360,14 @@ const contador = () => {
 
 const nuevoMonigote = () => {
     var box = document.querySelector("#caja").children[0];
-    console.log(box);
+    box.innerHTML = "";
     var escala = (size[0]/23).toFixed();
     var jug = jugadores[turno];
     var mon = monigote(escala, escala, jug.color, jug._color);
-    mon.style.height = "100%"
-    mon.style.aspectRatio = "1 / 1"
+    mon.style.height = "100%";
+    mon.style.aspectRatio = "1 / 1";
     mon.dataset["jugador"] = turno;
+    mon.draggable = true;
     mon.ondragstart = (event) => {
         event.dataTransfer.setData("jugador", turno);
     }
@@ -368,13 +377,17 @@ const nuevoMonigote = () => {
 // Eventos ============================================================================
 
 const pausa = () => {
+    pause = true;
     alert("El juego esta en pausa, ¿desea reanudar?");
+    pause = false;
 }
 
 const salir = () => {
+    pause = true;
     if(confirm("¿Seguro que quiere salir al menú?\nLos datos se borrarán.")){
         window.location.replace("../inicio.html")
     }
+    pause = false;
 }
 
 
@@ -393,8 +406,8 @@ const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
         i = event.dataTransfer.getData("index");
-        fichas[i].dom.style.height = resize
-        fichas[i].dom.style.width = resize
+        fichas[i].dom.style.height = resize;
+        fichas[i].dom.style.width = resize;
         cas.appendChild(fichas[i].dom);
     }
     /* falta por acabar */
@@ -446,11 +459,12 @@ const crearFichas = () => {
     var ficha;
     var j = 0;
     var total = base;
-    if(extensiones.trim() != ""){
+    /*
+    if(extensiones != "Inhabilitado"){
         for(i of extensiones.split(" ")){
             ext[i][0]["init"](total)
         }
-    }
+    }*/
     base.forEach(mod => {
         for (let i=0; i<mod.num; i++){
             // Crear el objeto Ficha
@@ -524,6 +538,9 @@ window.onload = () => {
 
     ajustesCSS();
     resize = (size[0]/15).toFixed().toString() + "px";
+    document.querySelectorAll("*").forEach(el => {
+        el.draggable = false;
+    });
 
     console.log("¡listo!");
 
