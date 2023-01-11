@@ -1,0 +1,34 @@
+table{
+    background-color: rgb(178, 210, 164);
+    width: 100%;
+    
+    
+}
+h1{
+    color:  rgb(218, 255, 200);
+    text-align: center; 
+    text-decoration: underline;
+    background-color: limegreen;
+}
+th,td{
+    padding: 10px;
+    text-align: left;
+    border: 1px solid;
+    color: black;
+    border-color: rgb(75, 43, 0);
+}
+th{
+    color:rgb(15, 57, 15);
+}
+body{
+    background-color: rgba(34, 139, 34, 0.759);
+}
+button{
+    background-color: limegreen;
+    border-color:  rgba(34, 139, 34, 0.759);
+    color: rgb(15, 57, 15);
+}
+input{
+    background-color: rgb(178, 210, 164);
+    color: rgb(15, 57, 15);
+}

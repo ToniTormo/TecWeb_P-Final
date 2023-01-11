@@ -74,6 +74,7 @@ class Ficha {
         var x = n % 4;
         this.ori = x;
         this.dom.style.transform = "rotate(" + (90*x).toString() + "deg)";
+        condi = false;
     }
 
     rotar(){
@@ -176,27 +177,52 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
+var condi = false;
+var condi2 = false;
+
 const sePuedePoner = (lugar, id_ficha) => {
     var adjunto;
     var side1;
     var side2;
     var ori1;
     var ori2;
+    var lado1;
+    
 
     var x = parseInt(lugar[0]);
     var y = parseInt(lugar[1]);
 
     var iter = {
-        3: [x-1,y], 0: [x, y-1],
-        1: [x+1,y], 2: [x, y+1]
+        0: [x, y-1],
+        1: [x+1,y],
+        2: [x, y+1],
+        3: [x-1,y]
     }
 
     var ret = true;
     for(i in iter){
-        adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
         //console.log(i, adjunto.dataset["posicion"], lugar);
         try{
+            ori1 = fichas[id_ficha].ori;
             side1 = fichas[id_ficha].side;
+            lado1 = JSON.parse(JSON.stringify(side1));
+
+            console.log(side1.value)
+            console.log(lado1)
+
+            //console.log(condi);
+            while(ori1 > 0 && !condi){
+                var a = lado1.pop();
+                lado1.unshift(a);
+                ori1--;
+            }
+            //console.log(condi);
+            condi = true;
+
+            adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
+            //adjunto.style.backgroundColor = "blue";
+            ori2 = fichas[adjunto.dataset["i"]].ori;
+            //console.log(ori2);
             side2 = fichas[adjunto.dataset["i"]].side;
             ori1 = fichas[id_ficha].ori;
             ori2 = fichas[adjunto.dataset["i"]].ori;
@@ -290,6 +316,8 @@ const n_turno = () => {
     nuevaFicha();
     nuevoMonigote();
     contador();
+    condi2 = false;
+    condi = false;
 }
 
 const nuevaFicha = () => {
@@ -374,7 +402,7 @@ const ponerFicha = (event, cas) => {
 
 const overFicha = (event, cas) => {
     if(cas.className == "casilla"){
-        if (cas.innerHTML == "" && sePuedePoner(cas.dataset["posicion"].split(","), id_ficha)){
+        if (cas.innerHTML == "" && sePuedePoner(cas.dataset["posicion"].split(","), this.id_ficha)){
             event.preventDefault();
         }
     }
