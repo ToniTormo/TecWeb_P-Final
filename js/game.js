@@ -186,7 +186,7 @@ const sePuedePoner = (lugar, id_ficha) => {
     var ori1;
     var ori2;
     var lado1;
-    var j = 0;
+    var j = -1;
     
 
     var x = parseInt(lugar[0]);
@@ -201,26 +201,24 @@ const sePuedePoner = (lugar, id_ficha) => {
 
     var ret = true;
     for(i in iter){
-        j++;
-        //console.log(i, adjunto.dataset["posicion"], lugar);
         try{
+            j++;
+
             ori1 = fichas[id_ficha].ori;
             giro1 = JSON.parse(JSON.stringify(ori1));
 
             side1 = fichas[id_ficha].side;
             lado1 = JSON.parse(JSON.stringify(side1));
 
-            //console.log(condi);
             while(giro1 > 0 && !condi){
                 var a = lado1.pop();
                 lado1.unshift(a);
                 giro1--;
             }
-            //console.log(condi);
             condi = true;
 
             adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
-            //adjunto.style.backgroundColor = "blue";
+
             ori2 = fichas[adjunto.dataset["i"]].ori;
             giro2 = JSON.parse(JSON.stringify(ori2));
             //console.log(ori2);
@@ -228,9 +226,18 @@ const sePuedePoner = (lugar, id_ficha) => {
             ori1 = fichas[id_ficha].ori;
             ori2 = fichas[adjunto.dataset["i"]].ori;
 
-            console.log(side1, side2, ori1, ori2, " gg");
+            while(giro2 > 0 && !condi2){ 
+                var a = lado2.pop();
+                lado2.unshift(a);
+                giro2--;
+            }
+            condi2 = true;
 
-            ret = ret && side1[(ori1 + i + 2) % 4] == side2[(ori2 + i) % 4];
+            console.log(ori1, giro1, ori2, giro2);
+            console.log(lado1, lado2);
+            console.log((lado1[(j) % 4]),(lado2[(j + 2) % 4]));
+            
+            ret = ((lado1[(j) % 4]) == (lado2[(j + 2) % 4]));
         }catch(err){
             //console.log(err);
             ret = ret && true;

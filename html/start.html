@@ -5,57 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <link rel="stylesheet" href="../css/start.css">
     <script src="../js/datamanager.js"></script>
-    <style>
-        body{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: lightblue;
-        }
-        input{
-            border: 1px;
-            border-style: ridge;
-            border-color: black;
-            border-radius: 2px;
-            width: 86px;
-            background-color: burlywood;
-        }
-        #color {
-            width: 30px ;
-            height: 30px;
-        }
-        legend{
-            background-color: burlywood;
-            border: 4px;
-            border-style: ridge;
-            border-radius: 5px;
-            border-color: burlywood;
-        }
-        fieldset{
-            border: 4px;
-            border-style: ridge;
-            border-color: burlywood;
-            margin-bottom: 5px;
-            background-color: lightgray;
-        }
-        .ajustes_label{
-            display: inline-block;
-            width: 395px;
-            margin-bottom: 5px;
-        }
-        button{
-            color: black;
-            background-color: lightgray;
-            border: 4px;
-            border-color: burlywood;
-            border-style:ridge;
-        }
-    </style>
 </head>
 <body>
     <header>
-        <h1>Iniciar partida</h1>
+        <h1 style="color: #efb810; text-shadow: 2px 2px 2px #bf930d">Iniciar partida</h1>
     </header>
     <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
     
@@ -66,7 +21,7 @@
             <input type="number" min="1" value="75" class="1">
             <br>
             <label class="ajustes_label"><b>Duración de cada turno:</b></label>
-            <input type="number" min="0" step="15" value="60" class="1">
+            <input type="number" min="0" value="60" class="1">
             <br>
             <label class="ajustes_label"><b>Tamaño del tablero:</b></label>
             <input type="number" value="16" min="9" class="1">
@@ -78,7 +33,7 @@
             <br>
         </fieldset>
 
-        <div style="text-align: center;"><h4>Elija el numero de jugadores:</h4></div>
+        <div style="text-align: center;"><h4>Elija el número de jugadores:</h4></div>
 
         <fieldset id="jugadores">
             <legend><b>Jugador 1</b></legend>
