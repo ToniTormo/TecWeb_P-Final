@@ -2,11 +2,12 @@
 <head>
     <title>leaderboard</title>
     <link href="../css/leaderboard.css" rel="stylesheet">
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     
 </head>
 <body>
     <h1>Leaderboard</h1>
-
+    <div style="text-align: right;"><button id="temas" onclick="changetheme()">Oscuro</button></div>
     <form>
         <label>
             <input type="text" id="buscador">
@@ -226,4 +227,20 @@
         }
     };
 
+    var tema='def'
+        var theme = document.getElementById("theme")
+        function changetheme(){
+            if(tema=='def'){
+                theme.setAttribute('href', '../css/darktheme.css')
+                tema='dark'
+                document.getElementById('temas').innerHTML='Predeterminado'
+            }
+            else{
+                theme.setAttribute('href', '../css/deftheme.css')
+                document.getElementById('temas').innerHTML='Oscuro'
+                tema='def'
+
+            }
+
+        }
 </script>
