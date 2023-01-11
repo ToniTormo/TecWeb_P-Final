@@ -11,6 +11,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: lightblue;
         }
         input{
             border: 1px;
@@ -18,22 +19,25 @@
             border-color: black;
             border-radius: 2px;
             width: 86px;
+            background-color: burlywood;
         }
         #color {
             width: 30px ;
             height: 30px;
         }
         legend{
+            background-color: burlywood;
             border: 4px;
-            border-style: solid;
+            border-style: ridge;
             border-radius: 5px;
-            border-color: black;
+            border-color: burlywood;
         }
         fieldset{
             border: 4px;
             border-style: ridge;
-            border-color: black;
+            border-color: burlywood;
             margin-bottom: 5px;
+            background-color: lightgray;
         }
         .ajustes_label{
             display: inline-block;
@@ -42,7 +46,10 @@
         }
         button{
             color: black;
-            background-color: white;
+            background-color: lightgray;
+            border: 4px;
+            border-color: burlywood;
+            border-style:ridge;
         }
     </style>
 </head>
@@ -54,7 +61,7 @@
     
     <form id="formulario" action="game.html">
         <fieldset>
-            <legend style="background-color: black; color:white">Ajustes básicos</legend>
+            <legend><b>Ajustes básicos</b></legend>
             <label class="ajustes_label"><b>Duración de juego:</b> </label>
             <input type="number" min="1" value="75" class="1">
             <br>
@@ -65,7 +72,7 @@
             <input type="number" value="16" min="9" class="1">
             <br>
             <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
-            <select id="extension" style="border: 1px; border-style:ridge; border-color:black;">
+            <select id="extension" style="border: 1px; border-style:ridge; border-color:black; background-color: burlywood;">
                 <option value="Inhabilitado">Inhabilitado</option>
             </select>
             <br>
@@ -74,12 +81,12 @@
         <div style="text-align: center;"><h4>Elija el numero de jugadores:</h4></div>
 
         <fieldset id="jugadores">
-            <legend style="background-color: black; color:white">Jugador 1</legend>
+            <legend><b>Jugador 1</b></legend>
             <label><b>Jugador:</b> 
                 <input type="text" value="Jugador1" style="width: auto;">
             </label>
             <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#ffffff" 
+                <input id="color" type="color" value="#deb887"
                 onchange="cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this)">
             </label><br>
         </fieldset>
@@ -92,8 +99,8 @@
         </button>
         
         <br><br>
-        <button type="submit" onclick="enviar_datos()">
-            <b>Empezar a jugar</b>
+        <button type="submit" onclick="enviar_datos()" style="width: 200px; height: 50px; margin-left: 160px; margin-right: 160px;">
+            <b style="font-size: large;">Empezar a jugar</b>
         </button>
     </form>
     
