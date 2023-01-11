@@ -7,8 +7,10 @@
     <title>Registro</title>
     <link rel="stylesheet" href="../css/start.css">
     <script src="../js/datamanager.js"></script>
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
 </head>
 <body>
+    <div style="text-align: right;"><button id="temas" onclick="changetheme()">Oscuro</button></div>
     <header>
         <h1 style="color: #efb810; text-shadow: 2px 2px 2px #bf930d">Iniciar partida</h1>
     </header>
@@ -155,6 +157,24 @@
             var datos = JSON.stringify(datos_basicos);
             save("datosjuego", datos);
         }
+
+        var tema='def'
+        var theme = document.getElementById("theme")
+        function changetheme(){
+            if(tema=='def'){
+                theme.setAttribute('href', '../css/darktheme.css')
+                tema='dark'
+                document.getElementById('temas').innerHTML='Predeterminado'
+            }
+            else{
+                theme.setAttribute('href', '../css/deftheme.css')
+                document.getElementById('temas').innerHTML='Oscuro'
+                tema='def'
+
+            }
+
+        }
+
     </script>
 </body>
 </html>

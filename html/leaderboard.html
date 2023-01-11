@@ -2,10 +2,12 @@
 <head>
     <title>leaderboard</title>
     <link href="../css/leaderboard.css" rel="stylesheet">
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     
 </head>
 <body>
     <h1>Leaderboard</h1>
+    
 
     <form>
         <label>
@@ -145,6 +147,7 @@
         return [listas_nombre,listas_puntos];
     };
 
+
     /*funcion insertar*/
     /*inserta el contenido de la lista en la tabla*/
     function insertar(lista_nombres,lista_puntos){
@@ -153,6 +156,7 @@
             switch (i) {
                 case "1":
                     i = 1;
+
                     i.style.color="#efb810";
                     break;
                 case "2":
@@ -201,6 +205,7 @@
                 let p1=document.getElementById(n1).innerHTML=" ";
                 let p2=document.getElementById(n2).innerHTML=" ";
                 let p3=document.getElementById(n3).innerHTML=" ";
+
             }
             
             /*los valores solo se cambian durante un instante de tiempo y luego
@@ -219,11 +224,15 @@
                 let p1=document.getElementById(n1).innerHTML="...";
                 let p2=document.getElementById(n2).innerHTML="... ";
                 let p3=document.getElementById(n3).innerHTML="... ";
+
             }
         }
         else{
             alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.");
         }
     };
+    
+    
+    
 
 </script>
