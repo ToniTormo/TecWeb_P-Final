@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>Leaderboard</h1>
-    <div style="text-align: right;"><button id="temas" onclick="changetheme()">Oscuro</button></div>
+    
+
     <form>
         <label>
             <input type="text" id="buscador">
@@ -146,6 +147,7 @@
         return [listas_nombre,listas_puntos];
     };
 
+
     /*funcion insertar*/
     /*inserta el contenido de la lista en la tabla*/
     function insertar(lista_nombres,lista_puntos){
@@ -153,10 +155,8 @@
         for (i in lista_nombres){
             switch (i) {
                 case "1":
-<<<<<<< HEAD
-=======
                     i = 1;
->>>>>>> f5ace7c0e294c8bcc07beb54e75368be77f22daa
+
                     i.style.color="#efb810";
                     break;
                 case "2":
@@ -205,6 +205,7 @@
                 let p1=document.getElementById(n1).innerHTML=" ";
                 let p2=document.getElementById(n2).innerHTML=" ";
                 let p3=document.getElementById(n3).innerHTML=" ";
+
             }
             
             /*los valores solo se cambian durante un instante de tiempo y luego
@@ -223,27 +224,15 @@
                 let p1=document.getElementById(n1).innerHTML="...";
                 let p2=document.getElementById(n2).innerHTML="... ";
                 let p3=document.getElementById(n3).innerHTML="... ";
+
             }
         }
         else{
             alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.");
         }
     };
+    
+    
+    
 
-    var tema='def'
-        var theme = document.getElementById("theme")
-        function changetheme(){
-            if(tema=='def'){
-                theme.setAttribute('href', '../css/darktheme.css')
-                tema='dark'
-                document.getElementById('temas').innerHTML='Predeterminado'
-            }
-            else{
-                theme.setAttribute('href', '../css/deftheme.css')
-                document.getElementById('temas').innerHTML='Oscuro'
-                tema='def'
-
-            }
-
-        }
 </script>
