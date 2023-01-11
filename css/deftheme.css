@@ -1,0 +1,26 @@
+*{
+    font-family: 'Papyrus';
+}
+body{
+    background-color: #e5d3a5;
+}
+h1,h2,h3{
+    color: #e6a503;
+}
+div {
+    
+    color:#9b4e00;
+}
+fieldset{
+    border-width: 3px;
+    border-color: #2f3519;
+}
+button{
+
+    border-radius: 20px;
+}
+table, th, td {
+    border: 2px solid #2f3519;
+    background-color: #e6a503;
+    border-radius: 10px;
+  }

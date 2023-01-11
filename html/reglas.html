@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carcasonne</title>
     <link href="../css/reglas.css" rel="stylesheet">
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
 </head>
 <header>
     <h1>Normas Carcassonne</h1>
@@ -19,6 +20,25 @@
     </h3>
 </header>
 <body>
+    <script>
+        var tema='def'
+        var theme = document.getElementById("theme")
+        function changetheme(){
+            if(tema=='def'){
+                theme.setAttribute('href', '../css/darktheme.css')
+                tema='dark'
+                document.getElementById('temas').innerHTML='Predeterminado'
+            }
+            else{
+                theme.setAttribute('href', '../css/deftheme.css')
+                document.getElementById('temas').innerHTML='Oscuro'
+                tema='def'
+
+            }
+
+        }
+    </script>
+    <div style="text-align: right;"><button id="temas" onclick="changetheme()">Oscuro</button></div>
     <aside>
         <!--Barra lateral de navegación de las normas-->
         <h2>ÍNDICE</h2>
