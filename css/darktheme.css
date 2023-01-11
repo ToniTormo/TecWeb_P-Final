@@ -1,6 +1,10 @@
 *{
     font-family: 'Papyrus';
+    color: #b3b3b3;
 }
 body{
-    background-color: #35342a;
+    background-color: #23354e;
+}
+.targeta{
+    background-color: #594e33;
 }
