@@ -80,9 +80,9 @@ class Ficha {
         // rota la ficha 90 grados
         try{
             if(this.dom.parentElement.id == "n_ficha"){
-                this.oriSet(++this.ori);
+                this.oriSet((this.ori+1));
             }
-        }catch{};
+        }catch{console.log("err")};
     }
 
     fijar(){
@@ -94,6 +94,8 @@ class Ficha {
 
         this.dom.parentElement.style.border = "none";
         this.pos = this.dom.parentElement.dataset["posicion"].split(",");
+
+        this.dom.parentElement.dataset["1"] = this.i;
 
         tablero.push(this.i);
 
@@ -201,7 +203,7 @@ const sePuedePoner = (lugar, id_ficha) => {
 
             console.log(side1, side2, ori1, ori2, " gg");
 
-            ret = ret && side1[(ori1 + i) % 4] == side2[((ori2 + i) + 2) % 4];
+            ret = ret && side1[(ori1 + i + 2) % 4] == side2[(ori2 + i) % 4];
         }catch(err){
             //console.log(err);
             ret = ret && true;
@@ -248,11 +250,14 @@ var listaJugadores = [
 
 const guardarDatos = () => {
     var datos = JSON.parse(read("datosjuego"));
-    n_fichas = parseInt(datos["duracion"]);
-    d_turno = parseInt(datos["turno"]);
-    t_tablero = parseInt(datos["tableras"]);
-    extensiones = datos["extensiones"];
-    listaJugadores = JSON.parse(datos["jugadores"]);
+    if(datos != ""){
+        console.log(datos)
+        n_fichas = parseInt(datos["duracion"]);
+        d_turno = parseInt(datos["turno"]);
+        t_tablero = parseInt(datos["tableras"]);
+        extensiones = datos["extensiones"];
+        listaJugadores = JSON.parse(datos["jugadores"]);
+    }
 }
 
 // Funciones de partida  ===================================================================
@@ -359,9 +364,10 @@ const buttonUp = (e, obj) => {
 const ponerFicha = (event, cas) => {
     if (cas.innerHTML == ""){
         event.preventDefault();
-        var index = event.dataTransfer.getData("index")
-        cas.dataset["i"] = index;
-        cas.appendChild(fichas[index].dom);
+        i = event.dataTransfer.getData("index");
+        fichas[i].dom.style.height = resize
+        fichas[i].dom.style.width = resize
+        cas.appendChild(fichas[i].dom);
     }
     /* falta por acabar */
 }
@@ -480,6 +486,8 @@ window.onload = () => {
     controles = document.querySelector("#controles");
     menu = document.querySelector("#jugadores");
     
+    guardarDatos();
+
     crearFichas();
     crearJugadores();
 
@@ -491,8 +499,7 @@ window.onload = () => {
 
     console.log("¡listo!");
 
-    // guardarDatos()
-    // n_turno()
+    n_turno()
 }
 
 var resize;
