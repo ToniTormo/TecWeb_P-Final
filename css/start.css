@@ -1,0 +1,44 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightblue;
+}
+input{
+    border: 1px;
+    border-style: ridge;
+    border-color: black;
+    border-radius: 2px;
+    width: 86px;
+    background-color: burlywood;
+}
+#color {
+    width: 30px ;
+    height: 30px;
+}
+legend{
+    background-color: burlywood;
+    border: 4px;
+    border-style: ridge;
+    border-radius: 5px;
+    border-color: burlywood;
+}
+fieldset{
+    border: 4px;
+    border-style: ridge;
+    border-color: burlywood;
+    margin-bottom: 5px;
+    background-color: lightgray;
+}
+.ajustes_label{
+    display: inline-block;
+    width: 395px;
+    margin-bottom: 5px;
+}
+button{
+    color: black;
+    background-color: lightgray;
+    border: 4px;
+    border-color: burlywood;
+    border-style:ridge;
+}
