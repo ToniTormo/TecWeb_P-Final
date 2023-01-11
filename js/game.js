@@ -74,7 +74,6 @@ class Ficha {
         var x = n % 4;
         this.ori = x;
         this.dom.style.transform = "rotate(" + (90*x).toString() + "deg)";
-        condi = false;
     }
 
     rotar(){
@@ -187,6 +186,7 @@ const sePuedePoner = (lugar, id_ficha) => {
     var ori1;
     var ori2;
     var lado1;
+    var j = 0;
     
 
     var x = parseInt(lugar[0]);
@@ -201,20 +201,20 @@ const sePuedePoner = (lugar, id_ficha) => {
 
     var ret = true;
     for(i in iter){
+        j++;
         //console.log(i, adjunto.dataset["posicion"], lugar);
         try{
             ori1 = fichas[id_ficha].ori;
+            giro1 = JSON.parse(JSON.stringify(ori1));
+
             side1 = fichas[id_ficha].side;
             lado1 = JSON.parse(JSON.stringify(side1));
 
-            console.log(side1.value)
-            console.log(lado1)
-
             //console.log(condi);
-            while(ori1 > 0 && !condi){
+            while(giro1 > 0 && !condi){
                 var a = lado1.pop();
                 lado1.unshift(a);
-                ori1--;
+                giro1--;
             }
             //console.log(condi);
             condi = true;
@@ -222,6 +222,7 @@ const sePuedePoner = (lugar, id_ficha) => {
             adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
             //adjunto.style.backgroundColor = "blue";
             ori2 = fichas[adjunto.dataset["i"]].ori;
+            giro2 = JSON.parse(JSON.stringify(ori2));
             //console.log(ori2);
             side2 = fichas[adjunto.dataset["i"]].side;
             ori1 = fichas[id_ficha].ori;
@@ -235,7 +236,7 @@ const sePuedePoner = (lugar, id_ficha) => {
             ret = ret && true;
         }
     }
-    //console.log(ret);
+    console.log(ret);
     return ret;
 }
 
