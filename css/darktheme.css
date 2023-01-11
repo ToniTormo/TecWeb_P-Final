@@ -4,23 +4,3 @@
 body{
     background-color: #35342a;
 }
-h1,h2,h3{
-    color: #6e5842;
-}
-div {
-    
-    color:#7b756e;
-}
-fieldset{
-    border-width: 3px;
-    border-color: #000000;
-}
-button{
-
-    border-radius: 20px;
-}
-table, th, td {
-    border: 2px solid #000000;
-    background-color: #4b4b3c;
-    border-radius: 10px;
-  }
