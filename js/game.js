@@ -74,7 +74,6 @@ class Ficha {
         var x = n % 4;
         this.ori = x;
         this.dom.style.transform = "rotate(" + (90*x).toString() + "deg)";
-        condi = false;
     }
 
     rotar(){
@@ -82,6 +81,7 @@ class Ficha {
         try{
             if(this.dom.parentElement.id == "n_ficha"){
                 this.oriSet(++this.ori);
+                condi = false;
             }
         }catch{}      
     }
@@ -185,6 +185,7 @@ const sePuedePoner = (lugar, id_ficha) => {
     var ori1;
     var ori2;
     var lado1;
+    var j = 0;
     
 
     var x = parseInt(lugar[0]);
@@ -199,20 +200,20 @@ const sePuedePoner = (lugar, id_ficha) => {
 
     var ret = true;
     for(i in iter){
+        j++;
         //console.log(i, adjunto.dataset["posicion"], lugar);
         try{
             ori1 = fichas[id_ficha].ori;
+            giro1 = JSON.parse(JSON.stringify(ori1));
+
             side1 = fichas[id_ficha].side;
             lado1 = JSON.parse(JSON.stringify(side1));
 
-            console.log(side1.value)
-            console.log(lado1)
-
             //console.log(condi);
-            while(ori1 > 0 && !condi){
+            while(giro1 > 0 && !condi){
                 var a = lado1.pop();
                 lado1.unshift(a);
-                ori1--;
+                giro1--;
             }
             //console.log(condi);
             condi = true;
@@ -220,24 +221,29 @@ const sePuedePoner = (lugar, id_ficha) => {
             adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
             //adjunto.style.backgroundColor = "blue";
             ori2 = fichas[adjunto.dataset["i"]].ori;
+            giro2 = JSON.parse(JSON.stringify(ori2));
             //console.log(ori2);
             side2 = fichas[adjunto.dataset["i"]].side;
-            while(ori2 > 0 && !condi2){ 
-                var a = side2.pop();
-                side2.unshift(a);
-                ori2--;
+            lado2 = JSON.parse(JSON.stringify(side2));
+
+            while(giro2 > 0 && !condi2){ 
+                var a = lado2.pop();
+                lado2.unshift(a);
+                giro2--;
             }
             condi2 = true;
             //console.log(condi);
-            console.log(lado1, side2, ori1, ori2, "gg");
+            //console.log(side1, lado1, lado2, ori1, giro1, "holi");
+            console.log((lado1[j % 4]),(lado2[(j + 2) % 4]));
             
-            ret = (lado1[i]) == (side2[i + 2] % 4);
+            switch(x){} //ME FALTA HACER ESTO Y YA FUNCIONARÁ AAAAAAAAAAAAAA
+            //ret = ((lado1[j % 4]) == (lado2[(j + 2) % 4]));
         }catch(err){
             //console.log(err);
             ret = ret && true;
         }
     }
-    //console.log(ret);
+    console.log(ret);
     return ret;
 }
 
