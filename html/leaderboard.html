@@ -158,7 +158,6 @@
             let id_name="name"+i;
             let id_puntos="puntos"+i;
 
-            
             switch (i) {
                 case "0":
                     break;
@@ -183,11 +182,6 @@
         
         var variable=n.includes(search);
         if (variable){
-            /*selecionamos los valores de search*/
-            var posicion_temp=n.indexOf(search)+1;
-            var name_temp=search;
-            var puntuacion_temp=p[n.indexOf(search)];
-            
             /*limpiamos la tabla*/
             for (let i=0;i<10;i++){
                 let n1=i;
@@ -198,25 +192,37 @@
                 let p1=document.getElementById(n1).innerHTML=" ";
                 let p2=document.getElementById(n2).innerHTML=" ";
                 let p3=document.getElementById(n3).innerHTML=" ";
-
             }
-            
-            /*los valores solo se cambian durante un instante de tiempo y luego
-            vuleven a tomar valores anteriores*/
-            document.getElementById("0").innerHTML=posicion_temp;
-            document.getElementById("name0").innerHTML=name_temp;
-            document.getElementById("puntos0").innerHTML=puntuacion_temp;
-            
-            /*rellenar el resto de tabla*/
-            for (let i=1;i<10;i++){
-                let n1=i;
-                let n2="name"+i;
-                let n3="puntos"+i;
 
-                /*selecionamos casillas*/
-                let p1=document.getElementById(n1).innerHTML="...";
-                let p2=document.getElementById(n2).innerHTML="... ";
-                let p3=document.getElementById(n3).innerHTML="... ";
+            /*selecionamos los valores de search*/
+            var personal;
+            var numeracion = [0,1,2,3,4,5,6,7,8,9]
+            for (personal in numeracion){
+
+                //Necesito que hagas que estas 3 lineas tambien se actualicen
+                var posicion_temp=n.indexOf(search)+1;
+                var name_temp=search;
+                var puntuacion_temp=p[n.indexOf(search)];
+
+                
+                console.log(posicion_temp)
+                console.log(name_temp)
+                console.log(puntuacion_temp)
+                document.getElementById(`${personal}`).innerHTML=posicion_temp;
+                document.getElementById("name" + `${personal}`).innerHTML=name_temp;
+                document.getElementById("puntos" + `${personal}`).innerHTML=puntuacion_temp;
+
+                /*rellenar el resto de tabla*/
+                for (let i=1;i<10;i++){
+                    let n1=i;
+                    let n2="name"+i;
+                    let n3="puntos"+i;
+
+                    /*selecionamos casillas*/
+                    let p1=document.getElementById(n1).innerHTML="...";
+                    let p2=document.getElementById(n2).innerHTML="... ";
+                    let p3=document.getElementById(n3).innerHTML="... ";
+                }
             }
         }
         else{
