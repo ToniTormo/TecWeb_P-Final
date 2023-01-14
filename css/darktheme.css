@@ -1,10 +1,16 @@
 *{
     font-family: 'Papyrus';
-    color: #b3b3b3;
+    color: lightgray;
 }
-body{
-    background-color: #23354e;
+.fondo{
+    background-color: rgb(44, 106, 167);
 }
 .targeta{
-    background-color: #594e33;
+    background-color: rgb(165, 116, 43);
+}
+.etiqueta{
+    background-color: rgb(108, 108, 108);
+}
+legend{
+    background-color: rgb(108, 108, 108);
 }

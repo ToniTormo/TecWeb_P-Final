@@ -17,7 +17,7 @@ input{
     height: 30px;
 }
 legend{
-    background-color: burlywood;
+    background-color: lightgray;
     border: 4px;
     border-style: ridge;
     border-radius: 5px;

@@ -10,26 +10,26 @@
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
 </head>
-<body>
+<body class="fondo">
     <header>
         <h1 style="color: #efb810; text-shadow: 2px 2px 2px #bf930d">Iniciar partida</h1>
     </header>
     <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
     
     <form id="formulario" action="game.html">
-        <fieldset>
+        <fieldset class="targeta">
             <legend><b>Ajustes básicos</b></legend>
             <label class="ajustes_label"><b>Duración de juego:</b> </label>
-            <input type="number" min="1" value="75" class="1">
+            <input type="number" min="1" value="75" class="etiqueta">
             <br>
             <label class="ajustes_label"><b>Duración de cada turno:</b></label>
-            <input type="number" min="0" value="60" class="1">
+            <input type="number" min="0" value="60" class="etiqueta">
             <br>
             <label class="ajustes_label"><b>Tamaño del tablero:</b></label>
-            <input type="number" value="16" min="9" class="1">
+            <input type="number" value="16" min="9" class="etiqueta">
             <br>
             <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
-            <select id="extension" style="border: 1px; border-style:ridge; border-color:black; background-color: burlywood;">
+            <select id="extension" style="border: 1px; border-style:ridge; border-color:black;" class="etiqueta">
                 <option value="Inhabilitado">Inhabilitado</option>
             </select>
             <br>
@@ -37,26 +37,26 @@
 
         <div style="text-align: center;"><h4>Elija el número de jugadores:</h4></div>
 
-        <fieldset id="jugadores">
+        <fieldset id="jugadores" class="targeta">
             <legend><b>Jugador 1</b></legend>
             <label><b>Jugador:</b> 
-                <input type="text" value="Jugador1" style="width: auto;">
+                <input type="text" value="Jugador1" style="width: auto;" class="etiqueta">
             </label>
             <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#deb887"
+                <input id="color" type="color" value="#deb887" class="etiqueta"
                 onchange="cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this)">
             </label><br>
         </fieldset>
         
-        <button type="button" id="ubi_new_nodo" onclick="añadir_jugador()">
+        <button type="button" id="ubi_new_nodo" onclick="añadir_jugador()" class="etiqueta">
             <b>Añadir jugador</b> 
         </button>
-        <button type="button" onclick="eliminar_jugador()">
+        <button type="button" onclick="eliminar_jugador()" class="etiqueta">
             <b>Eliminar jugador jugador</b> 
         </button>
         
         <br><br>
-        <button type="submit" onclick="enviar_datos()" style="width: 200px; height: 50px; margin-left: 160px; margin-right: 160px;">
+        <button type="submit" onclick="enviar_datos()" style="width: 200px; height: 50px; margin-left: 160px; margin-right: 160px;" class="etiqueta">
             <b style="font-size: large;">Empezar a jugar</b>
         </button>
     </form>
@@ -157,24 +157,19 @@
             var datos = JSON.stringify(datos_basicos);
             save("datosjuego", datos);
         }
-
-        var tema='def'
-        var theme = document.getElementById("theme")
-        function changetheme(){
-            if(tema=='def'){
-                theme.setAttribute('href', '../css/darktheme.css')
-                tema='dark'
-                document.getElementById('temas').innerHTML='Predeterminado'
+    </script>
+    <script defer>
+        var tema;
+        window.onload = () => {
+            tema = read("tema");
+            var theme = document.getElementById("theme");
+            if(tema == "dark"){
+                theme.setAttribute('href', '../css/darktheme.css');
             }
             else{
-                theme.setAttribute('href', '../css/deftheme.css')
-                document.getElementById('temas').innerHTML='Oscuro'
-                tema='def'
-
+                theme.setAttribute('href', '../css/deftheme.css');
             }
-
         }
-
     </script>
 </body>
 </html>

@@ -7,7 +7,7 @@ body{
     justify-content: center;
 }
 
-div{
+nav{
     background-color: burlywood;
     border: 3px solid brown;
     display: flex;
@@ -17,6 +17,9 @@ div{
     justify-content: center;
     width: 20%;
     height: auto;
+    padding: 2%;
+    margin-top: 5%;
+    border-radius: 10%;
 }
 
 button{
@@ -24,6 +27,8 @@ button{
     border: 3px outset blue;
     margin: auto;
     width: 95%;
-    height: 90%;
-    
+    height: 95%;
+    padding: 2%;
+    font-size: larger;
+    font-weight: bold;
 }

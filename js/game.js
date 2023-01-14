@@ -171,7 +171,7 @@ const inv_color = (color) => {
         hex = 255 - parseInt(rgb[i], 16);
         hex = hex.toString(16);
         hex = hex.length == 1 ? "0" + hex : hex;
-        ret.push(hex)
+        ret.push(hex);
     }
     return "#" + ret.join("");
 }
@@ -317,7 +317,7 @@ const n_turno = () => {
                 bt.setAttribute("disabled","");
             })
 
-            window.open("../html/leaderboard.html");
+            window.location.replace("../inicio.html");
             // reset();
             return;
         }

@@ -1,9 +1,12 @@
 *{
     font-family: 'Papyrus';
 }
-body{
-    background-color: #8ebada;
+.fondo{
+    background-color: lightblue;
 }
 .targeta{
-    background-color: #e5d3a5;
+    background-color: burlywood;
+}
+.etiqueta{
+    background-color: lightgray;
 }
