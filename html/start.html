@@ -43,7 +43,7 @@
                 <input type="text" value="Jugador1" style="width: auto;" class="etiqueta">
             </label>
             <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#deb887" class="etiqueta"
+                <input id="color" type="color" value="#1530cc" class="etiqueta"
                 onchange="cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this)">
             </label><br>
         </fieldset>
@@ -122,9 +122,6 @@
             //Aplica los cambios
             legen_fondo.style.backgroundColor = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
             fieldset.style.backgroundColor = `${color_elegido}`;
-            for(var inp_fondo = 0; inp_fondo < inputs.length; inp_fondo++){
-                inputs[inp_fondo].style.backgroundColor = `${color_elegido}`;
-            }
             //Aplica los cambios al texto
             legen_fondo.style.color = `${color_elegido}`;
             fieldset.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
