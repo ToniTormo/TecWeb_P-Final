@@ -45,6 +45,9 @@
         font-size: larger;
         font-weight: bold;
     }
+    #alinear{
+        text-align: left;
+    }
     </style>
 </head>
 <body class="fondo">
@@ -59,22 +62,28 @@
     <form id="form_css">
         <fieldset id="temas" class="targeta">
             <legend>Temas</legend class="etiqueta">
-                <input type="radio" id="original" name="temas" value="normal"><label>Predetermiando</label><br>
-                <input type="radio" id="oscuro" name="temas" value="oscuro"><label>Modo Oscuro</label>
+                <div id="alinear">
+                    <input type="radio" id="original" name="temas" value="normal"><label>Predetermiando</label><br>
+                    <input type="radio" id="oscuro" name="temas" value="oscuro"><label>Modo Oscuro</label>
+                </div>
         </fieldset>
         <fieldset id="fuente" class="targeta">
-            <legend>Fuente de texto</legend class="etiqueta"> 
-                <input type="radio" id="original_font" name="fuente" value="Papyrus"><label style="font-family: Papyrus;">Papyrus (Original)</label><br>
-                <input type="radio" id="option1" name="fuente" value="Viner Hand ITC"><label style="font-family: Viner Hand ITC;">Viner Hand ITC</label><br>
-                <input type="radio" id="option2" name="fuente" value="Monotype coursiva"><label style="font-family: Monotype coursiva;">Monotype coursiva</label><br>
-                <input type="radio" id="option3" name="fuente" value="Lucida Calligraphy"><label style="font-family: Lucida Calligraphy;">Lucida Calligraphy</label><br>
-                <input type="radio" id="option4" name="fuente" value="Goudy old style"><label style="font-family: Goudy old style;">Goudy Old Style</label>
+            <legend>Fuente de texto</legend class="etiqueta">
+                <div id="alinear">
+                    <input type="radio" id="original_font" name="fuente" value="Papyrus"><label style="font-family: Papyrus;">Papyrus (Original)</label><br>
+                    <input type="radio" id="option1" name="fuente" value="Viner Hand ITC"><label style="font-family: Viner Hand ITC;">Viner Hand ITC</label><br>
+                    <input type="radio" id="option2" name="fuente" value="Monotype coursiva"><label style="font-family: Monotype coursiva;">Monotype coursiva</label><br>
+                    <input type="radio" id="option3" name="fuente" value="Lucida Calligraphy"><label style="font-family: Lucida Calligraphy;">Lucida Calligraphy</label><br>
+                    <input type="radio" id="option4" name="fuente" value="Goudy old style"><label style="font-family: Goudy old style;">Goudy Old Style</label>
+                </div>  
         </fieldset>
         <fieldset id="tamano" class="targeta">
             <legend>Tamaño texto</legend class="etiqueta">
-                <input type="radio" id="grande" name="tamano" value="grande"><label>Grande</label><br>
-                <input type="radio" id="mid" name="tamano" value="mediano"><label>Mediano</label><br>
-                <input type="radio" id="pequeno" name="tamano" value="small"><label>Pequeño</label>
+                <div id="alinear">
+                    <input type="radio" id="grande" name="tamano" value="grande"><label>Grande</label><br>
+                    <input type="radio" id="mid" name="tamano" value="mediano"><label>Mediano</label><br>
+                    <input type="radio" id="pequeno" name="tamano" value="small"><label>Pequeño</label>
+                </div>
         </fieldset>
         <input type="button" value="Cambiar" id="enviar" onclick="send()" class="etiqueta">
         <input type="reset" value="Reset" id="reset" class="etiqueta">
