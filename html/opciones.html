@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carcasonne</title>
-    <link href="../css/deftheme.css" rel="stylesheet">
+    <script src="../js/datamanager.js"></script>
     <link href="../css/start.css" rel="stylesheet">
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
 
     <style id="style_op">
@@ -22,14 +23,15 @@
         background-color: burlywood;
         border: 3px solid brown;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         text-align: center;
         align-items: center;
         justify-content: center;
         width: 20%;
         height: auto;
         padding: 2%;
-        margin-top: 5%;
+        margin-top: 3%;
+        margin-bottom: 5%;
         border-radius: 10%;
     }
 
@@ -45,7 +47,7 @@
     }
     </style>
 </head>
-<body>
+<body class="fondo">
     <header> 
         <h1>Ajustes</h1>
     </header>
@@ -55,27 +57,27 @@
     </nav>
 
     <form id="form_css">
-        <fieldset id="temas">
-            <legend>Temas</legend>
-                <input type="checkbox" id="original" name="option" value="normal"><label>Predetermiando</label><br>
-                <input type="checkbox" id="oscuro" name="option" value="oscuro"><label>Modo Oscuro</label>
+        <fieldset id="temas" class="targeta">
+            <legend>Temas</legend class="etiqueta">
+                <input type="radio" id="original" name="temas" value="normal"><label>Predetermiando</label><br>
+                <input type="radio" id="oscuro" name="temas" value="oscuro"><label>Modo Oscuro</label>
         </fieldset>
-        <fieldset id="fuente">
-            <legend>Fuente de texto</legend> 
-                <input type="checkbox" id="original_font" name="option" value="Papyrus"><label style="font-family: Papyrus;">Papyrus (Original)</label><br>
-                <input type="checkbox" id="option1" name="option" value="Viner Hand ITC"><label style="font-family: Viner Hand ITC;">Viner Hand ITC</label><br>
-                <input type="checkbox" id="option2" name="option" value="Monotype coursiva"><label style="font-family: Monotype coursiva;">Monotype coursiva</label><br>
-                <input type="checkbox" id="option3" name="option" value="Lucida Calligraphy"><label style="font-family: Lucida Calligraphy;">Lucida Calligraphy</label><br>
-                <input type="checkbox" id="option4" name="option" value="Goudy old style"><label style="font-family: Goudy old style;">Goudy Old Style</label>
+        <fieldset id="fuente" class="targeta">
+            <legend>Fuente de texto</legend class="etiqueta"> 
+                <input type="radio" id="original_font" name="fuente" value="Papyrus"><label style="font-family: Papyrus;">Papyrus (Original)</label><br>
+                <input type="radio" id="option1" name="fuente" value="Viner Hand ITC"><label style="font-family: Viner Hand ITC;">Viner Hand ITC</label><br>
+                <input type="radio" id="option2" name="fuente" value="Monotype coursiva"><label style="font-family: Monotype coursiva;">Monotype coursiva</label><br>
+                <input type="radio" id="option3" name="fuente" value="Lucida Calligraphy"><label style="font-family: Lucida Calligraphy;">Lucida Calligraphy</label><br>
+                <input type="radio" id="option4" name="fuente" value="Goudy old style"><label style="font-family: Goudy old style;">Goudy Old Style</label>
         </fieldset>
-        <fieldset id="tamano">
-            <legend>Tamaño texto</legend>
-                <input type="checkbox" id="grande" name="option" value="grande"><label>Grande</label><br>
-                <input type="checkbox" id="mid" name="option" value="mediano"><label>Mediano</label><br>
-                <input type="checkbox" id="pequeno" name="option" value="small"><label>Pequeño</label>
+        <fieldset id="tamano" class="targeta">
+            <legend>Tamaño texto</legend class="etiqueta">
+                <input type="radio" id="grande" name="tamano" value="grande"><label>Grande</label><br>
+                <input type="radio" id="mid" name="tamano" value="mediano"><label>Mediano</label><br>
+                <input type="radio" id="pequeno" name="tamano" value="small"><label>Pequeño</label>
         </fieldset>
-        <input type="button" value="Cambiar" id="enviar" onclick="send()">
-        <input type="reset" value="Reset" id="reset" onclick="reset()">
+        <input type="button" value="Cambiar" id="enviar" onclick="send()" class="etiqueta">
+        <input type="reset" value="Reset" id="reset" class="etiqueta">
     </form>
     <script>
         //Función para resetear el formulario a 0
@@ -85,54 +87,84 @@
 
         //Guardamos un nuevo cambio de CSS a partir de los datos enviador del form
         
+        // Metemos en variables todos los valores recogidos
+        var original = document.getElementById("original");
+        var oscuro = document.getElementById("oscuro");
+        var fuente_0 = document.getElementById("original_font");
+        var fuente_1 = document.getElementById("option1");
+        var fuente_2 = document.getElementById("option2");
+        var fuente_3 = document.getElementById("option3");
+        var fuente_4 = document.getElementById("option4");
+        var big = document.getElementById("grande");
+        var normal = document.getElementById("mid");
+        var small = document.getElementById("pequeno");
+
         function send(){
-            // Metemos en variables todos los valores recogidos
-            var original = document.getElementById("original");
-            var oscuro = document.getElementById("oscuro");
-            var fuente_0 = document.getElementById("origibal_font");
-            var fuente_1 = document.getElementById("option1");
-            var fuente_2 = document.getElementById("option2");
-            var fuente_3 = document.getElementById("option3");
-            var fuente_4 = document.getElementById("option4");
-            var big = document.getElementById("grande");
-            var normal = document.getElementById("mid");
-            var small = document.getElementById("pequeno");
             
             // Creamos una variable objeto donde guardaremos los valores seleccionados en el form
             var select = {};
             //Seleccionamos aquellos valores que hayan sido seleccionados
             if (original.checked === true){
+                save("tema", "def")
                 select.tema=original.value;
             }
             if (oscuro.checked === true){
+                save("tema", "dark")
                 select.tema=oscuro.value;
             } 
             if (fuente_0.checked === true){
+                save("font_f", "Papyrus");
                 select.fuente=fuente_0.value;
             } 
             if (fuente_1.checked === true){
+                save("font_f", "Viner Hand ITC");
                 select.fuente=fuente_1.value;
             }
             if (fuente_2.checked === true){
+                save("font_f", "Monotype coursiva");
                 select.fuente=fuente_2.value;
             }
             if (fuente_3.checked === true){
+                save("font_f", "Lucida Calligraphy");
                 select.fuente=fuente_3.value;
             }
             if (fuente_4.checked === true){
+                save("font_f", "Goudy old style");
                 select.fuente=fuente_4.value;
             }
             if (big.checked === true){
+                save("font_s", "large");
                 select.size=big.value;
             }
             if (normal.checked === true){
-                select.size=normal.;
+                save("font_s", "medium");
+                select.size=normal;
             }
             if (small.checked === true){
+                save("font_s", "small");
                 select.size=small.value;
             }
-            console.log(select);
+            save("select", JSON.stringify(select));;
+            refresh();
         } 
+    </script>
+    <script defer>
+        var theme = document.getElementById("theme");
+
+        const refresh = () => {
+            tema = read("tema");
+            if(tema == "dark"){
+                theme.setAttribute('href', '../css/darktheme.css');
+            }
+            else{
+                theme.setAttribute('href', '../css/deftheme.css');
+            }
+            document.body.style.fontFamily = read("font_f");
+            document.body.style.fontSize = read("font_s");
+        }
+
+        var tema;
+        window.onload = refresh
     </script>
 </body>
 </html>

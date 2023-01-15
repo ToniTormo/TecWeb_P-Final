@@ -22,6 +22,7 @@
     }
     body{
         height: 100%;
+        background-color: white;
     }
 }
 
@@ -48,7 +49,7 @@
     box-sizing: border-box;
 }
 
-#menu > div img{
+#menu img{
     width: 100%;
     height: auto;
 }
@@ -215,11 +216,10 @@ div.jugador{
     justify-content: space-around;
 }
 
-.i_box{
+.targeta{
     border-style: outset;
     border-color: brown;
     border-width: 0.1%;
-    background-color: lightgrey;
 }
 
 #jugadores::-webkit-scrollbar{

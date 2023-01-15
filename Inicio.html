@@ -24,7 +24,7 @@
         <button class="etiqueta" onclick="le()">Leaderboard</button><br>
         <button class="etiqueta" onclick="op()">Opciones</button>
     </nav>
-    <script defer>
+    <script>
         function st(){
             location.href="html/start.html";
         }
@@ -38,19 +38,30 @@
             location.href="html/opciones.html";
         }
 
-        var tema;
+        try{
+            read("tema");
+        }catch{
+            save("tema", "def");
+            save("font_f", "Papyrus");
+            save("font_s", "medium");
+        }
+
         var theme = document.getElementById("theme");
-        window.onload = () => {
-            save("tema", "dark");
+
+        const refresh = () => {
             tema = read("tema");
-            var theme = document.getElementById("theme");
             if(tema == "dark"){
                 theme.setAttribute('href', './css/darktheme.css');
             }
             else{
                 theme.setAttribute('href', './css/deftheme.css');
             }
+            document.body.style.fontFamily = read("font_f");
+            document.body.style.fontSize = read("font_s");
         }
+
+        var tema;
+        window.onload = refresh();
     </script>
 </body>
 </html>

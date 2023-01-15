@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carcasonne</title>
     <link rel="stylesheet" href="../css/game.css">
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
     <script src="../js/datamanager.js" defer></script>
     <script src="../data/fichas.js" defer></script>
     <script src="../media/monigote.js"></script>
     <script src="../js/game.js" defer></script>
 </head>
-<body>
+<body class="fondo">
     <div id="portrait">
         <h1>Porfavor situa la pantalla en horizontal</h1>
     </div>
     <aside id="menu">
-        <div>
+        <header>
             <img src="../media/logo_carcassone.png" alt="Carcasonne" 
             srcset="../media/logo_carcassone.png">
-            <div id="contador" class="i_box">
+            <div id="contador" class="targeta">
                 Tiempo restante: 0
             </div> 
-        </div>
+        </header>
         
         <div id="jugadores">
             <!-- Jugadores -->
@@ -36,14 +37,14 @@
                 </span>
             </div>
         </div>
-        <div id="opciones" class="b_box">
+        <footer id="opciones" class="b_box">
             <input class="b_1" value="Salir" type="button" onclick="salir()"
             onmousedown="buttonDown(event, this)"
             onmouseup="buttonUp(event, this)">
             <input class="b_1" value="Pausa" type="button" onclick="pausa()"
             onmousedown="buttonDown(event, this)"
             onmouseup="buttonUp(event, this)">
-        </div>
+        </footer>
     </aside>
     <div id="map">
         <!-- casillas -->
@@ -51,7 +52,7 @@
     <aside id="controles">
         <div style="width: 100%; padding:0px;">
             <div id="n_ficha" ondrop="ponerFicha(event, this)"
-            ondragover="overFicha(event, this)" class="i_box"></div>
+            ondragover="overFicha(event, this)" class="targeta"></div>
             <!-- Fichas -->
             <div class="b_box">
             <input class="b_1" value="Rotar" type="button"
@@ -64,16 +65,34 @@
             onmouseup="buttonUp(event, this)">
             </div>
         </div>
-        <div id="caja" class="i_box" draggable="false">
+        <div id="caja" class="targeta" draggable="false">
             <span style="height: 100%; aspect-ratio: 1 / 1;"></span>
             <span>
                 Restantes: 14
             </span>
         </div>
-        <div id="info" class="i_box">
+        <div id="info" class="targeta">
             <p>Info:</p>
             <ul></ul>
         </div>
     </aside>
+    <script defer>
+        var theme = document.getElementById("theme");
+
+        const refresh = () => {
+            tema = read("tema");
+            if(tema == "dark"){
+                theme.setAttribute('href', '../css/darktheme.css');
+            }
+            else{
+                theme.setAttribute('href', '../css/deftheme.css');
+            }
+            document.body.style.fontFamily = read("font_f");
+            document.body.style.fontSize = read("font_s");
+        }
+
+        var tema;
+        window.onload = refresh
+    </script>
 </body>
 </html>

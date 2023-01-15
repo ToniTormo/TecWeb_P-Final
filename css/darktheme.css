@@ -1,5 +1,5 @@
 *{
-    font-family: 'Papyrus';
+    font-family: "Papyrus";
     color: lightgray;
 }
 .fondo{
@@ -11,6 +11,6 @@
 .etiqueta{
     background-color: rgb(108, 108, 108);
 }
-legend{
+.targeta legend{
     background-color: rgb(108, 108, 108);
 }

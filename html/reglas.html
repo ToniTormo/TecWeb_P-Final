@@ -23,17 +23,22 @@
         </h3>
     </header>
     <script defer>
-        var tema;
-        window.onload = () => {
+        var theme = document.getElementById("theme");
+
+        const refresh = () => {
             tema = read("tema");
-            var theme = document.getElementById("theme");
             if(tema == "dark"){
                 theme.setAttribute('href', '../css/darktheme.css');
             }
             else{
                 theme.setAttribute('href', '../css/deftheme.css');
             }
+            document.body.style.fontFamily = read("font_f");
+            document.body.style.fontSize = read("font_s");
         }
+
+        var tema;
+        window.onload = refresh
     </script>
     <aside>
         <!--Barra lateral de navegación de las normas-->
