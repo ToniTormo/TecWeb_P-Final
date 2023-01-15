@@ -39,19 +39,7 @@
             </select>
             <br>
         </fieldset>
-
-        <div style="text-align: center;"><h4>Elija el número de jugadores:</h4></div>
-
-        <fieldset id="jugadores" class="targeta">
-            <legend><b>Jugador 1</b></legend>
-            <label><b>Jugador:</b> 
-                <input type="text" value="Jugador1" style="width: auto;" class="etiqueta">
-            </label>
-            <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#1530cc" class="etiqueta"
-                onchange="cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this)">
-            </label><br>
-        </fieldset>
+        <br>
         
         <br id="ubi_nodos">
         <button type="submit" onclick="enviar_datos()" style="width: 200px; height: 50px; margin-left: 160px; margin-right: 160px;" class="etiqueta">
@@ -60,6 +48,8 @@
     </form>
     
     <script>
+        
+        //Función que crea los jugadores
         function createPlayer(num_player){
             var cuerpo = document.querySelector("#formulario");
             var ubi = document.getElementById("ubi_nodos")
@@ -91,7 +81,7 @@
                     //Creamos los fieldset necesarios
                     for (var players = 1; players-1 < num_player.value; players++){
                         var new_player = document.createElement("fieldset");
-                        new_player.className = "tarjeta";
+                        new_player.classList = "targeta";
                         cuerpo.insertBefore(new_player,ubi);
 
                         var new_legend = document.createElement("legend");
@@ -104,12 +94,13 @@
                         var b2 = document.createElement("b");
                         b2.textContent = "Jugador: ";
                         new_label1.appendChild(b2);
+                        
 
                         var new_input1 = document.createElement("input");
                         new_input1.type = "text";
                         new_input1.value = "Jugador " + players;
                         new_input1.style.width = "auto";
-                        new_input1.className = "etiqueta";
+                        new_input1.classList = "etiqueta";
                         new_label1.appendChild(new_input1);
                         new_player.appendChild(new_label1);
 
@@ -123,50 +114,15 @@
                         new_input2.type = "color";
                         new_input2.id = "color";
                         new_input2.value = "#deb887";
-                        new_input2.className = "etiqueta";
+                        new_input2.classList = "etiqueta";
                         new_input2.addEventListener("change", function(){cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this);});
                         new_label2.appendChild(new_input2);
                         new_player.appendChild(new_label2);
-
 
                         var br = document.createElement("br");
                         new_player.appendChild(br);
                     }
             }
-        }
-
-        //Crea el jugador default
-        //Añade un jugador nuevo
-        var control_del_player = 2;
-        function añadir_jugador(){
-            if (control_del_player <= 8){
-                var new_player = document.getElementById("formulario");
-                var ubi_nodo = document.getElementById("ubi_new_nodo");
-                
-                var new_nodo = nodo_constante.cloneNode(true);
-
-                new_nodo.childNodes[1].textContent = "Jugador " + control_del_player;
-                new_nodo.childNodes[3].childNodes[2].value = "Jugador" + control_del_player;
-
-                new_player.insertBefore(new_nodo,ubi_nodo);
-                control_del_player += 1;
-            }
-            else{
-                alert("El máximo de jugadores es 8");
-            }
-        }
-        //Eliminar un jugador 
-        function eliminar_jugador(){
-            if (control_del_player >= 3){
-                var del_player = document.getElementById("formulario");
-                var nodos_player = del_player.children;
-                var del_nodo = nodos_player.item(nodos_player.length - 6);
-                del_player.removeChild(del_nodo);
-                control_del_player -= 1;
-            }
-            else{
-                alert("El mínimo de jugadores es 1");
-            }  
         }
 
         // Cambia el fondo de todo el fieldset, a el color elegido en el input adecuado, también aplica el opuesto al texto que hay
