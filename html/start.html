@@ -48,7 +48,6 @@
     </form>
     
     <script>
-        
         //Función que crea los jugadores
         function createPlayer(num_player){
             var cuerpo = document.querySelector("#formulario");
@@ -150,10 +149,14 @@
             legen_fondo.style.backgroundColor = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
             fieldset.style.backgroundColor = `${color_elegido}`;
             //Aplica los cambios al texto
-            legen_fondo.style.color = `${color_elegido}`;
-            fieldset.style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            legen_fondo.children[0].style.color = `${color_elegido}`;
+            fieldset.children[1].children[0].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            fieldset.children[2].children[0].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+            console.log(inputs)
             for(var inp_color = 0; inp_color < inputs.length; inp_color++){
+                console.log(inputs[inp_color])
                 inputs[inp_color].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
+                inputs[inp_color].style.backgroundColor = `${color_elegido}`;
             }
         }
         //Envía los datos
