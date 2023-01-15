@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>leaderboard</title>
+    <title>Leaderboard</title>
     <link href="../css/leaderboard.css" rel="stylesheet">
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
@@ -120,17 +120,17 @@
     /*ordenar datos*/
     function ordenarobjetos(lista){
         /*pasar de objeto a lista*/
-        var listas_nombre=[]
-        var listas_puntos=[]
+        var listas_nombre=[];
+        var listas_puntos=[];
         for (var j in lista){
-            listas_nombre.push(j)
-            listas_puntos.push(lista[j])
+            listas_nombre.push(j);
+            listas_puntos.push(lista[j]);
         }
 
         for(var i=0;i<listas_puntos.length-1;i++){
             for(var j=0;j<(listas_puntos.length-1-i);j++){
                 if(listas_puntos[j]<listas_puntos[j+1]){
-                    
+
                     /*cambiamos el numero de posicion*/
                     var temp1 = listas_puntos[j];
                     listas_puntos[j] = listas_puntos[j + 1];
@@ -142,7 +142,7 @@
                     listas_nombre[j+1] = temp2;
                 }
             }
-        }  
+        }
         return [listas_nombre,listas_puntos];
     };
 
@@ -160,43 +160,52 @@
             document.getElementById(id_name).innerHTML="...";
             document.getElementById(id_puntos).innerHTML="...";
         }
-
+        
         for (i in lista_nombres){
-            
             let names=lista_nombres[i];
             let puntos=lista_puntos[i];
             let id_name="name"+i;
             let id_puntos="puntos"+i;
             
-
-            if (i==0){
-                document.getElementById(i).removeChild(document.getElementById(i).firstChild)
-                var img1 =document.createElement("img");
-                img1.setAttribute("src","..//media/Primero.png");
-                document.getElementById(i).appendChild(img1);
+            switch(true){
+                case (i==0):
+                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                    var img1 =document.createElement("img");
+                    img1.setAttribute("src","..//media/Primero.png");
+                    document.getElementById(i).appendChild(img1);
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
+                    break;
+                case (i==1):
+                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                    var img2 =document.createElement("img");
+                    img2.setAttribute("src","..//media/Segundo.png");
+                    document.getElementById(i).appendChild(img2);
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
+                    break;
+                case (i==2):
+                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                    var img3 =document.createElement("img");
+                    img3.setAttribute("src","..//media/Tercero.png");
+                    document.getElementById(i).appendChild(img3);
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
+                    break;
+                default:
+                    console.log(document.getElementById(i).innerHTML=Number(i)+1)
+                    console.log(document.getElementById(i))
+                    document.getElementById(i).innerHTML=Number(i)+1;
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
             }
-            if (i==1){
-                var img2 =document.createElement("img");
-                img2.setAttribute("src","..//media/Segundo.png");
-                document.getElementById(i).appendChild(img2);
-                }
-            if (i=2){
-                var img3 =document.createElement("img");
-                img3.setAttribute("src","..//media/Tercero.png");
-                document.getElementById(i).appendChild(img3);
-                }
-            
-            
-            document.getElementById(i).innerHTML=Number(i)+1;
-            document.getElementById(id_name).innerHTML=names;
-            document.getElementById(id_puntos).innerHTML=puntos;
         }
         
         var default_name  = document.getElementById("buscador");
         default_name.value = "" ; 
     };
 
-    /*funcion que se encarga de buscar en la lista el nombre de alguien y mostralo en pantalla*/
+    /*función que se encarga de buscar en la lista el nombre de alguien y mostrarlo en pantalla*/
     function buscar(){
         var search =document.getElementById("buscador").value ;/*no seleciona el valor que metes*/
         
@@ -216,7 +225,7 @@
 
             /*selecionamos los valores de search*/
             var personal;
-            var numeracion = [0,1,2,3,4,5,6,7,8,9]
+            var numeracion = [0,1,2,3,4,5,6,7,8,9];
             for (personal in numeracion){
 
                 //Necesito que hagas que estas 3 lineas tambien se actualicen
