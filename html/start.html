@@ -152,9 +152,8 @@
             legen_fondo.children[0].style.color = `${color_elegido}`;
             fieldset.children[1].children[0].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
             fieldset.children[2].children[0].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
-            console.log(inputs)
+            
             for(var inp_color = 0; inp_color < inputs.length; inp_color++){
-                console.log(inputs[inp_color])
                 inputs[inp_color].style.color = ConvertRGBtoHex(color_inverso[0], color_inverso[1], color_inverso[2]);
                 inputs[inp_color].style.backgroundColor = `${color_elegido}`;
             }
@@ -173,14 +172,15 @@
             }
             
             var datos_player = []
-            for(var player = 3; player < datos_formulario.length; player+=2){
+            for(var player = 4; player < datos_formulario.length; player+=2){
                 var player_name = datos_formulario[player].value;
                 var player_color = datos_formulario[player+1].value;
+
                 datos_player.push([player_name,player_color]);
             }
 
             datos_basicos["jugadores"] = datos_player;
-
+            
             var datos = JSON.stringify(datos_basicos);
             save("datosjuego", datos);
         }
