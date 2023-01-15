@@ -9,6 +9,7 @@
     <script src="../js/datamanager.js"></script>
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
+    <style>::placeholder{color: currentColor;}</style>
 </head>
 <body class="fondo">
     <header>
@@ -17,7 +18,7 @@
     <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
     
     <form id="formulario" action="game.html">
-        <fieldset class="targeta">
+        <fieldset class="targeta" id="fieldpadre">
             <legend><b>Ajustes básicos</b></legend>
             <label class="ajustes_label"><b>Duración de juego:</b> </label>
             <input type="number" min="1" value="75" class="etiqueta">
@@ -28,43 +29,101 @@
             <label class="ajustes_label"><b>Tamaño del tablero:</b></label>
             <input type="number" value="16" min="9" class="etiqueta">
             <br>
+            <label  class="ajustes_label"><b>Numero de Jugadores:</b></label>
+            <input type="number" max="8" min="1" class="etiqueta" placeholder="Entre 1-8"
+            onchange="createPlayer(this)" required>
+            <br>
             <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
             <select id="extension" style="border: 1px; border-style:ridge; border-color:black;" class="etiqueta">
                 <option value="Inhabilitado">Inhabilitado</option>
             </select>
             <br>
         </fieldset>
-
-        <div style="text-align: center;"><h4>Elija el número de jugadores:</h4></div>
-
-        <fieldset id="jugadores" class="targeta">
-            <legend><b>Jugador 1</b></legend>
-            <label><b>Jugador:</b> 
-                <input type="text" value="Jugador1" style="width: auto;" class="etiqueta">
-            </label>
-            <label style="margin-left: 120px;"><b>Color</b> 
-                <input id="color" type="color" value="#deb887" class="etiqueta"
-                onchange="cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this)">
-            </label><br>
-        </fieldset>
+        <br>
         
-        <button type="button" id="ubi_new_nodo" onclick="añadir_jugador()" class="etiqueta">
-            <b>Añadir jugador</b> 
-        </button>
-        <button type="button" onclick="eliminar_jugador()" class="etiqueta">
-            <b>Eliminar jugador jugador</b> 
-        </button>
-        
-        <br><br>
+        <br id="ubi_nodos">
         <button type="submit" onclick="enviar_datos()" style="width: 200px; height: 50px; margin-left: 160px; margin-right: 160px;" class="etiqueta">
             <b style="font-size: large;">Empezar a jugar</b>
         </button>
     </form>
     
     <script>
+        function createPlayer(num_player){
+            var cuerpo = document.querySelector("#formulario");
+            var ubi = document.getElementById("ubi_nodos")
+
+            //Elimina los nodos que se crean al cambiar de numero de jugadores
+            var delete_existing_nodes = Array.prototype.slice.call(cuerpo.children, 2, cuerpo.children.length -2);
+            for (let element of delete_existing_nodes) {
+                console.log(element)
+                cuerpo.removeChild(element);
+            }
+
+            //Control de limites
+            switch(true){
+                case num_player.value < 1:
+                    alert("El mínimo de jugadores es 1");
+                    break;
+                case num_player.value > 8:
+                    alert("El máximo de jugadores es 8");
+                    break;
+                default:
+                    //Creamos el mensaje que se muestra en pantalla
+                    var info_text_box = document.createElement("div")
+                    info_text_box.style.textAlign = "center"
+                    var info_text = document.createElement("h4")
+                    info_text.textContent = "Ahora elija el color de los jugadores:"
+                    info_text_box.appendChild(info_text)
+                    cuerpo.insertBefore(info_text_box,ubi);
+
+                    //Creamos los fieldset necesarios
+                    for (var players = 1; players-1 < num_player.value; players++){
+                        var new_player = document.createElement("fieldset");
+                        new_player.className = "tarjeta";
+                        cuerpo.insertBefore(new_player,ubi);
+
+                        var new_legend = document.createElement("legend");
+                        var b1 = document.createElement("b");
+                        b1.textContent = "Jugador "  + players;
+                        new_legend.appendChild(b1);
+                        new_player.appendChild(new_legend);
+
+                        var new_label1 = document.createElement("label");
+                        var b2 = document.createElement("b");
+                        b2.textContent = "Jugador: ";
+                        new_label1.appendChild(b2);
+
+                        var new_input1 = document.createElement("input");
+                        new_input1.type = "text";
+                        new_input1.value = "Jugador " + players;
+                        new_input1.style.width = "auto";
+                        new_input1.className = "etiqueta";
+                        new_label1.appendChild(new_input1);
+                        new_player.appendChild(new_label1);
+
+                        var new_label2 = document.createElement("label");
+                        new_label2.style.marginLeft = "120px";
+                        var b3 = document.createElement("b");
+                        b3.innerText = "Color: "
+                        new_label2.appendChild(b3);
+
+                        var new_input2 = document.createElement("input");
+                        new_input2.type = "color";
+                        new_input2.id = "color";
+                        new_input2.value = "#deb887";
+                        new_input2.className = "etiqueta";
+                        new_input2.addEventListener("change", function(){cambio_color(this.parentElement.parentElement, this.parentElement.parentElement.getElementsByTagName('legend'), this.parentElement.parentElement.getElementsByTagName('input'), this);});
+                        new_label2.appendChild(new_input2);
+                        new_player.appendChild(new_label2);
+
+
+                        var br = document.createElement("br");
+                        new_player.appendChild(br);
+                    }
+            }
+        }
+
         //Crea el jugador default
-        const nodo_fieldset = document.querySelector("#jugadores");
-        var nodo_constante = nodo_fieldset.cloneNode(true);
         //Añade un jugador nuevo
         var control_del_player = 2;
         function añadir_jugador(){
