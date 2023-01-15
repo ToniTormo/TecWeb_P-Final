@@ -5,20 +5,20 @@
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
 </head>
-<body>
+<body class="fondo">
     <h1>Leaderboard</h1>
     
     <form>
         <label>
-            <input type="text" id="buscador">
+            <input type="text" id="buscador" class="etiqueta">
         </label>
-        <button type="button" onclick="buscar()">Buscar</button>
-        <button type="button" onclick="insertar(n,p)">Restablecer leaderboard</button>
+        <button  class="targeta" type="button" onclick="buscar()">Buscar</button>
+        <button class="targeta" type="button" onclick="insertar(n,p)">Restablecer leaderboard</button>
         
     </form>
 
 
-    <table id="tabla">
+    <table id="tabla" class="etiqueta">
         <thead>
             <th>Posición:</th>
             <th>Nombres:</th>
@@ -26,17 +26,17 @@
         </thead>
         <tbody>
             <tr>
-                <td id="0"><img src="..//media/Primero.png"></td>
+                <td id="0"> </td>
                 <td id="name0"></td>
                 <td id="puntos0"></td>
             </tr>
             <tr>
-                <td id="1"><img src="..//media/Segundo.png"></td>
+                <td id="1"></td>
                 <td id="name1"></td>
                 <td id="puntos1"></td>
             </tr>
             <tr>
-                <td id="2"><img src="..//media/Tercero.png"></td>
+                <td id="2"></td>
                 <td id="name2"></td>
                 <td id="puntos2"></td>
             </tr>
@@ -151,27 +151,47 @@
     /*inserta el contenido de la lista en la tabla*/
     function insertar(lista_nombres,lista_puntos){
         var i;
-        for (i in lista_nombres){
+        var vacio;
+        for (vacio in lista_nombres){
+            /* llenamos toda la tabla con puntos*/
+            let id_name="name"+vacio;
+            let id_puntos="puntos"+vacio;
+            document.getElementById(vacio).innerHTML="...";
+            document.getElementById(id_name).innerHTML="...";
+            document.getElementById(id_puntos).innerHTML="...";
+        }
 
+        for (i in lista_nombres){
+            
             let names=lista_nombres[i];
             let puntos=lista_puntos[i];
             let id_name="name"+i;
             let id_puntos="puntos"+i;
+            
 
-            switch (i) {
-                case "0":
-                    break;
-                case "1":
-                    break;
-                case "2":
-                    break;
-                default:
-                    document.getElementById(i).innerHTML=Number(i)+1;
-            };
-
+            if (i==0){
+                document.getElementById(i).removeChild(document.getElementById(i).firstChild)
+                var img1 =document.createElement("img");
+                img1.setAttribute("src","..//media/Primero.png");
+                document.getElementById(i).appendChild(img1);
+            }
+            if (i==1){
+                var img2 =document.createElement("img");
+                img2.setAttribute("src","..//media/Segundo.png");
+                document.getElementById(i).appendChild(img2);
+                }
+            if (i=2){
+                var img3 =document.createElement("img");
+                img3.setAttribute("src","..//media/Tercero.png");
+                document.getElementById(i).appendChild(img3);
+                }
+            
+            
+            document.getElementById(i).innerHTML=Number(i)+1;
             document.getElementById(id_name).innerHTML=names;
             document.getElementById(id_puntos).innerHTML=puntos;
         }
+        
         var default_name  = document.getElementById("buscador");
         default_name.value = "" ; 
     };
