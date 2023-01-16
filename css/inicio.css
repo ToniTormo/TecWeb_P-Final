@@ -1,4 +1,4 @@
-body:not(aside){
+body{
     background-color: lightblue;
     display: flex;
     flex-direction: column;
