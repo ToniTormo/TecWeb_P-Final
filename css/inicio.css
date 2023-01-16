@@ -49,5 +49,11 @@ aside{
     padding-top: 0;
     border-radius: 10%;
     font-weight: bold;
-    overflow: hidden scroll;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+aside::-webkit-scrollbar{
+    background-color: burlywood;
+    width: 5px;
+    height: 5px;
 }

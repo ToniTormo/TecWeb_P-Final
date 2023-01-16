@@ -57,13 +57,14 @@
     <form id="formulario" action="game.html">
         <fieldset class="targeta" id="fieldpadre">
             <legend><b>Ajustes básicos</b></legend>
-            <label class="ajustes_label"><b>Duración de juego:</b> </label>
-            <input type="number" min="1" value="75" class="etiqueta">
-            <br>
             <label class="ajustes_label"><b>Duración de cada turno:</b></label>
             <br>
             <input type="radio" name="turno" value="0" class="etiqueta" onclick="duracion_turno()" required><label>Tiempo Infinito</label><br>
-            <input type="radio" name="turno" class="etiqueta" onclick="duracion_turno()"><label style="margin-right: 192px;">Elija Tiempo: </label><input type="number" id="tiempo_elegido" min="1" value="60" class="etiqueta" onchange="duracion_turno()">
+            <input type="radio" name="turno" class="etiqueta" onclick="duracion_turno()"><label style="margin-right: 192px;">Elija Tiempo: </label>
+            <input type="number" id="tiempo_elegido" min="1" value="60" class="etiqueta" onchange="duracion_turno()" hidden>
+            <br>
+            <label class="ajustes_label"><b>Duración de juego:</b> </label>
+            <input type="number" min="1" value="75" class="etiqueta">
             <br>
             <label class="ajustes_label"><b>Tamaño del tablero:</b></label>
             <select id="tablero" style="border: 1px; border-style:ridge; border-color:black; width: 92px;" class="etiqueta">
@@ -76,10 +77,9 @@
             <input type="number" max="8" min="1" class="etiqueta" placeholder="Entre 1-8"
             onchange="createPlayer(this)" required>
             <br>
-            <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
-            <select id="extension" style="border: 1px; border-style:ridge; border-color:black; width: 92px;" class="etiqueta">
-                <option value="Inhabilitado">Inhabilitado</option>
-            </select>
+            <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label><br>
+            <input type="checkbox" id="extension" value="River" class="etiqueta">
+            <label id="river" >River</label>
             <br>
         </fieldset>
         <br>
@@ -210,9 +210,11 @@
             for (var tiempo = 0; tiempo < turnos.length; tiempo++) {
                 if (turnos[tiempo].checked) {
                     if (turnos[tiempo].value=="on"){
+                        tiempo_elegido.hidden = false;
                         tiempo_turno = tiempo_elegido.value;
                     }
                     else{
+                        tiempo_elegido.hidden = true;
                         tiempo_turno = "0";
                     }
                 }
@@ -223,20 +225,27 @@
         function enviar_datos(){
             var datos_formulario = document.getElementsByTagName("input");
             
-            const extensiones = document.getElementById("extension");
-            const ext_selc = extensiones.selectedIndex;
+            extensiones = document.getElementById("extension");
+            river = document.getElementById("river");
+            if (extensiones.checked){
+                ext_selc = river.textContent;
+            }
+            else{
+                ext_selc = "Sin extensiones"
+            }
+            
             const size_tablero = document.getElementById("tablero");
             const tab_selc = size_tablero.selectedIndex;
 
             var datos_basicos = {
-                duracion: datos_formulario[0].value,
+                duracion: datos_formulario[3].value,
                 turno: tiempo_turno,
                 tablero: size_tablero.options[tab_selc].value,
-                extension: extensiones.options[ext_selc].value
+                extension: ext_selc
             }
             
             var datos_player = []
-            for(var player = 5; player < datos_formulario.length; player+=2){
+            for(var player = 6; player < datos_formulario.length; player+=2){
                 var player_name = datos_formulario[player].value;
                 var player_color = datos_formulario[player+1].value;
                 datos_player.push([player_name,player_color]);
