@@ -157,14 +157,11 @@
     /*ordenar datos*/
     function ordenarobjetos(lista){
         /*pasar de objeto a lista*/
-        console.log(lista)
         var listas_nombre=[];
         var listas_puntos=[];
         for (var j in lista){
             listas_nombre.push(j);
             listas_puntos.push(lista[j]);
-            console.log(listas_nombre)
-            console.log(listas_puntos)
         }
 
         for(var i=0;i<listas_puntos.length-1;i++){
@@ -180,14 +177,9 @@
                     var temp2 = listas_nombre[j];
                     listas_nombre[j] = listas_nombre[j + 1];
                     listas_nombre[j+1] = temp2;
-                    /*
-                    console.log(listas_nombre)
-                    console.log(listas_puntos)*/
                 }
             }
         }
-        console.log(listas_nombre)
-        console.log(listas_puntos)
         return [listas_nombre,listas_puntos];
     };
 
@@ -211,6 +203,14 @@
             let puntos=lista_puntos[i];
             let id_name="name"+i;
             let id_puntos="puntos"+i;
+
+            let posicion_elem = document.getElementById(i)
+            let nombre_elem = document.getElementById("name" + i)
+            let puntos_elem = document.getElementById("puntos" + i)
+
+            posicion_elem.hidden = false;
+            nombre_elem.hidden = false;
+            puntos_elem.hidden = false;
             
             switch(true){
                 case (i==0):
@@ -238,8 +238,6 @@
                     document.getElementById(id_puntos).innerHTML=puntos;
                     break;
                 default:
-                    console.log(document.getElementById(i).innerHTML=Number(i)+1)
-                    console.log(document.getElementById(i))
                     document.getElementById(i).innerHTML=Number(i)+1;
                     document.getElementById(id_name).innerHTML=names;
                     document.getElementById(id_puntos).innerHTML=puntos;
@@ -256,52 +254,31 @@
         
         var variable=n.includes(search);
         if (variable){
-            /*limpiamos la tabla*/
             for (let i=0;i<10;i++){
-                let n1=i;
-                let n2="name"+i;
-                let n3="puntos"+i;
-
-                /*selecionamos casillas*/
-                let p1=document.getElementById(n1).innerHTML="...";
-                let p2=document.getElementById(n2).innerHTML="...";
-                let p3=document.getElementById(n3).innerHTML="...";
-            }
-
-            /*selecionamos los valores de search*/
-            var personal;
-            var numeracion = [0,1,2,3,4,5,6,7,8,9];
-
-            for (personal in numeracion){
-
-                //Necesito que hagas que estas 3 lineas tambien se actualicen
-                var posicion_temp=n.indexOf(search)+1;
-                var name_temp=search;
-                var puntuacion_temp=p[n.indexOf(search)];
-
+                var posicion = document.getElementById(i)
+                var nombre = document.getElementById("name" + i)
+                var puntos = document.getElementById("puntos" + i)
                 
-                console.log(posicion_temp )
-                console.log(name_temp )
-                console.log(puntuacion_temp)
-
-                document.getElementById(`${personal}`).innerHTML=posicion_temp;
-                document.getElementById("name" + `${personal}`).innerHTML=name_temp;
-                document.getElementById("puntos" + `${personal}`).innerHTML=puntuacion_temp;
-
-                /*rellenar el resto de tabla*/
-                
-                for (let i=1;i<10;i++){
+                if (i==1){
                     let n1=i;
                     let n2="name"+i;
                     let n3="puntos"+i;
-
-                    /*selecionamos casillas*/
                     
-                    let p1=document.getElementById(n1).innerHTML="...";
-                    let p2=document.getElementById(n2).innerHTML="... ";
-                    let p3=document.getElementById(n3).innerHTML="... ";
+                    var posicion_temp=n.indexOf(search)+1;
+                    var name_temp=search;
+                    var puntuacion_temp=p[n.indexOf(search)];
+
+                    posicion.innerHTML=posicion_temp;
+                    nombre.innerHTML=name_temp;
+                    puntos.innerHTML=puntuacion_temp;
+                }
+                else{
+                    posicion.hidden = true;
+                    nombre.hidden = true;
+                    puntos.hidden = true;
                 }
             }
+
         }
         else{
             alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.");
