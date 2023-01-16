@@ -37,7 +37,7 @@
     body{
         display: flex;
         flex-direction: row;
-        background-color: lightblue;
+        background-color: rgb(56, 174, 213);
         height: 100%;
         margin: 0px;
     }

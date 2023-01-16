@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carcasonne</title>
+    <script src="../js/datamanager.js"></script>
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
+    <style>
+        iframe{
+            width: 95%;
+            aspect-ratio: 16 / 10;
+            margin: 5%;
+            border: 2px outset black;
+        }
+    </style>
+</head>
+<body class="fondo">
+    <header>
+        <img src="../media/logo_carcassone.png" width="50%" height="auto">
+        <h3>
+            Uno de los juegos de mesa modernos más emblemáticos,
+            que además está ambientado en una de las ciudades medievales más admiradas del mundo,
+            ¡Adéntrate en una aventura estratégica inolvidable!
+        </h3>
+    </header>
+    <iframe src="./game.html" frameborder="0"></iframe>
+    <div id = "fila">
+        <nav class="targeta">
+            <button class="etiqueta" onclick="st()">Start</button><br>
+            <button class="etiqueta" onclick="re()">Reglas</button><br>
+            <button class="etiqueta" onclick="le()">Leaderboard</button><br>
+            <button class="etiqueta" onclick="op()">Opciones</button>
+        </nav>
+    </div>
+    <script>
+        function st(){
+            location.href="html/start.html";
+        }
+        function re(){
+            location.href="html/reglas.html";
+        }
+        function le(){
+            location.href="html/leaderboard.html";
+        }
+        function op(){
+            location.href="html/opciones.html";
+        }
+
+        try{
+            read("tema");
+        }catch{
+            save("tema", "def");
+            save("font_f", "Papyrus");
+            save("font_s", "medium");
+        }
+
+        var theme = document.getElementById("theme");
+
+        const refresh = () => {
+            tema = read("tema");
+            if(tema == "dark"){
+                theme.setAttribute('href', './css/darktheme.css');
+            }
+            else{
+                theme.setAttribute('href', './css/deftheme.css');
+            }
+            document.body.style.fontFamily = read("font_f");
+            document.body.style.fontSize = read("font_s");
+        }
+
+        var tema;
+        window.onload = refresh();
+    </script>
+</body>
+</html>
