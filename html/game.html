@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carcasonne</title>
-    <link rel="stylesheet" href="../css/game.css">
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/game.css">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
     <script src="../js/datamanager.js" defer></script>
     <script src="../data/fichas.js" defer></script>
@@ -68,7 +68,10 @@
         <div id="caja" class="targeta" draggable="false">
             <span style="height: 100%; aspect-ratio: 1 / 1;"></span>
             <span>
-                Restantes: 14
+                Restantes: 
+            </span>
+            <span id="restantes">
+                0
             </span>
         </div>
         <div id="info" class="targeta">
