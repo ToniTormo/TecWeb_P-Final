@@ -9,12 +9,49 @@
     <script src="../js/datamanager.js"></script>
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
-    <style>::placeholder{color: currentColor;}</style>
+    <style>::placeholder{color: currentColor;}
+    nav{
+        background-color: burlywood;
+        border: 3px solid brown;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 95%;
+        height: 50px;
+        padding: 2%;
+        margin-top: 3%;
+        margin-bottom: 5%;
+        border-radius: 10%;
+        margin-right: 50px;
+        margin-left: 50px;
+    }
+
+    nav>button{
+        background-color: lightsteelblue;
+        border: 3px outset blue;
+        margin: 2.5px;
+        width: 95%;
+        height: 95%;
+        padding: 2%;
+        font-size: larger;
+        font-weight: bold;
+    }
+    </style>
 </head>
 <body class="fondo">
     <header>
         <h1 style="color: #efb810; text-shadow: 2px 2px 2px #bf930d">Iniciar partida</h1>
     </header>
+
+    <nav class="targeta">
+        <button class="etiqueta" onclick="window.location.href='../Inicio.html';">Men&uacute;</button>
+        <button class="etiqueta" onclick="window.location.href='../html/reglas.html';">Reglas</button>
+        <button class="etiqueta" onclick="window.location.href='../html/leaderboard.html';">Leaderboard</button>
+        <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
+    </nav>
+
     <section><h4>Elija los ajustes para poder iniciar el juego:</h4></section>
     
     <form id="formulario" action="game.html">

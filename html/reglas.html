@@ -8,6 +8,36 @@
     <link href="../css/reglas.css" rel="stylesheet">
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
+    <style>
+    nav{
+        background-color: burlywood;
+        border: 3px solid brown;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 95%;
+        height: 50px;
+        padding: 2%;
+        margin-top: 3%;
+        margin-bottom: 5%;
+        border-radius: 10%;
+        margin-right: 50px;
+        margin-left: 50px;
+    }
+
+    nav>button{
+        background-color: lightsteelblue;
+        border: 3px outset blue;
+        margin: 2.5px;
+        width: 95%;
+        height: 95%;
+        padding: 2%;
+        font-size: larger;
+        font-weight: bold;
+    }
+    </style>
 </head>
 <body>
     <header>
@@ -40,6 +70,12 @@
         var tema;
         window.onload = refresh
     </script>
+    <nav class="targeta">
+        <button class="etiqueta" onclick="window.location.href='../Inicio.html';">Men&uacute;</button>
+        <button class="etiqueta" onclick="window.location.href='../html/start.html';">Start</button>
+        <button class="etiqueta" onclick="window.location.href='../html/leaderboard.html';">Leaderboard</button>
+        <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
+    </nav>
     <aside>
         <!--Barra lateral de navegación de las normas-->
         <h2>ÍNDICE</h2>
