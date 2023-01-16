@@ -22,11 +22,12 @@ const modelo_ficha = {
 // Classes y Objetos =======================================================================
 
 class Ficha {
-    constructor(img, side, oc, i) {
+    constructor(img, side, oc, esc, i) {
         this.pos = [NaN,NaN];
         this.ori = 0;
         this.ocup = {};
         this.oc = oc;
+        this.esc = esc
         this.img = img;
         this.side = side;
         oc.forEach(i => {
@@ -44,7 +45,7 @@ class Ficha {
             event.dataTransfer.setData("index", String(this.i));
         }
 
-        this.dom.dataset["index"] = i;
+        this.dom.dataset["index"] = this.i;
 
         // Info
         this.dom.onmouseover = () => {
@@ -92,8 +93,13 @@ class Ficha {
                     but.value = "here";
                     but.class = "b_1";
                     let id = x;
+                    let ret;
                     but.onclick = () => {
-                        ocupacion(m_ficha, id, turno);
+                        ret = ocupacion(m_ficha, id, turno);
+                        if(ret[0]){
+                            jugadores[turno].fichas += 1;
+                            jugadores[turno].puntuacion();
+                        }
                         info.innerHTML = "";
                         monDes();
                         document.querySelector("#caja").children[0].innerHTML = "";
@@ -183,6 +189,21 @@ class Jugador {
             this.is_turno = false;
         }
     } 
+
+    puntuacion(all = false){
+        this.puntos = 0;
+        var data = dominio(this.i, all);
+
+        this.puntos += data["path"] * 1;
+
+        this.puntos += data["city"] * 2;
+
+        this.puntos += data["church"] * 9;
+
+        this.puntos += data["field"] * 3;
+        
+        this.dom.children[1].innerText = this.puntos;
+    }
     /* Falta acabar */
 }
 
@@ -239,8 +260,8 @@ const sePuede = (x, y, id = id_ficha) => {
     for(i in iter){
         try{
         adjunto = document.querySelector(`div.casilla[data-posicion = "${iter[i]}" ]`);
-        if(adjunto == null){out++; /*res.push(NaN);*/ continue;}
-        if(adjunto.innerHTML == ""){out++; /*res.push(null);*/ continue;}
+        if(adjunto == null){out++; continue;}
+        if(adjunto.innerHTML == ""){out++; continue;}
 
         let ad_ori = fichas[adjunto.dataset["i"]].ori;
         let ad_sid = fichas[adjunto.dataset["i"]].side;
@@ -296,6 +317,8 @@ var m_ficha = -1;
 
 // Variables de partida  =====================================================================
 
+var leaderboard = Object();
+
 var t_tablero = 10;
 
 var d_turno = 0;
@@ -339,27 +362,51 @@ const n_turno = () => {
         }
         if(tablero.length == n_fichas){
             // Fin de partida
+
+            // registro
+            try{let h = JSON.parse(read("leaderboard"));
+                if(h != null){
+                    leaderboard = h;
+                }
+            }catch{}
+
+            // puntuaciones
+            jugadores.forEach(jug => {
+                jug.puntuacion(true);
+
+                try{
+                    if(leaderboard[jug.name] < jug.puntos){
+                        leaderboard[jug.name] = jug.puntos;
+                    }
+                }catch{
+                    leaderboard[jug.name] = jug.puntos;
+                }
+            })
+
+            save("leaderboard",JSON.stringify(leaderboard));
+
             console.log("fin de partida");
             
             document.querySelectorAll(".b_1:not([value='Salir'])").forEach(bt => {
                 bt.setAttribute("disabled","");
             })
 
-            window.location.replace("../inicio.html");
-            // reset();
+            window.top.location.replace("./leaderboard.html");
+            
             return;
         }
     }
+    jugadores.forEach(jug => {jug.puntuacion();})
     turno = (++turno) % listaJugadores.length;
     jugadores[turno].turno();
     nuevaFicha();
     nuevoMonigote();
     contador();
-    condi2 = false;
-    condi = false;
+    return;
 }
 
 const nuevaFicha = () => {
+    var se_puede;
     do{
         var ind = Math.floor(Math.random() * n_fichas);
         se_puede = filtro(ind);
@@ -513,6 +560,10 @@ const ocupacion = (ficha, ocup, jug) => {
 
         ind = adjunto.children[0].dataset["index"];
 
+        try{var f = fichas[ind].oc}catch{console.log(ind);
+            return [closed , count + 1 + 1 * Number(fichas[ficha].esc)];
+        }
+
         // solo hay un objetivo o hay varios?
         if(any(fichas[ind].oc, (el) => {return el == ocup;})){ // solo uno
 
@@ -524,7 +575,7 @@ const ocupacion = (ficha, ocup, jug) => {
                 }
             }else{ // esta vacio
                 fichas[ind].ocup[ocup] = jug;
-                ret = domStep(ind, ocup, jug);
+                ret = ocupacion(ind, ocup, jug);
                 closed = closed && ret[0];
                 count += ret[1];
             }
@@ -539,7 +590,7 @@ const ocupacion = (ficha, ocup, jug) => {
             }
         }
     }
-    return [closed , count + 1];
+    return [closed , count + 1 + 1 * Number(fichas[ficha].esc)];
 }
 
 // Eventos ============================================================================
@@ -553,7 +604,7 @@ const pausa = () => {
 const salir = () => {
     pause = true;
     if(confirm("¿Seguro que quiere salir al menú?\nLos datos se borrarán.")){
-        window.location.replace("../inicio.html")
+        window.top.location.replace("../inicio.html");
     }
     pause = false;
 }
@@ -631,7 +682,7 @@ const crearJugadores = (lista_jugadores) => {
     var jugador;
     var j = 0;
     for (i of listaJugadores){
-        jugador = new Jugador(i[0],i[1],j, 15);
+        jugador = new Jugador(i[0],i[1],j, 9);
         jugadores.push(jugador);
         j++;
     };
@@ -650,7 +701,7 @@ const crearFichas = () => {
     base.forEach(mod => {
         for (let i=0; i<mod.num; i++){
             // Crear el objeto Ficha
-            ficha = new Ficha(mod.img, mod.side, mod.ocup, j);
+            ficha = new Ficha(mod.img, mod.side, mod.ocup, mod.esc, j);
             // Añadir la ficha al monton
             fichas.push(ficha);
             j++;
@@ -666,7 +717,10 @@ const crearFichas = () => {
         fichas.splice(Math.floor(Math.random() * n_fichas),1);
         j = 0;
     }if(j == 0){
-        fichas.forEach((ficha, i) => {ficha.i = i})
+        fichas.forEach((ficha, i) => {
+            ficha.i = i;
+            ficha.dom.dataset["index"] = i;
+        })
     }
 };
 

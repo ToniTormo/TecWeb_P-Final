@@ -23,7 +23,7 @@ nav{
     width: 20%;
     height: auto;
     padding: 2%;
-    margin-top: 5%;
+    margin-top: 3%;
     border-radius: 10%;
 }
 
@@ -56,4 +56,10 @@ aside::-webkit-scrollbar{
     background-color: burlywood;
     width: 5px;
     height: 5px;
+}
+
+footer{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
 }
