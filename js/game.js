@@ -218,77 +218,6 @@ const inv_color = (color) => {
     return "#" + ret.join("");
 }
 
-var condi = false;
-var condi2 = false;
-
-const sePuedePoner = (lugar, id_ficha) => {
-    var adjunto;
-    var side1;
-    var side2;
-    var ori1;
-    var ori2;
-    var lado1;
-    var j = -1;
-    
-
-    var x = parseInt(lugar[0]);
-    var y = parseInt(lugar[1]);
-
-    var iter = {
-        0: [x, y-1],
-        1: [x+1,y],
-        2: [x, y+1],
-        3: [x-1,y]
-    }
-
-    var ret = true;
-    for(i in iter){
-        try{
-            j++;
-
-            ori1 = fichas[id_ficha].ori;
-            giro1 = JSON.parse(JSON.stringify(ori1));
-
-            side1 = fichas[id_ficha].side;
-            lado1 = JSON.parse(JSON.stringify(side1));
-
-            while(giro1 > 0 && !condi){
-                var a = lado1.pop();
-                lado1.unshift(a);
-                giro1--;
-            }
-            condi = true;
-
-            adjunto = document.querySelector("div.casilla[data-posicion = '"+ iter[i][0] + "," + iter[i][1] +"']");
-
-            ori2 = fichas[adjunto.dataset["i"]].ori;
-            giro2 = JSON.parse(JSON.stringify(ori2));
-            //console.log(ori2);
-            side2 = fichas[adjunto.dataset["i"]].side;
-            ori1 = fichas[id_ficha].ori;
-            ori2 = fichas[adjunto.dataset["i"]].ori;
-
-            while(giro2 > 0 && !condi2){ 
-                var a = lado2.pop();
-                lado2.unshift(a);
-                giro2--;
-            }
-            condi2 = true;
-
-            console.log(ori1, giro1, ori2, giro2);
-            console.log(lado1, lado2);
-            console.log((lado1[(j) % 4]),(lado2[(j + 2) % 4]));
-            
-            ret = ((lado1[(j) % 4]) == (lado2[(j + 2) % 4]));
-        }catch(err){
-            //console.log(err);
-            ret = ret && true;
-        }
-    }
-    console.log(ret);
-    return ret;
-}
-
 const sePuede = (x, y, id = id_ficha) => {
     if(tablero.length == 0){
         return true;
@@ -426,8 +355,6 @@ const n_turno = () => {
     nuevaFicha();
     nuevoMonigote();
     contador();
-    condi2 = false;
-    condi = false;
 }
 
 const nuevaFicha = () => {
