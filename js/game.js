@@ -48,11 +48,16 @@ class Ficha {
 
         // Info
         this.dom.onmouseover = () => {
+            if(m_ficha != this.i){
+                return;
+            }else{
+                m_ficha = NaN;
+            }
             var li;
-            var info = document.querySelector("#info>ul")
+            var info = document.querySelector("#info>ul");
             info.innerHTML = "";
             for(var x in this.ocup){
-                li = document.createElement("li")
+                li = document.createElement("li");
                 if(this.ocup[x] == null){
                     li.textContent = x + ": ";
                 }else{
@@ -64,8 +69,51 @@ class Ficha {
             }
         }
         // Monigote
-        this.dom.ondragover = () => {
-            
+        this.dom.ondblclick = () => {
+            if(document.querySelector("#caja").children[0].innerHTML==""){return;}
+
+            // cambiar cursor
+            document.querySelector("*").style.cursor = "crosshair";
+
+            // variables
+            var li;
+            var but;
+            // vaciar info
+            var info = document.querySelector("#info>ul");
+            info.innerHTML = "";
+
+            // traspaso de infotmacion
+            m_ficha = this.i;
+            document.querySelector("#caja").children[0].style.border = "2px dotted black";
+
+            // same as onmouseover
+            for(var x in this.ocup){
+                li = document.createElement("li");
+                if(this.ocup[x] == null){
+                    li.textContent = x + ": ";
+                    but = document.createElement("input");
+                    but.setAttribute("type","button");
+                    but.value = "here";
+                    but.class = "b_1";
+                    let id = x;
+                    but.onclick = () => {
+                        document.querySelector("*").style.cursor = "default";
+                        fichas[m_ficha].ocup[id] = turno;
+                        info.innerHTML = "";
+                        m_ficha = NaN;
+                        document.querySelector("#caja").children[0].style.border = "none";
+                        document.querySelector("#caja").children[0].innerHTML = "";
+                        jugadores[turno].fichas -= 1;
+                        document.getElementById("restantes").innerText = String(jugadores[turno].fichas);
+                    }
+                    li.appendChild(but);
+                }else{
+                    li.style.color = jugadores[this.ocup[x]]._color;
+                    li.style.backgroundColor = jugadores[this.ocup[x]].color;
+                    li.textContent = x + ": " + jugadores[this.ocup[x]].name;
+                }
+                info.appendChild(li);
+            }
         }
     }
 
@@ -93,9 +141,9 @@ class Ficha {
         if (aux) {throw "la ficha no esta en una Casilla";}
 
         this.dom.parentElement.style.border = "none";
-        this.pos = this.dom.parentElement.dataset["posicion"].split(",");
+        this.pos = JSON.parse(`[${this.dom.parentElement.dataset["posicion"]}]`);
 
-        this.dom.parentElement.dataset["1"] = this.i;
+        this.dom.parentElement.dataset["i"] = this.i;
 
         tablero.push(this.i);
 
@@ -106,14 +154,14 @@ class Ficha {
 }
 
 class Jugador {
-    constructor(name, color, i){
+    constructor(name, color, i, f){
         this.is_turno = false;
         this.i = i;
         this.puntos = 0;
         this.name = name;
         this.color = color;
         this._color = inv_color(color);
-        this.fichas = 0;
+        this.fichas = f;
         
         this.dom = document.createElement("div");
         this.dom.className = "jugador";
@@ -247,6 +295,57 @@ const sePuedePoner = (lugar, id_ficha) => {
     return ret;
 }
 
+const sePuede = (x, y) => {
+    if((t_tablero/2).toFixed() == x && x == y){
+        return true;
+    }
+    if(document.querySelector(`div.casilla[data-posicion = "${[x,y]}" ]`).innerHTML != ""){
+        return false;
+    }
+
+    var ajdunto;
+    var iter = {
+        0: [x, y+1],
+        1: [x-1,y],
+        2: [x, y-1],
+        3: [x+1,y]
+    };
+    var res = [];
+    var out = 0
+
+    for(i in iter){
+        try{
+        adjunto = document.querySelector(`div.casilla[data-posicion = "${iter[i]}" ]`);
+        if(adjunto == null){out++; /*res.push(NaN);*/ continue;}
+        if(adjunto.innerHTML == ""){out++; /*res.push(null);*/ continue;}
+
+        let ad_ori = fichas[adjunto.dataset["i"]].ori;
+        let ad_sid = fichas[adjunto.dataset["i"]].side;
+        let ori = fichas[id_ficha].ori;
+        let side = fichas[id_ficha].side;
+
+        res.push(side[(parseInt(i) + (6 - ori)) % 4] == ad_sid[(parseInt(i) + (4 - ad_ori)) % 4]);
+
+        }catch(err){
+            console.log(err)
+            console.log(res);
+        }
+    }
+    return all(res, i => {return i;}) && out < 4;
+}
+
+const filtro = () => {
+    for(let i = 0; i < mapa.childElementCount; i++){
+        let cas = mapa.children[i];
+        var pos = JSON.parse(`[${cas.dataset["posicion"]}]`);
+        if(!sePuede(pos[0],pos[1])){
+            cas.style.backgroundColor = "blue";
+        }else{
+            cas.style.backgroundColor = "lightgray";
+        }
+    }
+}
+
 // Variables de DOM
 
 var mapa;
@@ -265,6 +364,8 @@ var tablero = [];
 var turno = -1;
 
 var id_ficha = 0;
+
+var m_ficha = NaN;
 
 // Variables de partida  =====================================================================
 
@@ -337,7 +438,6 @@ const nuevaFicha = () => {
     }while(any(tablero, (x) => {return x == ind;}));
     document.getElementById("n_ficha").appendChild(fichas[ind].dom);
     id_ficha = ind;
-    console.log("Nueva ficha: " + ind); // Se puede quitar
 }
 
 var tiempo;
@@ -367,6 +467,9 @@ const contador = () => {
 }
 
 const nuevoMonigote = () => {
+    document.getElementById("restantes").innerText = String(jugadores[turno].fichas);
+    document.querySelector("#caja").children[0].style.border = "none";
+    document.querySelector("*").style.cursor = "default";
     var box = document.querySelector("#caja").children[0];
     box.innerHTML = "";
     var escala = (size[0]/23).toFixed();
@@ -376,10 +479,16 @@ const nuevoMonigote = () => {
     mon.style.aspectRatio = "1 / 1";
     mon.dataset["jugador"] = turno;
     mon.draggable = true;
-    mon.ondragstart = (event) => {
-        event.dataTransfer.setData("jugador", turno);
+    mon.onclick = () => {
+        fichas[id_ficha].dom.ondblclick()
     }
     box.appendChild(mon);
+}
+
+const dominio = () => {
+    tablero.forEach(i => {
+        /* Falta rellenar */
+    })
 }
 
 // Eventos ============================================================================
@@ -423,7 +532,8 @@ const ponerFicha = (event, cas) => {
 
 const overFicha = (event, cas) => {
     if(cas.className == "casilla"){
-        if (cas.innerHTML == "" && sePuedePoner(cas.dataset["posicion"].split(","), this.id_ficha)){
+        pos = JSON.parse(`[${cas.dataset["posicion"]}]`)
+        if (sePuede(pos[0],pos[1])){
             event.preventDefault();
         }
     }
@@ -445,7 +555,7 @@ const ajustesCSS = () =>{
     var r = document.querySelector(":root");
     r.style.setProperty("--map_size", t_tablero);
     r.style.setProperty("--i_scale", (size[0]/15).toFixed()/160);
-    r.style.setProperty("--font_size", (size[0]/42).toFixed().toString() + "px");
+    r.style.setProperty("--font_size", (size[0]/50).toFixed().toString() + "px");
     if(t_tablero > 8){
         r.style.setProperty("--casilla", (size[0]/15).toFixed().toString() + "px");
     }else{
@@ -457,7 +567,7 @@ const crearJugadores = (lista_jugadores) => {
     var jugador;
     var j = 0;
     for (i of listaJugadores){
-        jugador = new Jugador(i[0],i[1],j);
+        jugador = new Jugador(i[0],i[1],j, 15);
         jugadores.push(jugador);
         j++;
     };
@@ -503,10 +613,10 @@ const crearMapa = () => {
     for (let y=1; y <= t_tablero; y++) {
         casilla = document.createElement("div");
         casilla.style.display = "block"
-        casilla.style.gridColumnStart = y;
-        casilla.style.gridColumnEnd = y + 1;
-        casilla.style.gridRowStart = x;
-        casilla.style.gridRowEnd = x + 1;
+        casilla.style.gridColumnStart = x;
+        casilla.style.gridColumnEnd = x + 1;
+        casilla.style.gridRowStart = y;
+        casilla.style.gridRowEnd = y + 1;
         if (x == mid && y == mid){
             casilla.style.backgroundColor = "lightcoral";
         }else {
@@ -552,7 +662,7 @@ window.onload = () => {
 
     console.log("¡listo!");
 
-    n_turno()
+    n_turno();
 }
 
 var resize;
