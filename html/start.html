@@ -64,14 +64,18 @@
             <input type="number" min="0" value="60" class="etiqueta">
             <br>
             <label class="ajustes_label"><b>Tamaño del tablero:</b></label>
-            <input type="number" value="16" min="9" class="etiqueta">
+            <select id="tablero" style="border: 1px; border-style:ridge; border-color:black; width: 92px;" class="etiqueta">
+                <option value="9">9 casillas</option>
+                <option value="15">15 casillas</option>
+                <option value="21">21 casillas</option>
+            </select>
             <br>
             <label  class="ajustes_label"><b>Numero de Jugadores:</b></label>
             <input type="number" max="8" min="1" class="etiqueta" placeholder="Entre 1-8"
             onchange="createPlayer(this)" required>
             <br>
             <label class="ajustes_label"><b>Selecciona extensiones disponibles:</b></label>
-            <select id="extension" style="border: 1px; border-style:ridge; border-color:black;" class="etiqueta">
+            <select id="extension" style="border: 1px; border-style:ridge; border-color:black; width: 92px;" class="etiqueta">
                 <option value="Inhabilitado">Inhabilitado</option>
             </select>
             <br>
@@ -201,18 +205,20 @@
             
             const extensiones = document.getElementById("extension");
             const ext_selc = extensiones.selectedIndex;
+            const size_tablero = document.getElementById("tablero");
+            const tab_selc = size_tablero.selectedIndex;
+
             var datos_basicos = {
                 duracion: datos_formulario[0].value,
                 turno: datos_formulario[1].value,
-                tablero: datos_formulario[2].value,
+                tablero: size_tablero.options[tab_selc].value,
                 extension: extensiones.options[ext_selc].value
             }
             
             var datos_player = []
-            for(var player = 4; player < datos_formulario.length; player+=2){
+            for(var player = 3; player < datos_formulario.length; player+=2){
                 var player_name = datos_formulario[player].value;
                 var player_color = datos_formulario[player+1].value;
-
                 datos_player.push([player_name,player_color]);
             }
 
