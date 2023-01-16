@@ -132,7 +132,7 @@
     
     var datos ={
         lucia:10,
-        abel:7,
+        abel:70,
         jacobo:3,
         hola:20,
         pepe:34,
@@ -141,7 +141,7 @@
         dani:5,
         oldone:12,
         newname:123,
-        abel:23,
+        abel:230,
     };
     var datos2 ={
         lucia:10,
@@ -157,11 +157,14 @@
     /*ordenar datos*/
     function ordenarobjetos(lista){
         /*pasar de objeto a lista*/
+        console.log(lista)
         var listas_nombre=[];
         var listas_puntos=[];
         for (var j in lista){
             listas_nombre.push(j);
             listas_puntos.push(lista[j]);
+            console.log(listas_nombre)
+            console.log(listas_puntos)
         }
 
         for(var i=0;i<listas_puntos.length-1;i++){
@@ -177,9 +180,14 @@
                     var temp2 = listas_nombre[j];
                     listas_nombre[j] = listas_nombre[j + 1];
                     listas_nombre[j+1] = temp2;
+                    /*
+                    console.log(listas_nombre)
+                    console.log(listas_puntos)*/
                 }
             }
         }
+        console.log(listas_nombre)
+        console.log(listas_puntos)
         return [listas_nombre,listas_puntos];
     };
 
@@ -255,14 +263,15 @@
                 let n3="puntos"+i;
 
                 /*selecionamos casillas*/
-                let p1=document.getElementById(n1).innerHTML=" ";
-                let p2=document.getElementById(n2).innerHTML=" ";
-                let p3=document.getElementById(n3).innerHTML=" ";
+                let p1=document.getElementById(n1).innerHTML="...";
+                let p2=document.getElementById(n2).innerHTML="...";
+                let p3=document.getElementById(n3).innerHTML="...";
             }
 
             /*selecionamos los valores de search*/
             var personal;
             var numeracion = [0,1,2,3,4,5,6,7,8,9];
+
             for (personal in numeracion){
 
                 //Necesito que hagas que estas 3 lineas tambien se actualicen
@@ -271,20 +280,23 @@
                 var puntuacion_temp=p[n.indexOf(search)];
 
                 
-                console.log(posicion_temp)
-                console.log(name_temp)
+                console.log(posicion_temp )
+                console.log(name_temp )
                 console.log(puntuacion_temp)
+
                 document.getElementById(`${personal}`).innerHTML=posicion_temp;
                 document.getElementById("name" + `${personal}`).innerHTML=name_temp;
                 document.getElementById("puntos" + `${personal}`).innerHTML=puntuacion_temp;
 
                 /*rellenar el resto de tabla*/
+                
                 for (let i=1;i<10;i++){
                     let n1=i;
                     let n2="name"+i;
                     let n3="puntos"+i;
 
                     /*selecionamos casillas*/
+                    
                     let p1=document.getElementById(n1).innerHTML="...";
                     let p2=document.getElementById(n2).innerHTML="... ";
                     let p3=document.getElementById(n3).innerHTML="... ";
