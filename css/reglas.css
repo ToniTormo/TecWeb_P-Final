@@ -6,6 +6,16 @@ header {
     text-align: center;
     background-color: beige;
 }
+#cabecera{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 150px;
+}
+#cabecera>img{
+    object-fit: contain;
+}
+
 article > h3 {
     background-color: rgb(255, 214, 126);
     text-decoration: underline;
