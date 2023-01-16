@@ -18,12 +18,24 @@
             ¡Adéntrate en una aventura estratégica inolvidable!
         </h3>
     </header>
-    <nav class="targeta">
-        <button class="etiqueta" onclick="st()">Start</button><br>
-        <button class="etiqueta" onclick="re()">Reglas</button><br>
-        <button class="etiqueta" onclick="le()">Leaderboard</button><br>
-        <button class="etiqueta" onclick="op()">Opciones</button>
-    </nav>
+    <div id = "fila">
+        <nav class="targeta">
+            <button class="etiqueta" onclick="st()">Start</button><br>
+            <button class="etiqueta" onclick="re()">Reglas</button><br>
+            <button class="etiqueta" onclick="le()">Leaderboard</button><br>
+            <button class="etiqueta" onclick="op()">Opciones</button>
+        </nav>
+        <aside id="norm-ini">
+            <p>¿Quieres ver un video para entender cómo se juega?</p>
+            <a href ="html/reglas.html.#video">Aquí tienes un vídeo</a><br>
+            <p>¿No entiendes los puntos del camino?</p>
+            <a href="html/reglas.html.#puntos">Entiéndelo aquí</a><br>
+            <p>¿No sabes de donde proviene el juego?</p>
+            <a href ="https://es.wikipedia.org/wiki/Carcassonne_(juego)">Descúbrelo aquí</a><br>
+            <p>¿Sabes Alemán y quieres ver su página oficial?</p>
+            <a href ="https://devirgames.com/">Entdecken Sie es hier</a><br>
+        </aside>
+    </div>
     <script>
         function st(){
             location.href="html/start.html";
