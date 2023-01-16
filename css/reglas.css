@@ -37,8 +37,6 @@ a {
     text-decoration: none;
 }
 
-/*CSS esquema (texto + imágenes)*/
-
 /*CSS imágenes y videos*/
 #piezas_img {
     width: 100%;
@@ -55,4 +53,18 @@ img {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+/*Footer*/
+#links{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 500px;
+}
+#copyright{
+    text-align: center;
+}
+#links>img{
+    object-fit: contain;
 }
