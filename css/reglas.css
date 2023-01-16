@@ -15,12 +15,10 @@ header {
 #cabecera>img{
     object-fit: contain;
 }
-
 article > h3 {
     background-color: rgb(255, 214, 126);
     text-decoration: underline;
 }
-
 section > h4 {
     background-color: khaki;
     text-decoration:underline ;
@@ -37,11 +35,9 @@ aside {
     background-color: #ebee82;
 
 }
-
 nav > ol > ul {
     list-style-type:lower-alpha;
 }
-
 a {
     color: black;
     text-decoration: none;
@@ -53,12 +49,10 @@ a {
     height: 100%;
     object-fit: cover;
 }
-
 img {
     width: 100px;
     height: 100px;
 }
-
 #video {
     display: flex;
     flex-direction: row;

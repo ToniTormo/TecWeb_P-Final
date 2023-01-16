@@ -15,6 +15,50 @@
             margin: 5%;
             border: 2px outset black;
         }
+        nav{
+            background-color: burlywood;
+            border: 3px solid brown;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            width: 95%;
+            height: 50px;
+            padding: 2%;
+            border-radius: 10%;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-right: 50px;
+            margin-left: 50px;
+        }
+
+        nav>button{
+            background-color: lightsteelblue;
+            border: 3px outset blue;
+            margin: 2.5px;
+            width: 95%;
+            height: 95%;
+            padding: 2%;
+            font-size: larger;
+            font-weight: bold;
+        }
+        #links{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 500px;
+        }
+        #copyright{
+            text-align: center;
+        }
+        #links>img{
+            object-fit: contain;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body class="fondo">
@@ -26,15 +70,36 @@
             ¡Adéntrate en una aventura estratégica inolvidable!
         </h3>
     </header>
+    <nav class="targeta">
+        <button class="etiqueta" onclick="window.location.href='../Inicio.html';">Men&uacute;</button>
+        <button class="etiqueta" onclick="window.location.href='../html/start.html';">Start</button>
+        <button class="etiqueta" onclick="window.location.href='../html/reglas.html';">Reglas</button>
+        <button class="etiqueta" onclick="window.location.href='../html/leaderboard.html';">Leaderboard</button>
+        <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
+    </nav>
     <iframe src="./game.html" frameborder="0"></iframe>
-    <div id = "fila">
-        <nav class="targeta">
-            <button class="etiqueta" onclick="st()">Start</button><br>
-            <button class="etiqueta" onclick="re()">Reglas</button><br>
-            <button class="etiqueta" onclick="le()">Leaderboard</button><br>
-            <button class="etiqueta" onclick="op()">Opciones</button>
-        </nav>
-    </div>
+    <footer>
+        <div id="links">
+            <img src="../media/logo_carcassone.png" width="450px" height="200px">
+            <div id="navegacion">
+                <h3><b>&Iacute;NDICE</b></h3>
+                <a href='../Inicio.html'>Men&uacute;</a><br>
+                <a href='../html/start.html'>Start</a><br>
+                <a href='../html/reglas.html'>Reglas</a><br>
+                <a href='../html/leaderboard.html'>Leaderboard</a><br>
+                <a href='../html/opciones.html'>Opciones</a>
+            </div>
+            <div id="contacto">
+                <h3><b>CONTACTO</b></h3>
+                <a href="https://devir.es/quien-somos">Devir</a><br>
+                <a href="https://www.google.es/?pli=1%22%3EEnviar correo electr&oacutenico">Contacte con nosotros</a><br>
+            </div>
+        </div>
+        <div id="copyright">
+            <p>© GTDM_ Tecnolog&iacute;as web 2023. Todos los derechos reservados</p>
+        </div>
+    </footer>
+
     <script>
         function st(){
             location.href="html/start.html";
