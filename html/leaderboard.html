@@ -254,32 +254,8 @@
             /*selecionamos los valores de search*/
             var personal;
             var numeracion = [0,1,2,3,4,5,6,7,8,9];
-            var copyn=n.splice();
-            var copyp=p.splice();
-
-
-            var searchNombre=[];
-            var searchPuntos=[];
-            var searchPosicion=[];
             
             /*for mira la lista copiada y genera una nueva con colo los elementos que estas buscando*/
-            for(personal in numeracion){
-                var posicion_temp=copyn.indexOf(search)+1;
-                var name_temp=search;
-                var puntuacion_temp=copyp[copyn.indexOf(search)];
-
-                searchNombre.appendChild(posicion_temp)
-                searchPuntos.appendChild(name_temp)
-                searchPosicion.appendChild(puntuacion_temp)
-
-                copyn.splice(posicion_temp-1,1)
-                copyp.splice(posicion_temp-1,1)
-                
-                console.log(searchNombre)
-                console.log(searchPuntos)
-                console.log(searchPosicion)
-            }
-
             
             for (personal in numeracion){
 
