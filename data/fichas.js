@@ -31,8 +31,8 @@ const base = [
     "num": 8
     },
     {"img": "../media/v1/ciudad_esquina_c.png",
-    "side": [0,2,0,2],
-    "ocup": ["city", "field"],
+    "side": [2,2,1,1],
+    "ocup": ["city", "path", "field1", "field2"],
     "esc": false,
     "num": 3
     },
@@ -41,12 +41,6 @@ const base = [
     "ocup": ["city", "path", "field1", "field2"],
     "esc": true,
     "num": 2
-    },
-    {"img": "../media/v1/ciudad_esquina_c.png",
-    "side": [2,2,1,1],
-    "ocup": ["city", "path", "field1", "field2"],
-    "esc": false,
-    "num": 3
     },
     {"img": "../media/v1/ciudad_esquina_escudo.png",
     "side": [2,2,0,0],

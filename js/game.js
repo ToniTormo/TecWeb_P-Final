@@ -26,7 +26,7 @@ class Ficha {
         this.pos = [NaN,NaN];
         this.ori = 0;
         this.ocup = {};
-
+        this.oc = oc;
         this.img = img;
         this.side = side;
         oc.forEach(i => {
@@ -48,10 +48,10 @@ class Ficha {
 
         // Info
         this.dom.onmouseover = () => {
-            if(m_ficha != this.i){
+            if(m_ficha != this.i && m_ficha != -1){
                 return;
             }else{
-                m_ficha = NaN;
+                monDes();
             }
             var li;
             var info = document.querySelector("#info>ul");
@@ -71,9 +71,9 @@ class Ficha {
         // Monigote
         this.dom.ondblclick = () => {
             if(document.querySelector("#caja").children[0].innerHTML==""){return;}
+            if(this.dom.parentElement.id == "n_ficha"){return;}
 
-            // cambiar cursor
-            document.querySelector("*").style.cursor = "crosshair";
+            monAct(this.i);
 
             // variables
             var li;
@@ -81,10 +81,6 @@ class Ficha {
             // vaciar info
             var info = document.querySelector("#info>ul");
             info.innerHTML = "";
-
-            // traspaso de infotmacion
-            m_ficha = this.i;
-            document.querySelector("#caja").children[0].style.border = "2px dotted black";
 
             // same as onmouseover
             for(var x in this.ocup){
@@ -97,11 +93,9 @@ class Ficha {
                     but.class = "b_1";
                     let id = x;
                     but.onclick = () => {
-                        document.querySelector("*").style.cursor = "default";
-                        fichas[m_ficha].ocup[id] = turno;
+                        ocupacion(m_ficha, id, turno);
                         info.innerHTML = "";
-                        m_ficha = NaN;
-                        document.querySelector("#caja").children[0].style.border = "none";
+                        monDes();
                         document.querySelector("#caja").children[0].innerHTML = "";
                         jugadores[turno].fichas -= 1;
                         document.getElementById("restantes").innerText = String(jugadores[turno].fichas);
@@ -295,8 +289,8 @@ const sePuedePoner = (lugar, id_ficha) => {
     return ret;
 }
 
-const sePuede = (x, y) => {
-    if((t_tablero/2).toFixed() == x && x == y){
+const sePuede = (x, y, id = id_ficha) => {
+    if(tablero.length == 0){
         return true;
     }
     if(document.querySelector(`div.casilla[data-posicion = "${[x,y]}" ]`).innerHTML != ""){
@@ -334,16 +328,20 @@ const sePuede = (x, y) => {
     return all(res, i => {return i;}) && out < 4;
 }
 
-const filtro = () => {
-    for(let i = 0; i < mapa.childElementCount; i++){
-        let cas = mapa.children[i];
-        var pos = JSON.parse(`[${cas.dataset["posicion"]}]`);
-        if(!sePuede(pos[0],pos[1])){
-            cas.style.backgroundColor = "blue";
-        }else{
-            cas.style.backgroundColor = "lightgray";
+const filtro = (id = id_ficha) => {
+    document.querySelector("*").style.cursor = "wait";
+    for(let j; j < 4; j++){
+        for(let i = 0; i < mapa.childElementCount; i++){
+            let cas = mapa.children[i];
+            var pos = JSON.parse(`[${cas.dataset["posicion"]}]`);
+            if(sePuede(pos[0],pos[1], id)){
+                return true;
+            }
         }
+        fichas[id].rotar()
     }
+    document.querySelector("*").style.cursor = "default";
+    return false;
 }
 
 // Variables de DOM
@@ -365,7 +363,7 @@ var turno = -1;
 
 var id_ficha = 0;
 
-var m_ficha = NaN;
+var m_ficha = -1;
 
 // Variables de partida  =====================================================================
 
@@ -435,7 +433,8 @@ const n_turno = () => {
 const nuevaFicha = () => {
     do{
         var ind = Math.floor(Math.random() * n_fichas);
-    }while(any(tablero, (x) => {return x == ind;}));
+        se_puede = filtro(ind);
+    }while(any(tablero, (x) => {return x == ind;}) || se_puede);
     document.getElementById("n_ficha").appendChild(fichas[ind].dom);
     id_ficha = ind;
 }
@@ -485,10 +484,133 @@ const nuevoMonigote = () => {
     box.appendChild(mon);
 }
 
-const dominio = () => {
-    tablero.forEach(i => {
-        /* Falta rellenar */
+tipos = ["field", "path", "city", "church"]
+const dominio = (jug, all = false) => {
+    var res = {};
+    tipos.forEach(el => {
+        res[el] = 0;
     })
+    tablero.forEach(ficha => {
+        let oc = fichas[ficha].ocup;
+        for(i in oc){
+            if(oc[i] == jug){
+                ret = ocupacion(ficha, i, jug);
+                if(ret[0] || all){
+                    res[i] += ret[1];
+                }
+            }
+        }
+    })
+    return res;
+}
+
+const entorno = (ficha) => {
+    var pos = JSON.parse(`[${fichas[ficha].dom.parentElement.dataset["posicion"]}]`);
+    var x = pos[0];
+    var y = pos[1];
+
+    var iter = {
+        0: [x  , y-1],
+        1: [x+1, y  ],
+        2: [x  , y+1],
+        3: [x-1, y  ]
+    };
+
+    for(i in iter){
+        adjunto = document.querySelector(`div.casilla[data-posicion = "${iter[i]}" ]`);
+        if(adjunto == null){continue;} // existe la casilla? 
+        if(adjunto.innerHTML == ""){closed = false; continue;} // esta llena?
+
+        /* Falta Rellenar */
+    }
+}
+
+const ocupacion = (ficha, ocup, jug) => {
+    /* 
+    ficha = identificador 
+    ocup = terreno a ocupar
+    jug = jugador ejecutando
+
+    return [esta cerrado? , cuantas casillas?]
+    */
+    var pos = JSON.parse(`[${fichas[ficha].dom.parentElement.dataset["posicion"]}]`);
+    var x = pos[0];
+    var y = pos[1];
+    var side = fichas[ficha].side;
+
+    fichas[ficha].ocup[ocup] = jug;
+
+    for(let i = 0; i < fichas[ficha].ori; i++){
+        let aux = side.pop();
+        side.unshift(aux);
+    }
+
+    var iter = {
+        0: [x  , y-1],
+        1: [x+1, y  ],
+        2: [x  , y+1],
+        3: [x-1, y  ]
+    };
+
+    var reg = RegExp(ocup);
+    var num = null;
+    var lat = -1;
+    for(s in diccionario){
+        if(diccionario[s] == ocup){
+            lat = parseInt(s);
+        }else{
+            if(reg.test(diccionario[s])){
+                lat = parseInt(s);
+                num = parseInt(ocup[ocup.length - 1])
+            }
+        }
+    }
+
+    if(lat == -1){return [true, 1];}
+
+    var ind;
+    var j = 0;
+    var closed = true;
+    var count = 0;
+    for(i in side){
+        if(side[i] != lat){continue;} // el lado coincide
+
+        j++; // esto es para que se encuentre con el numero correcto
+        if(num != null){if(num != j){continue;}}
+
+        adjunto = document.querySelector(`div.casilla[data-posicion = "${iter[i]}" ]`);
+        if(adjunto == null){continue;} // existe la casilla? 
+        if(adjunto.innerHTML == ""){closed = false; continue;} // esta llena?
+
+        ind = adjunto.children[0].dataset["index"];
+
+        // solo hay un objetivo o hay varios?
+        if(any(fichas[ind].oc, (el) => {return el == ocup;})){ // solo uno
+
+            if(fichas[ind].ocup[ocup] != null){ // esta lleno?
+                if(fichas[ind].ocup[ocup] == jug){
+                    continue; // soy yo
+                }else{ //no soy yo
+                    console.log(`fusion de terrenos [${pos}] a [${iter[i]}]`);
+                }
+            }else{ // esta vacio
+                fichas[ind].ocup[ocup] = jug;
+                ret = domStep(ind, ocup, jug);
+                closed = closed && ret[0];
+                count += ret[1];
+            }
+        }else{ // hay varios
+            if(any(fichas[ind].oc, (el) => {return reg.test(el);})){
+
+                /* Falta Rellenar */
+
+            }else{ // espero no ejecutar esto (no sabria porque)
+                console.log("no se ha encontrado el espacio asignado")
+                console.log(ind, ocup)
+            }
+        }
+    }
+    return [closed , count + 1];
 }
 
 // Eventos ============================================================================
@@ -541,6 +663,19 @@ const overFicha = (event, cas) => {
         event.preventDefault();
     }
     /* falta por acabar */
+}
+
+const monAct = (id = id_ficha) => {
+    if(document.querySelector("#caja").children[0].innerHTML==""){return;}
+    m_ficha = id;
+    document.querySelector("*").style.cursor = "crosshair";
+    document.querySelector("#caja").children[0].style.border = "2px dotted black";
+}
+
+const monDes = () => {
+    document.querySelector("*").style.cursor = "default";
+    document.querySelector("#caja").children[0].style.border = "none";
+    m_ficha = -1;
 }
 
 // Setup  ===============================================================================
