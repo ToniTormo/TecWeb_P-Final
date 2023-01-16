@@ -79,7 +79,7 @@ const base = [
     "num": 4
     },
     {"img": "../media/v1/muro_3.png",
-    "side": [2,0,0,0],
+    "side": [2,1,1,1],
     "ocup": ["city", "path", "field1", "field2", "field3"],
     "esc": false,
     "num": 3

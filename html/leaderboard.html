@@ -1,13 +1,50 @@
 <html>
 <head>
-    <title>leaderboard</title>
+    <title>Leaderboard</title>
     <link href="../css/leaderboard.css" rel="stylesheet">
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
+    <style>
+    nav{
+        background-color: burlywood;
+        border: 3px solid brown;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 95%;
+        height: 50px;
+        padding: 2%;
+        margin-top: 3%;
+        margin-bottom: 5%;
+        border-radius: 10%;
+        margin-right: 50px;
+        margin-left: 50px;
+    }
+
+    nav>button{
+        background-color: lightsteelblue;
+        border: 3px outset blue;
+        margin: 2.5px;
+        width: 95%;
+        height: 95%;
+        padding: 2%;
+        font-size: larger;
+        font-weight: bold;
+    }
+    </style>
 </head>
 <body class="fondo">
     <h1>Leaderboard</h1>
     
+    <nav class="targeta">
+        <button class="etiqueta" onclick="window.location.href='../Inicio.html';">Men&uacute;</button>
+        <button class="etiqueta" onclick="window.location.href='../html/start.html';">Start</button>
+        <button class="etiqueta" onclick="window.location.href='../html/reglas.html';">Reglas</button>
+        <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
+    </nav>
+
     <form>
         <label>
             <input type="text" id="buscador" class="etiqueta">
@@ -120,17 +157,17 @@
     /*ordenar datos*/
     function ordenarobjetos(lista){
         /*pasar de objeto a lista*/
-        var listas_nombre=[]
-        var listas_puntos=[]
+        var listas_nombre=[];
+        var listas_puntos=[];
         for (var j in lista){
-            listas_nombre.push(j)
-            listas_puntos.push(lista[j])
+            listas_nombre.push(j);
+            listas_puntos.push(lista[j]);
         }
 
         for(var i=0;i<listas_puntos.length-1;i++){
             for(var j=0;j<(listas_puntos.length-1-i);j++){
                 if(listas_puntos[j]<listas_puntos[j+1]){
-                    
+
                     /*cambiamos el numero de posicion*/
                     var temp1 = listas_puntos[j];
                     listas_puntos[j] = listas_puntos[j + 1];
@@ -142,7 +179,7 @@
                     listas_nombre[j+1] = temp2;
                 }
             }
-        }  
+        }
         return [listas_nombre,listas_puntos];
     };
 
@@ -196,7 +233,7 @@
         default_name.value = "" ; 
     };
 
-    /*funcion que se encarga de buscar en la lista el nombre de alguien y mostralo en pantalla*/
+    /*función que se encarga de buscar en la lista el nombre de alguien y mostrarlo en pantalla*/
     function buscar(){
         var search =document.getElementById("buscador").value ;/*no seleciona el valor que metes*/
         
@@ -216,7 +253,34 @@
 
             /*selecionamos los valores de search*/
             var personal;
-            var numeracion = [0,1,2,3,4,5,6,7,8,9]
+            var numeracion = [0,1,2,3,4,5,6,7,8,9];
+            var copyn=n.splice();
+            var copyp=p.splice();
+
+
+            var searchNombre=[];
+            var searchPuntos=[];
+            var searchPosicion=[];
+            
+            /*for mira la lista copiada y genera una nueva con colo los elementos que estas buscando*/
+            for(personal in numeracion){
+                var posicion_temp=copyn.indexOf(search)+1;
+                var name_temp=search;
+                var puntuacion_temp=copyp[copyn.indexOf(search)];
+
+                searchNombre.appendChild(posicion_temp)
+                searchPuntos.appendChild(name_temp)
+                searchPosicion.appendChild(puntuacion_temp)
+
+                copyn.splice(posicion_temp-1,1)
+                copyp.splice(posicion_temp-1,1)
+                
+                console.log(searchNombre)
+                console.log(searchPuntos)
+                console.log(searchPosicion)
+            }
+
+            
             for (personal in numeracion){
 
                 //Necesito que hagas que estas 3 lineas tambien se actualicen
@@ -224,10 +288,10 @@
                 var name_temp=search;
                 var puntuacion_temp=p[n.indexOf(search)];
 
-                
-                console.log(posicion_temp)
-                console.log(name_temp)
-                console.log(puntuacion_temp)
+                /*
+                console.log(posicion_temp )
+                console.log(name_temp )
+                console.log(puntuacion_temp)*/
                 document.getElementById(`${personal}`).innerHTML=posicion_temp;
                 document.getElementById("name" + `${personal}`).innerHTML=name_temp;
                 document.getElementById("puntos" + `${personal}`).innerHTML=puntuacion_temp;
