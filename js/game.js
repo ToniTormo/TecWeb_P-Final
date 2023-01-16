@@ -317,7 +317,7 @@ var m_ficha = -1;
 
 // Variables de partida  =====================================================================
 
-var leaderboard = {};
+var leaderboard = Object();
 
 var t_tablero = 10;
 
@@ -364,8 +364,11 @@ const n_turno = () => {
             // Fin de partida
 
             // registro
-            try{leaderboard = JSON.parse(read("leaderboard"));}
-            catch{}
+            try{let h = JSON.parse(read("leaderboard"));
+                if(h != null){
+                    leaderboard = h;
+                }
+            }catch{}
 
             // puntuaciones
             jugadores.forEach(jug => {
@@ -388,7 +391,8 @@ const n_turno = () => {
                 bt.setAttribute("disabled","");
             })
 
-            window.location.replace("./leaderboard.html");
+            window.top.location.replace("./leaderboard.html");
+            
             return;
         }
     }
@@ -600,7 +604,7 @@ const pausa = () => {
 const salir = () => {
     pause = true;
     if(confirm("¿Seguro que quiere salir al menú?\nLos datos se borrarán.")){
-        window.location.replace("../inicio.html")
+        window.top.location.replace("../inicio.html");
     }
     pause = false;
 }
