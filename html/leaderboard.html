@@ -132,7 +132,7 @@
     
     var datos ={
         lucia:10,
-        abel:7,
+        abel:70,
         jacobo:3,
         hola:20,
         pepe:34,
@@ -141,7 +141,7 @@
         dani:5,
         oldone:12,
         newname:123,
-        abel:23,
+        abel:230,
     };
     var datos2 ={
         lucia:10,
@@ -157,11 +157,14 @@
     /*ordenar datos*/
     function ordenarobjetos(lista){
         /*pasar de objeto a lista*/
+        console.log(lista)
         var listas_nombre=[];
         var listas_puntos=[];
         for (var j in lista){
             listas_nombre.push(j);
             listas_puntos.push(lista[j]);
+            console.log(listas_nombre)
+            console.log(listas_puntos)
         }
 
         for(var i=0;i<listas_puntos.length-1;i++){
@@ -177,9 +180,14 @@
                     var temp2 = listas_nombre[j];
                     listas_nombre[j] = listas_nombre[j + 1];
                     listas_nombre[j+1] = temp2;
+                    /*
+                    console.log(listas_nombre)
+                    console.log(listas_puntos)*/
                 }
             }
         }
+        console.log(listas_nombre)
+        console.log(listas_puntos)
         return [listas_nombre,listas_puntos];
     };
 
@@ -197,36 +205,45 @@
             document.getElementById(id_name).innerHTML="...";
             document.getElementById(id_puntos).innerHTML="...";
         }
-
+        
         for (i in lista_nombres){
-            
             let names=lista_nombres[i];
             let puntos=lista_puntos[i];
             let id_name="name"+i;
             let id_puntos="puntos"+i;
             
-
-            if (i==0){
-                document.getElementById(i).removeChild(document.getElementById(i).firstChild)
-                var img1 =document.createElement("img");
-                img1.setAttribute("src","..//media/Primero.png");
-                document.getElementById(i).appendChild(img1);
+            switch(true){
+                case (i==0):
+                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                    var img1 =document.createElement("img");
+                    img1.setAttribute("src","..//media/Primero.png");
+                    document.getElementById(i).appendChild(img1);
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
+                    break;
+                case (i==1):
+                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                    var img2 =document.createElement("img");
+                    img2.setAttribute("src","..//media/Segundo.png");
+                    document.getElementById(i).appendChild(img2);
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
+                    break;
+                case (i==2):
+                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                    var img3 =document.createElement("img");
+                    img3.setAttribute("src","..//media/Tercero.png");
+                    document.getElementById(i).appendChild(img3);
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
+                    break;
+                default:
+                    console.log(document.getElementById(i).innerHTML=Number(i)+1)
+                    console.log(document.getElementById(i))
+                    document.getElementById(i).innerHTML=Number(i)+1;
+                    document.getElementById(id_name).innerHTML=names;
+                    document.getElementById(id_puntos).innerHTML=puntos;
             }
-            if (i==1){
-                var img2 =document.createElement("img");
-                img2.setAttribute("src","..//media/Segundo.png");
-                document.getElementById(i).appendChild(img2);
-                }
-            if (i=2){
-                var img3 =document.createElement("img");
-                img3.setAttribute("src","..//media/Tercero.png");
-                document.getElementById(i).appendChild(img3);
-                }
-            
-            
-            document.getElementById(i).innerHTML=Number(i)+1;
-            document.getElementById(id_name).innerHTML=names;
-            document.getElementById(id_puntos).innerHTML=puntos;
         }
         
         var default_name  = document.getElementById("buscador");
@@ -246,17 +263,15 @@
                 let n3="puntos"+i;
 
                 /*selecionamos casillas*/
-                let p1=document.getElementById(n1).innerHTML=" ";
-                let p2=document.getElementById(n2).innerHTML=" ";
-                let p3=document.getElementById(n3).innerHTML=" ";
+                let p1=document.getElementById(n1).innerHTML="...";
+                let p2=document.getElementById(n2).innerHTML="...";
+                let p3=document.getElementById(n3).innerHTML="...";
             }
 
             /*selecionamos los valores de search*/
             var personal;
             var numeracion = [0,1,2,3,4,5,6,7,8,9];
-            
-            /*for mira la lista copiada y genera una nueva con colo los elementos que estas buscando*/
-            
+
             for (personal in numeracion){
 
                 //Necesito que hagas que estas 3 lineas tambien se actualicen
@@ -264,21 +279,24 @@
                 var name_temp=search;
                 var puntuacion_temp=p[n.indexOf(search)];
 
-                /*
+                
                 console.log(posicion_temp )
                 console.log(name_temp )
-                console.log(puntuacion_temp)*/
+                console.log(puntuacion_temp)
+
                 document.getElementById(`${personal}`).innerHTML=posicion_temp;
                 document.getElementById("name" + `${personal}`).innerHTML=name_temp;
                 document.getElementById("puntos" + `${personal}`).innerHTML=puntuacion_temp;
 
                 /*rellenar el resto de tabla*/
+                
                 for (let i=1;i<10;i++){
                     let n1=i;
                     let n2="name"+i;
                     let n3="puntos"+i;
 
                     /*selecionamos casillas*/
+                    
                     let p1=document.getElementById(n1).innerHTML="...";
                     let p2=document.getElementById(n2).innerHTML="... ";
                     let p3=document.getElementById(n3).innerHTML="... ";
