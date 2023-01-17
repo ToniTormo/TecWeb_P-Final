@@ -42,3 +42,14 @@ button{
     border-color: burlywood;
     border-style:ridge;
 }
+h1{
+    text-align: center; 
+    color: #efb810;
+    text-shadow: 2px 2px 2px #bf930d;
+}
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}

@@ -1,16 +1,16 @@
 /*CSS general*/
-header {
-    text-align: center;
+h1{
+    text-align: center; 
+    color: #efb810;
+    text-shadow: 2px 2px 2px #bf930d;
 }
-#cabecera{
+header{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 150px;
+    justify-content: space-around;
+    align-items: center;
 }
-#cabecera>img{
-    object-fit: contain;
-}
+
 article > h3 {
     text-decoration: underline;
 }
@@ -42,7 +42,7 @@ aside  a{
     height: 100%;
     object-fit: cover;
 }
-img {
+img:not(#im_head) {
     width: 100px;
     height: 100px;
 }
