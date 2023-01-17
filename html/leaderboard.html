@@ -1,307 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
-    <link href="../css/leaderboard.css" rel="stylesheet">
-    <script src="../js/datamanager.js"></script>
-    <link id="theme" href="../css/deftheme.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
-</head>
-<body class="fondo">
-    <header>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leaderboard</title>
+        <link href="../css/leaderboard.css" rel="stylesheet">
+        <script src="../js/datamanager.js"></script>
+        <link id="theme" href="../css/deftheme.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
+    </head>
+    <body class="fondo">
+        <header>
+            <img src="../media/logo_carcassone.png" width="50%" height="auto" >
+        </header>
+        <h1>Leaderboard</h1>
         
-        <img src="../media/logo_carcassone.png" width="50%" height="auto" >
-        
-    </header>
-    <h1>Leaderboard</h1>
-    
-    <nav class="targeta">
-        <button class="etiqueta" onclick="window.location.href='../Inicio.html';">Men&uacute;</button>
-        <button class="etiqueta" onclick="window.location.href='../html/start.html';">Start</button>
-        <button class="etiqueta" onclick="window.location.href='../html/reglas.html';">Reglas</button>
-        <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
-    </nav>
+        <nav class="targeta">
+            <button class="etiqueta" onclick="window.location.href='../Inicio.html';">Men&uacute;</button>
+            <button class="etiqueta" onclick="window.location.href='../html/start.html';">Start</button>
+            <button class="etiqueta" onclick="window.location.href='../html/reglas.html';">Reglas</button>
+            <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
+        </nav>
 
-    <form style="margin-left: 2px;">
-        <label>
-            <input type="text" id="buscador" class="etiqueta">
-        </label>
-        <button  class="targeta" type="button" onclick="buscar()">Buscar</button>
-        <button class="targeta" type="button" onclick="insertar(n,p)">Restablecer leaderboard</button>
-        
-    </form>
+        <form style="margin-left: 2px;">
+            <label>
+                <input type="text" id="buscador" class="etiqueta">
+            </label>
+            <button  class="targeta" type="button" onclick="buscar()">Buscar</button>
+            <button class="targeta" type="button" onclick="insertar(n,p)">Restablecer leaderboard</button>
+        </form>
 
-
-    <table id="tabla" class="etiqueta">
-        <thead>
-            <th>Posición:</th>
-            <th>Nombres:</th>
-            <th>Puntos:</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td id="0"> </td>
-                <td id="name0"></td>
-                <td id="puntos0"></td>
-            </tr>
-            <tr>
-                <td id="1"></td>
-                <td id="name1"></td>
-                <td id="puntos1"></td>
-            </tr>
-            <tr>
-                <td id="2"></td>
-                <td id="name2"></td>
-                <td id="puntos2"></td>
-            </tr>
-            <tr>
-                <td id="3"></td>
-                <td id="name3"></td>
-                <td id="puntos3"></td>
-            </tr>
-            <tr>
-                <td id="4"></td>
-                <td id="name4"></td>
-                <td id="puntos4"></td>
-            </tr>
-            <tr>
-                <td id="5"></td>
-                <td id="name5"></td>
-                <td id="puntos5"></td>
-            </tr>
-            <tr>
-                <td id="6"></td>
-                <td id="name6"></td>
-                <td id="puntos6"></td>
-            </tr>
-            <tr>
-                <td id="7"></td>
-                <td id="name7"></td>
-                <td id="puntos7"></td>
-            </tr>
-            <tr>
-                <td id="8"></td>
-                <td id="name8"> </td>
-                <td id="puntos8"> </td>
-            </tr>
-            <tr>
-                <td id="9"></td>
-                <td id="name9"></td>
-                <td id="puntos9"></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <footer>
-        <div id="links">
-            <img src="../media/logo_carcassone.png">
-            <div id="navegacion">
-                <h3><b>&Iacute;NDICE</b></h3>
-                <a href='../Inicio.html'>Men&uacute;</a><br>
-                <a href='../html/start.html'>Start</a><br>
-                <a href='../html/reglas.html'>Reglas</a><br>
-                <a href='../html/leaderboard.html'>Leaderboard</a><br>
-                <a href='../html/opciones.html'>Opciones</a>
+        <table id="tabla" class="etiqueta">
+            <thead>
+                <th>Posición:</th>
+                <th>Nombres:</th>
+                <th>Puntos:</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="0"> </td>
+                    <td id="name0"></td>
+                    <td id="puntos0"></td>
+                </tr>
+                <tr>
+                    <td id="1"></td>
+                    <td id="name1"></td>
+                    <td id="puntos1"></td>
+                </tr>
+                <tr>
+                    <td id="2"></td>
+                    <td id="name2"></td>
+                    <td id="puntos2"></td>
+                </tr>
+                <tr>
+                    <td id="3"></td>
+                    <td id="name3"></td>
+                    <td id="puntos3"></td>
+                </tr>
+                <tr>
+                    <td id="4"></td>
+                    <td id="name4"></td>
+                    <td id="puntos4"></td>
+                </tr>
+                <tr>
+                    <td id="5"></td>
+                    <td id="name5"></td>
+                    <td id="puntos5"></td>
+                </tr>
+                <tr>
+                    <td id="6"></td>
+                    <td id="name6"></td>
+                    <td id="puntos6"></td>
+                </tr>
+                <tr>
+                    <td id="7"></td>
+                    <td id="name7"></td>
+                    <td id="puntos7"></td>
+                </tr>
+                <tr>
+                    <td id="8"></td>
+                    <td id="name8"> </td>
+                    <td id="puntos8"> </td>
+                </tr>
+                <tr>
+                    <td id="9"></td>
+                    <td id="name9"></td>
+                    <td id="puntos9"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <footer>
+            <div id="links">
+                <img src="../media/logo_carcassone.png">
+                <div id="navegacion">
+                    <h3><b>&Iacute;NDICE</b></h3>
+                    <a href='../Inicio.html'>Men&uacute;</a><br>
+                    <a href='../html/start.html'>Start</a><br>
+                    <a href='../html/reglas.html'>Reglas</a><br>
+                    <a href='../html/leaderboard.html'>Leaderboard</a><br>
+                    <a href='../html/opciones.html'>Opciones</a>
+                </div>
+                <div id="contacto">
+                    <h3><b>CONTACTO</b></h3>
+                    <a href="https://devir.es/quien-somos">Devir</a><br>
+                    <a href="https://www.google.es/?pli=1%22%3EEnviar correo electr&oacutenico">Contacte con nosotros</a><br>
+                </div>
             </div>
-            <div id="contacto">
-                <h3><b>CONTACTO</b></h3>
-                <a href="https://devir.es/quien-somos">Devir</a><br>
-                <a href="https://www.google.es/?pli=1%22%3EEnviar correo electr&oacutenico">Contacte con nosotros</a><br>
+            <div id="copyright">
+                <p>© GTDM_ Tecnolog&iacute;as web 2023. Todos los derechos reservados</p>
             </div>
-        </div>
-        <div id="copyright">
-            <p>© GTDM_ Tecnolog&iacute;as web 2023. Todos los derechos reservados</p>
-        </div>
-    </footer>
+        </footer>
+    </body>
+    <script>
+        datos = JSON.parse(read("leaderboard"));
+        console.log(datos)
+        /*
+        n_fichas = parseInt(datos["duracion"]);
+        d_turno = parseInt(datos["turno"]);
+        t_tablero = parseInt(datos["tablero"]);
+        extensiones = datos["extension"];
+        listaJugadores = datos["jugadores"];
+        */
+        
+        var [n,p]= ordenarobjetos(datos);
+        insertar(n,p);
 
-</body>
-</html>
-<script>
-    /* funcion ordenar los datos*/
-    /* la funcion requiere dos listas, una con los nombres y una con su puntuacion*/
-    /* ej [lucia,abel,jacobo] [10,15,1]*/
-    /* esta funcion deberia devolver las listas de esta manera */
-    /*[abel,lucia,jacobo] [15,10,1]*/
+        //la funcion requiere dos listas, una con los nombres y una con su puntuacion
+        //ordenar datos
+        function ordenarobjetos(lista){
+            /*pasar de objeto a lista*/
+            var listas_nombre=[];
+            var listas_puntos=[];
+            for (var j in lista){
+                listas_nombre.push(j);
+                listas_puntos.push(lista[j]);
+            }
 
-    /*var x=["lucia","abel","jacobo","pablo","carlos","marisol","el pibe motosierra","toni","69420","dani"]
-    var y=[10,7,8,2,3,4,100,0,69,420]
-    */
-    var name=["javi","n2","n3","n4","n5","n6","n7","n8","n9"];
-    var points=[10,9,8,7,6,5,4,3,2,1];
-    
-    var datos ={
-        lucia:10,
-        abel:70,
-        jacobo:3,
-        hola:20,
-        pepe:34,
-        pepo:20,
-        javi:0,
-        dani:5,
-        oldone:12,
-        newname:123,
-        abel:230,
-    };
-    var datos2 ={
-        lucia:10,
-        abel:7,
-        jacobo:3,
-        hola:20,
-    };
-    
-    var [n,p]= ordenarobjetos(datos);
-    insertar(n,p);
-    
+            for(var i=0;i<listas_puntos.length-1;i++){
+                for(var j=0;j<(listas_puntos.length-1-i);j++){
+                    if(listas_puntos[j]<listas_puntos[j+1]){
 
-    /*ordenar datos*/
-    function ordenarobjetos(lista){
-        /*pasar de objeto a lista*/
-        var listas_nombre=[];
-        var listas_puntos=[];
-        for (var j in lista){
-            listas_nombre.push(j);
-            listas_puntos.push(lista[j]);
-        }
-
-        for(var i=0;i<listas_puntos.length-1;i++){
-            for(var j=0;j<(listas_puntos.length-1-i);j++){
-                if(listas_puntos[j]<listas_puntos[j+1]){
-
-                    /*cambiamos el numero de posicion*/
-                    var temp1 = listas_puntos[j];
-                    listas_puntos[j] = listas_puntos[j + 1];
-                    listas_puntos[j+1] = temp1;
-                    
-                    /*cambiamos el nombre de posicion*/
-                    var temp2 = listas_nombre[j];
-                    listas_nombre[j] = listas_nombre[j + 1];
-                    listas_nombre[j+1] = temp2;
+                        /*cambiamos el numero de posicion*/
+                        var temp1 = listas_puntos[j];
+                        listas_puntos[j] = listas_puntos[j + 1];
+                        listas_puntos[j+1] = temp1;
+                        
+                        /*cambiamos el nombre de posicion*/
+                        var temp2 = listas_nombre[j];
+                        listas_nombre[j] = listas_nombre[j + 1];
+                        listas_nombre[j+1] = temp2;
+                    }
                 }
             }
-        }
-        return [listas_nombre,listas_puntos];
-    };
+            return [listas_nombre,listas_puntos];
+        };
 
-
-    /*funcion insertar*/
-    /*inserta el contenido de la lista en la tabla*/
-    function insertar(lista_nombres,lista_puntos){
-        var i;
-        var vacio;
-        for (vacio in lista_nombres){
-            /* llenamos toda la tabla con puntos*/
-            let id_name="name"+vacio;
-            let id_puntos="puntos"+vacio;
-            document.getElementById(vacio).innerHTML="...";
-            document.getElementById(id_name).innerHTML="...";
-            document.getElementById(id_puntos).innerHTML="...";
-        }
-        
-        for (i in lista_nombres){
-            let names=lista_nombres[i];
-            let puntos=lista_puntos[i];
-            let id_name="name"+i;
-            let id_puntos="puntos"+i;
-
-            let posicion_elem = document.getElementById(i)
-            let nombre_elem = document.getElementById("name" + i)
-            let puntos_elem = document.getElementById("puntos" + i)
-
-            posicion_elem.hidden = false;
-            nombre_elem.hidden = false;
-            puntos_elem.hidden = false;
+        /*funcion insertar*/
+        /*inserta el contenido de la lista en la tabla*/
+        function insertar(lista_nombres,lista_puntos){
+            var i;
+            var vacio;
+            for (vacio in lista_nombres){
+                /* llenamos toda la tabla con puntos*/
+                let id_name="name"+vacio;
+                let id_puntos="puntos"+vacio;
+                document.getElementById(vacio).innerHTML="...";
+                document.getElementById(id_name).innerHTML="...";
+                document.getElementById(id_puntos).innerHTML="...";
+            }
             
-            switch(true){
-                case (i==0):
-                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
-                    var img1 =document.createElement("img");
-                    img1.setAttribute("src","..//media/Primero.png");
-                    document.getElementById(i).appendChild(img1);
-                    document.getElementById(id_name).innerHTML=names;
-                    document.getElementById(id_puntos).innerHTML=puntos;
-                    break;
-                case (i==1):
-                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
-                    var img2 =document.createElement("img");
-                    img2.setAttribute("src","..//media/Segundo.png");
-                    document.getElementById(i).appendChild(img2);
-                    document.getElementById(id_name).innerHTML=names;
-                    document.getElementById(id_puntos).innerHTML=puntos;
-                    break;
-                case (i==2):
-                    document.getElementById(i).removeChild(document.getElementById(i).firstChild);
-                    var img3 =document.createElement("img");
-                    img3.setAttribute("src","..//media/Tercero.png");
-                    document.getElementById(i).appendChild(img3);
-                    document.getElementById(id_name).innerHTML=names;
-                    document.getElementById(id_puntos).innerHTML=puntos;
-                    break;
-                default:
-                    document.getElementById(i).innerHTML=Number(i)+1;
-                    document.getElementById(id_name).innerHTML=names;
-                    document.getElementById(id_puntos).innerHTML=puntos;
-            }
-        }
-        
-        var default_name  = document.getElementById("buscador");
-        default_name.value = "" ; 
-    };
+            for (i in lista_nombres){
+                let names=lista_nombres[i];
+                let puntos=lista_puntos[i];
+                let id_name="name"+i;
+                let id_puntos="puntos"+i;
 
-    /*función que se encarga de buscar en la lista el nombre de alguien y mostrarlo en pantalla*/
-    function buscar(){
-        var search =document.getElementById("buscador").value ;/* seleciona el valor que metes*/
-        
-        var variable=n.includes(search);
-        if (variable){
-            for (let i=0;i<10;i++){
-                var posicion = document.getElementById(i)
-                var nombre = document.getElementById("name" + i)
-                var puntos = document.getElementById("puntos" + i)
+                let posicion_elem = document.getElementById(i)
+                let nombre_elem = document.getElementById("name" + i)
+                let puntos_elem = document.getElementById("puntos" + i)
+
+                posicion_elem.hidden = false;
+                nombre_elem.hidden = false;
+                puntos_elem.hidden = false;
                 
-                if (i==1){
-                    var posicion_temp=n.indexOf(search)+1;
-                    var name_temp=search;
-                    var puntuacion_temp=p[n.indexOf(search)];
-
-                    posicion.innerHTML=posicion_temp;
-                    nombre.innerHTML=name_temp;
-                    puntos.innerHTML=puntuacion_temp;
-                }
-                else{
-                    posicion.hidden = true;
-                    nombre.hidden = true;
-                    puntos.hidden = true;
+                switch(true){
+                    case (i==0):
+                        document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                        var img1 =document.createElement("img");
+                        img1.setAttribute("src","..//media/Primero.png");
+                        document.getElementById(i).appendChild(img1);
+                        document.getElementById(id_name).innerHTML=names;
+                        document.getElementById(id_puntos).innerHTML=puntos;
+                        break;
+                    case (i==1):
+                        document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                        var img2 =document.createElement("img");
+                        img2.setAttribute("src","..//media/Segundo.png");
+                        document.getElementById(i).appendChild(img2);
+                        document.getElementById(id_name).innerHTML=names;
+                        document.getElementById(id_puntos).innerHTML=puntos;
+                        break;
+                    case (i==2):
+                        document.getElementById(i).removeChild(document.getElementById(i).firstChild);
+                        var img3 =document.createElement("img");
+                        img3.setAttribute("src","..//media/Tercero.png");
+                        document.getElementById(i).appendChild(img3);
+                        document.getElementById(id_name).innerHTML=names;
+                        document.getElementById(id_puntos).innerHTML=puntos;
+                        break;
+                    default:
+                        document.getElementById(i).innerHTML=Number(i)+1;
+                        document.getElementById(id_name).innerHTML=names;
+                        document.getElementById(id_puntos).innerHTML=puntos;
                 }
             }
+            
+            var default_name  = document.getElementById("buscador");
+            default_name.value = "" ; 
+        };
 
-        }
-        else{
-            alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.");
-        }
-    };
-    
-    
-    
+        /*función que se encarga de buscar en la lista el nombre de alguien y mostrarlo en pantalla*/
+        function buscar(){
+            var search =document.getElementById("buscador").value ;/* seleciona el valor que metes*/
+            
+            var variable=n.includes(search);
+            if (variable){
+                for (let i=0;i<10;i++){
+                    var posicion = document.getElementById(i)
+                    var nombre = document.getElementById("name" + i)
+                    var puntos = document.getElementById("puntos" + i)
+                    
+                    if (i==1){
+                        var posicion_temp=n.indexOf(search)+1;
+                        var name_temp=search;
+                        var puntuacion_temp=p[n.indexOf(search)];
 
-</script>
-<script defer>
-    var theme = document.getElementById("theme");
+                        posicion.innerHTML=posicion_temp;
+                        nombre.innerHTML=name_temp;
+                        puntos.innerHTML=puntuacion_temp;
+                    }
+                    else{
+                        posicion.hidden = true;
+                        nombre.hidden = true;
+                        puntos.hidden = true;
+                    }
+                }
+            }
+            else{
+                alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.");
+            }
+        };
 
-    const refresh = () => {
-        tema = read("tema");
-        if(tema == "dark"){
-            theme.setAttribute('href', '../css/darktheme.css');
-        }
-        else{
-            theme.setAttribute('href', '../css/deftheme.css');
-        }
-        document.body.style.fontFamily = read("font_f");
-        document.body.style.fontSize = read("font_s");
-    }
+    </script>
+    <script defer>
+        var theme = document.getElementById("theme");
 
-    var tema;
-    window.onload = refresh
-</script>
+        const refresh = () => {
+            tema = read("tema");
+            if(tema == "dark"){
+                theme.setAttribute('href', '../css/darktheme.css');
+            }
+            else{
+                theme.setAttribute('href', '../css/deftheme.css');
+            }
+            document.body.style.fontFamily = read("font_f");
+            document.body.style.fontSize = read("font_s");
+        }
+
+        var tema;
+        window.onload = refresh
+    </script>
+</html>
