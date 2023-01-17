@@ -314,7 +314,7 @@ var m_ficha = -1;
 
 var leaderboard = Object();
 
-var t_tablero = 10;
+var t_tablero = 9;
 
 var d_turno = 0;
 
@@ -322,11 +322,7 @@ var n_fichas = 75;
 
 var extensiones = "";
 
-var listaJugadores = [
-    ["Abel", "#00ff00"],
-    ["Toni", "#0000ff"],
-    ["Lucia","#ff0000"]
-];
+var listaJugadores = [];
 
 var datos;
 const guardarDatos = () => {
