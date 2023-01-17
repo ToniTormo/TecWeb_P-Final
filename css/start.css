@@ -37,6 +37,7 @@ fieldset{
     margin-bottom: 5px;
 }
 button{
+    font-family: inherit;
     color: black;
     background-color: lightgray;
     border: 4px;
