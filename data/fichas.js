@@ -153,7 +153,16 @@ const base = [
 ];
 
 const ext = {
-    "rio": [ {/* Aqui van las funciones extras */},
+    "rio": [ 
+        {"init": (x) => {
+            ext["rio"].forEach((el, i) => {
+                if(i > 0){
+                    x.push(el);
+                }
+            });
+            return x;
+        }
+    },
     {"img": "../media/v1/caretera_c_rio.png",
     "side": [3,3,1,1],
     "ocup": ["path", "field1", "field2", "field3"],

@@ -146,11 +146,7 @@ class Ficha {
         this.dom.parentElement.dataset["i"] = this.i;
 
         tablero.push(this.i);
-
-        /* Falta acabar */
     }
-
-    /* Se puede completar */
 }
 
 class Jugador {
@@ -204,7 +200,6 @@ class Jugador {
         
         this.dom.children[1].innerText = this.puntos;
     }
-    /* Falta acabar */
 }
 
 // Funciones auxiliares  ======================================================================
@@ -341,7 +336,7 @@ const guardarDatos = () => {
         n_fichas = parseInt(datos["duracion"]);
         d_turno = parseInt(datos["turno"]);
         t_tablero = parseInt(datos["tablero"]);
-        extensiones = datos["extensiones"];
+        extensiones = datos["extension"];
         listaJugadores = datos["jugadores"];
     }catch(err){
         console.log(err);
@@ -497,7 +492,13 @@ const entorno = (ficha) => {
         if(adjunto == null){continue;} // existe la casilla? 
         if(adjunto.innerHTML == ""){closed = false; continue;} // esta llena?
 
-        /* Falta Rellenar */
+        ind = adjunto.children[0].dataset["index"];
+
+        for(j in fichas[ind].ocup){
+            if(fichas[ind].ocup[j] != null){
+                ocupacion(ind, j, fichas[ind].ocup[j]);
+            }
+        }
     }
 }
 
@@ -516,11 +517,6 @@ const ocupacion = (ficha, ocup, jug) => {
 
     fichas[ficha].ocup[ocup] = jug;
 
-    for(let i = 0; i < fichas[ficha].ori; i++){
-        let aux = side.pop();
-        side.unshift(aux);
-    }
-
     var iter = {
         0: [x  , y-1],
         1: [x+1, y  ],
@@ -537,7 +533,7 @@ const ocupacion = (ficha, ocup, jug) => {
         }else{
             if(reg.test(diccionario[s])){
                 lat = parseInt(s);
-                num = parseInt(ocup[ocup.length - 1])
+                num = parseInt(ocup[ocup.length - 1]);
             }
         }
     }
@@ -548,8 +544,8 @@ const ocupacion = (ficha, ocup, jug) => {
     var j = 0;
     var closed = true;
     var count = 0;
-    for(i in side){
-        if(side[i] != lat){continue;} // el lado coincide
+    for(i in iter){
+        if(side[((4 - i) % 4)] != lat){continue;} // el lado coincide
 
         j++; // esto es para que se encuentre con el numero correcto
         if(num != null){if(num != j){continue;}}
@@ -565,13 +561,12 @@ const ocupacion = (ficha, ocup, jug) => {
         }
 
         // solo hay un objetivo o hay varios?
-        if(any(fichas[ind].oc, (el) => {return el == ocup;})){ // solo uno
-
+        if(any(fichas[ind].oc, (el) => {return el == ocup && el.length == ocup.length;})){ // solo uno
             if(fichas[ind].ocup[ocup] != null){ // esta lleno?
                 if(fichas[ind].ocup[ocup] == jug){
                     continue; // soy yo
                 }else{ //no soy yo
-                    console.log(`fusion de terrenos [${pos}] a [${iter[i]}]`);
+                    // console.log(`fusion de terrenos [${pos}] a [${iter[i]}]`);
                 }
             }else{ // esta vacio
                 fichas[ind].ocup[ocup] = jug;
@@ -580,13 +575,34 @@ const ocupacion = (ficha, ocup, jug) => {
                 count += ret[1];
             }
         }else{ // hay varios
-            if(any(fichas[ind].oc, (el) => {return reg.test(el);})){
+            var n = 0;
+            if(any(fichas[ind].oc, (el) => {
+                if(reg.test(el)){
+                    n++;
+                    return true;
+                };
+            })){
 
-                /* Falta Rellenar */
+                ad_sid = fichas[ind].side;
+
+                let k = 0;
+                for(z in ad_sid){
+                    z = (4 - z) % 4
+                    if(ad_sid[z] != 2){
+                        k++;
+                        if(z == (2 + i) % 4){
+                            fichas[ind].ocup[ocup + (((k-1) % n) + 1)] = jug;
+                            ret = ocupacion(ind, ocup, jug);
+                            closed = closed && ret[0];
+                            count += ret[1];
+                            break;
+                        }
+                    }
+                }
 
             }else{ // espero no ejecutar esto (no sabria porque)
-                console.log("no se ha encontrado el espacio asignado")
-                console.log(ind, ocup)
+                // console.log("no se ha encontrado el espacio asignado")
+                // console.log(ind, ocup)
             }
         }
     }
@@ -628,8 +644,8 @@ const ponerFicha = (event, cas) => {
         fichas[i].dom.style.height = resize;
         fichas[i].dom.style.width = resize;
         cas.appendChild(fichas[i].dom);
+        entorno(i);
     }
-    /* falta por acabar */
 }
 
 const overFicha = (event, cas) => {
@@ -642,7 +658,6 @@ const overFicha = (event, cas) => {
     else if(cas.id == "n_ficha"){
         event.preventDefault();
     }
-    /* falta por acabar */
 }
 
 const monAct = (id = id_ficha) => {
@@ -692,12 +707,15 @@ const crearFichas = () => {
     var ficha;
     var j = 0;
     var total = base;
-    /*
-    if(extensiones != "Inhabilitado"){
-        for(i of extensiones.split(" ")){
-            ext[i][0]["init"](total)
+    
+    if(extensiones != "Sin extensiones"){
+        for(i in ext){
+            if(RegExp(i).test(extensiones)){
+                total = ext[i][0]["init"](total);
+            }
         }
-    }*/
+    }
+    
     base.forEach(mod => {
         for (let i=0; i<mod.num; i++){
             // Crear el objeto Ficha
