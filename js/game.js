@@ -40,6 +40,9 @@ class Ficha {
 
         this.dom.ondragstart = (event) => {
             event.dataTransfer.setData("index", String(this.i));
+            for(i in this.ocup){
+                this.ocup[i] = null;
+            }
         }
 
         this.dom.dataset["index"] = this.i;
