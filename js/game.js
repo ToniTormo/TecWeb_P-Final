@@ -239,7 +239,7 @@ const sePuede = (x, y, id = id_ficha) => {
         return false;
     }
 
-    var ajdunto;
+    var adjunto;
     var iter = {
         0: [x, y+1],
         1: [x-1,y],
@@ -257,8 +257,8 @@ const sePuede = (x, y, id = id_ficha) => {
 
         let ad_ori = fichas[adjunto.dataset["i"]].ori;
         let ad_sid = fichas[adjunto.dataset["i"]].side;
-        let ori = fichas[id_ficha].ori;
-        let side = fichas[id_ficha].side;
+        let ori = fichas[id].ori;
+        let side = fichas[id].side;
 
         res.push(side[(parseInt(i) + (6 - ori)) % 4] == ad_sid[(parseInt(i) + (4 - ad_ori)) % 4]);
 
