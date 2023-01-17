@@ -1,6 +1,3 @@
-// import {save, read, quit, clear} from "./datamanager.js";
-// import {diccionario, base, rio} from "../data/fichas.json";
-
 // Esquemas ===============================================================================
 
 const modelo_ficha = {
@@ -374,16 +371,7 @@ const n_turno = () => {
                 }
             })
 
-            save("leaderboard",JSON.stringify(leaderboard));
-
-            console.log("fin de partida");
-            
-            document.querySelectorAll(".b_1:not([value='Salir'])").forEach(bt => {
-                bt.setAttribute("disabled","");
-            })
-
-            window.top.location.replace("./leaderboard.html");
-            
+            finDePartida();
             return;
         }
     }
@@ -393,6 +381,18 @@ const n_turno = () => {
     nuevaFicha();
     nuevoMonigote();
     contador();
+    return;
+}
+
+const finDePartida = (lead = leaderboard) => {
+    save("leaderboard",JSON.stringify(lead));
+
+    console.log("fin de partida");
+    
+    document.querySelectorAll(".b_1:not([value='Salir'])").forEach(bt => {
+        bt.setAttribute("disabled","");
+    })
+    window.top.location.replace("./leaderboard.html");
     return;
 }
 
