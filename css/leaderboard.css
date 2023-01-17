@@ -4,8 +4,10 @@ table{
 }
 h1{
     text-align: center; 
+    color: #efb810;
+    text-shadow: 2px 2px 2px #bf930d;
 }
-img{
+table img{
     width: 40px;
     height: 50px;
 }
@@ -29,4 +31,10 @@ input{
     background-color: burlywood;
     border: 3px ridge;
     border-color: rgb(219, 149, 58);
+}
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
