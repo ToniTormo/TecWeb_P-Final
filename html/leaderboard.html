@@ -116,18 +116,11 @@
     </body>
     <script>
         datos = JSON.parse(read("leaderboard"));
-        /*
-        n_fichas = parseInt(datos["duracion"]);
-        d_turno = parseInt(datos["turno"]);
-        t_tablero = parseInt(datos["tablero"]);
-        extensiones = datos["extension"];
-        listaJugadores = datos["jugadores"];
-        */
         
         var [n,p] = ordenarobjetos(datos);
         insertar(n,p);
 
-        //la funcion requiere dos listas, una con los nombres y una con su puntuacion
+        //la función requiere dos listas, una con los nombres y una con su puntuación
         //ordenar datos
         function ordenarobjetos(lista){
             /*pasar de objeto a lista*/
@@ -252,8 +245,8 @@
                 alert("Este nombre no se encuentra el la lista, inténtalo de nuevo.");
             }
         };
-
     </script>
+    
     <script defer>
         var theme = document.getElementById("theme");
 

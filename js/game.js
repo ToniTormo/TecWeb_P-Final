@@ -489,8 +489,8 @@ const entorno = (ficha) => {
 
     for(i in iter){
         adjunto = document.querySelector(`div.casilla[data-posicion = "${iter[i]}" ]`);
-        if(adjunto == null){continue;} // existe la casilla? 
-        if(adjunto.innerHTML == ""){closed = false; continue;} // esta llena?
+        if(adjunto == null){continue;}
+        if(adjunto.innerHTML == ""){closed = false; continue;}
 
         ind = adjunto.children[0].dataset["index"];
 
@@ -507,8 +507,6 @@ const ocupacion = (ficha, ocup, jug) => {
     ficha = identificador 
     ocup = terreno a ocupar
     jug = jugador ejecutando
-
-    return [esta cerrado? , cuantas casillas?]
     */
     var pos = JSON.parse(`[${fichas[ficha].dom.parentElement.dataset["posicion"]}]`);
     var x = pos[0];
@@ -549,12 +547,12 @@ const ocupacion = (ficha, ocup, jug) => {
     for(i in iter){
         if(side[((4 - i) % 4)] != lat){continue;} // el lado coincide
 
-        j++; // esto es para que se encuentre con el numero correcto
+        j++; // encuentra el numero correcto
         if(num != null){if(num != j){continue;}}
 
         adjunto = document.querySelector(`div.casilla[data-posicion = "${iter[i]}" ]`);
-        if(adjunto == null){continue;} // existe la casilla? 
-        if(adjunto.innerHTML == ""){closed = false; continue;} // esta llena?
+        if(adjunto == null){continue;}
+        if(adjunto.innerHTML == ""){closed = false; continue;}
 
         ind = adjunto.children[0].dataset["index"];
 
@@ -562,21 +560,20 @@ const ocupacion = (ficha, ocup, jug) => {
             return [closed , count + 1 + 1 * Number(fichas[ficha].esc)];
         }
 
-        // solo hay un objetivo o hay varios?
-        if(any(fichas[ind].oc, (el) => {return el == ocup && el.length == ocup.length;})){ // solo uno
-            if(fichas[ind].ocup[ocup] != null){ // esta lleno?
+        // numero de objetivos
+        if(any(fichas[ind].oc, (el) => {return el == ocup && el.length == ocup.length;})){
+            if(fichas[ind].ocup[ocup] != null){ 
                 if(fichas[ind].ocup[ocup] == jug){
-                    continue; // soy yo
-                }else{ //no soy yo
-                    // console.log(`fusion de terrenos [${pos}] a [${iter[i]}]`);
+                    continue; 
+                }else{
                 }
-            }else{ // esta vacio
+            }else{
                 fichas[ind].ocup[ocup] = jug;
                 ret = ocupacion(ind, ocup, jug);
                 closed = closed && ret[0];
                 count += ret[1];
             }
-        }else{ // hay varios
+        }else{
             var n = 0;
             if(any(fichas[ind].oc, (el) => {
                 if(reg.test(el)){
@@ -602,9 +599,7 @@ const ocupacion = (ficha, ocup, jug) => {
                     }
                 }
 
-            }else{ // espero no ejecutar esto (no sabria porque)
-                // console.log("no se ha encontrado el espacio asignado")
-                // console.log(ind, ocup)
+            }else{
             }
         }
     }
