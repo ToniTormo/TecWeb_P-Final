@@ -22,7 +22,6 @@ body{
 }
 button{
     font-family: inherit;
-    color: black;
     background-color:burlywood;
     border: 3px ridge;
     border-color:  rgb(219, 149, 58);

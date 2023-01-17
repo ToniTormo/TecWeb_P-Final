@@ -15,50 +15,6 @@
             margin: 5%;
             border: 2px outset black;
         }
-        nav{
-            background-color: burlywood;
-            border: 3px solid brown;
-            display: flex;
-            flex-direction: row;
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            width: 95%;
-            height: 50px;
-            padding: 2%;
-            margin-top: 0;
-            margin-bottom: 0;
-            margin-right: 50px;
-            margin-left: 50px;
-        }
-
-        nav>button{
-            background-color: lightsteelblue;
-            border: 3px outset blue;
-            margin: 2.5px;
-            width: 95%;
-            height: 95%;
-            text-align: center;
-            justify-content: center;
-            font-size: larger;
-            font-weight: bold;
-        }
-        #links{
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            gap: 20%;
-        }
-        #copyright{
-            text-align: center;
-        }
-        #links>img{
-            object-fit: contain;
-        }
-        a {
-            color: black;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body class="fondo">
@@ -78,7 +34,7 @@
         <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
     </nav>
     <iframe src="./game.html" frameborder="0"></iframe>
-    <footer>
+    <footer id="foot_juego">
         <div id="links">
             <img src="../media/logo_carcassone.png" width="450px" height="200px">
             <div id="navegacion">
