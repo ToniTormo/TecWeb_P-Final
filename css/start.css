@@ -5,6 +5,7 @@ body{
     background-color: lightblue;
 }
 input{
+    font-family: inherit;
     border: 1px;
     border-style: ridge;
     border-color: black;
