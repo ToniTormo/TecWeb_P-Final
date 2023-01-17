@@ -9,13 +9,13 @@
     <link id="theme" href="../css/deftheme.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../media/Favicon.png">
 </head>
-<body>
+<body class="fondo">
     <header>
         <div id="cabecera">
             <img src="../media/logo_carcassone.png" width="50%" height="auto">
             <h1>Normas Carcassonne</h1>
         </div>
-        <h3>
+        <h3 class="targeta">
             <i>
                 La ciudad de Carcassonne, en el sur de Francia, es famosa por sus inigualables fortificaciones
                 romanas y medievales. En este juego, los jugadores desarrollan el &aacute;rea alrededor de
@@ -49,7 +49,7 @@
         <button class="etiqueta" onclick="window.location.href='../html/leaderboard.html';">Leaderboard</button>
         <button class="etiqueta" onclick="window.location.href='../html/opciones.html';">Opciones</button>
     </nav>
-    <aside>
+    <aside class="asidereglas">
         <!--Barra lateral de navegación de las normas-->
         <h2>ÍNDICE</h2>
         <ol>
@@ -73,7 +73,7 @@
     </aside>
     <div id="texto">
         <article><!--APARTADO 1-->
-            <h3 id="carcassonne">1. ¿Qu&eacute; es el Carcassonne?</h3>
+            <h3 id="carcassonne" class="targeta">1. ¿Qu&eacute; es el Carcassonne?</h3>
             <p>
                 Los jugadores colocan las piezas de territorio por turnos. A medida que
                 lo van haciendo, los caminos, ciudades, campos y claustros van
@@ -85,7 +85,7 @@
             </p>
         </article>
         <article><!--APARTADO 2-->
-            <h3 id="juego">2. Componentes del juego</h3>
+            <h3 id="juego" class="targeta">2. Componentes del juego</h3>
             <ul>
                 <li>33 piezas de territorio (incluyendo una pieza de inicio), 
                     ilustradas con segmentos de ciudades, caminos, campos y claustros.</li>
@@ -139,7 +139,7 @@
         
         </article>
         <article><!--APARTADO 3-->
-            <h3 id="como">3. ¿C&oacute;mo se juega al Carcassonne?</h3>
+            <h3 id="como" class="targeta">3. ¿C&oacute;mo se juega al Carcassonne?</h3>
             <p>
                 Los jugadores llevan a cabo sus turnos cuando salga por pantalla su nombre, comenzando con
                 el jugador indicado. Durante su turno, el jugador llevar&aacute; a cabo las siguientes acciones, en el
@@ -160,7 +160,7 @@
             </ul>
         </article>
             <section><!--SECCIÓN A-->
-                <h4 id="piezas">a. Colocar las piezas de territorio en juego</h4>
+                <h4 id="piezas" class="subapart">A. Colocar las piezas de territorio en juego</h4>
                 <p>
                     Primero el jugador recibirá una pieza d territorio que todo el mundo podr&aacute; ver. A continuaci&oacute;n, 
                     la coloca en el tablero de acuerdo a las siguientes normas.
@@ -191,7 +191,7 @@
                 </p>
             </section>
             <section><!--SECCIÓN B-->
-                <h4 id="seguidores">b. Desplegar a los seguidores</h4>
+                <h4 id="seguidores" class="subapart">B. Desplegar a los seguidores</h4>
                 <p>
                     Cuando el jugador coloca una pieza de territorio en juego, puede desplegar sobre ella a uno de sus seguidores,
                     de acuerdo con las siguientes normas:
@@ -222,13 +222,13 @@
                 </p>
             </section>
             <section><!--SECCIÓN C-->
-                <h4 id="completar">c. Puntuar por completar claustros, caminos y ciudades</h4>
+                <h4 id="completar" class="subapart">C. Puntuar por completar claustros, caminos y ciudades</h4>
                 <p>
                     Cada claustro, camino o ciudad es completado al colocar una nueva pieza de territorio, se cuenta su puntuaci&oacute;n inmediatamente.
                 </p>
             </section>
             <section><!--SECCIÓN D-->
-                <h4 id="recuperar">d. Recuperar seguidores</h4>
+                <h4 id="recuperar" class="subapart">D. Recuperar seguidores</h4>
                 <p>
                     Cuando se suman puntos por un camino, ciudad o claustro completados (y s&oacute;lo entonces), todos los seguidores implicados son devueltos
                     a sus jugadores, que pueden usarlos de nuevo en turnos posteriores.<br>
@@ -251,17 +251,17 @@
                 </ul>
             </section>
         <article> <!--ARTICULO 4-->
-            <h3  id="puntos">4. Puntos</h3>
+            <h3  id="puntos" class="targeta">4. Puntos</h3>
         </article>
         <section><!--Sección A-->
-            <h4 id="caminos">a. Camino completado</h4>
+            <h4 id="caminos" class="subapart">A. Camino completado</h4>
             <p>
                 Un camino se considera sompletado cuando sus segmentos de camino en ambos extremos est&aacute;n conectados con un cruce,
                 un segmento de ciudad o un claustro. Entre ambos extremos puede haber cualquier n&uacute;mero de segmentos de camino.
             </p>
         </section>
         <section><!--Sección B-->
-            <h4 id="ciudad">b. Ciudad completada</h4>
+            <h4 id="ciudad" class="subapart">B. Ciudad completada</h4>
             <p>
                 Una ciudad se considera completada cunando est&aacute; totalmente rodeada por una muralla, en la que no queda nig&uacute;n hueco
                 abierto. Una ciudad puede tener cualquier cantidad de segmentos. <br>
@@ -271,14 +271,14 @@
             </p>
         </section>
         <section><!--Sección C-->
-            <h4 id="claustro">c. Claustro completado</h4>
+            <h4 id="claustro" class="subapart">C. Claustro completado</h4>
             <p>
                 Un claustro se considera completado cuando la pieza de territorio en la que se encuentra está completamente rodeada por
                 otras piezas de territorio. En ese caso, el jugador que tenga un seguidor en este claustro sumar&aacute; 9 puntos.
             </p>
         </section>
         <article> <!--ARTICULO 5-->
-            <h3 id="recuento">5. Recuento final</h3>
+            <h3 id="recuento" class="targeta">5. Recuento final</h3>
             <p>
                 Primero se punt&uacute;an las ciudades, claustros y caminos incompletos en los que alg&uacute;n jugador tenga un seguidor.
                 Dicho jugador se lleva 1 punto por cada segmento que tenga el camino o ciudad. Adem&aacute;s, cada escudo en la ciudad da al jugador 

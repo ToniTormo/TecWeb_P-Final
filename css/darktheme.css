@@ -14,6 +14,14 @@
 .targeta legend{
     background-color: rgb(108, 108, 108);
 }
+.subapart{
+    background-color: rgb(195, 146, 74);
+    text-decoration: none;
+}
+.asidereglas{
+    background-color: #991414;
+}
+
 
 nav{
     background-color: burlywood;
@@ -30,7 +38,6 @@ nav{
     margin-top: 1%;
     margin-bottom: 2%;
 }
-
 nav>button{
     background-color: lightsteelblue;
     border: 3px outset blue;
