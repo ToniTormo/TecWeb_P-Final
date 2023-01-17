@@ -127,10 +127,10 @@
         const refresh = () => {
             tema = read("tema");
             if(tema == "dark"){
-                theme.setAttribute('href', './css/darktheme.css');
+                theme.setAttribute('href', '../css/darktheme.css');
             }
             else{
-                theme.setAttribute('href', './css/deftheme.css');
+                theme.setAttribute('href', '../css/deftheme.css');
             }
             document.body.style.fontFamily = read("font_f");
             document.body.style.fontSize = read("font_s");
