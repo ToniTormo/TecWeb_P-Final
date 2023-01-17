@@ -163,7 +163,7 @@ class Jugador {
         this.dom.className = "jugador";
         this.dom.innerHTML = [
             '<span>'+ this.name +'</span>',
-            '<span style="width: calc(var(--font_size)*1.5); text-align: center;">0</span>',
+            `<span style="width: calc(var(--font_size)*1.5); text-align: center;" id="${this.i}">0</span>`,
             '<span style="padding: 0px; text-align:center;">&#x2717;</span>'
         ].join("");
         this.dom.style.backgroundColor = this.color;
@@ -186,9 +186,9 @@ class Jugador {
         }
     } 
 
-    puntuacion(all = false){
+    puntuacion(todo = false){
         this.puntos = 0;
-        var data = dominio(this.i, all);
+        var data = dominio(this.i, todo);
 
         this.puntos += data["path"] * 1;
 
@@ -198,7 +198,7 @@ class Jugador {
 
         this.puntos += data["field"] * 3;
         
-        this.dom.children[1].innerText = this.puntos;
+        document.getElementById(String(this.i)).innerHTML = String(this.puntos);
     }
 }
 
@@ -456,7 +456,7 @@ const nuevoMonigote = () => {
 }
 
 tipos = ["field", "path", "city", "church"]
-const dominio = (jug, all = false) => {
+const dominio = (jug, todo = false) => {
     var res = {};
     tipos.forEach(el => {
         res[el] = 0;
@@ -464,9 +464,10 @@ const dominio = (jug, all = false) => {
     tablero.forEach(ficha => {
         let oc = fichas[ficha].ocup;
         for(i in oc){
+            if(all(tipos,(el) => {return el != i;})){continue;}
             if(oc[i] == jug){
                 ret = ocupacion(ficha, i, jug);
-                if(ret[0] || all){
+                if(ret[0] || todo){
                     res[i] += ret[1];
                 }
             }
@@ -515,7 +516,9 @@ const ocupacion = (ficha, ocup, jug) => {
     var y = pos[1];
     var side = fichas[ficha].side;
 
-    fichas[ficha].ocup[ocup] = jug;
+    if(any(fichas[ficha].oc, (el) => {return el == ocup && el.length == ocup.length;})){
+        fichas[ficha].ocup[ocup] = jug;
+    }
 
     var iter = {
         0: [x  , y-1],
