@@ -13,17 +13,13 @@ th,td{
     padding: 10px;
     text-align: left;
     border: 2px ridge;
-    color: black;
     border-color: burlywood;
-}
-th{
-    color:rgb(15, 57, 15);
 }
 body{
     background-color: lightblue;
 }
 button{
-    color: rgb(15, 57, 15);
+    color: black;
     background-color:burlywood;
     border: 3px ridge;
     border-color:  rgb(219, 149, 58);
