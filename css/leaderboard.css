@@ -21,6 +21,7 @@ body{
     background-color: lightblue;
 }
 button{
+    font-family: inherit;
     color: black;
     background-color:burlywood;
     border: 3px ridge;
