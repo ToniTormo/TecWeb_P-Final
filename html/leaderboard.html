@@ -116,7 +116,6 @@
     </body>
     <script>
         datos = JSON.parse(read("leaderboard"));
-        console.log(datos)
         /*
         n_fichas = parseInt(datos["duracion"]);
         d_turno = parseInt(datos["turno"]);
@@ -125,7 +124,7 @@
         listaJugadores = datos["jugadores"];
         */
         
-        var [n,p]= ordenarobjetos(datos);
+        var [n,p] = ordenarobjetos(datos);
         insertar(n,p);
 
         //la funcion requiere dos listas, una con los nombres y una con su puntuacion
