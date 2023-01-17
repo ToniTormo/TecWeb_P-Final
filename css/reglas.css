@@ -1,10 +1,6 @@
 /*CSS general*/
-body {
-    background-color: beige;
-}
 header {
     text-align: center;
-    background-color: beige;
 }
 #cabecera{
     display: flex;
@@ -16,29 +12,26 @@ header {
     object-fit: contain;
 }
 article > h3 {
-    background-color: rgb(255, 214, 126);
     text-decoration: underline;
 }
 section > h4 {
-    background-color: khaki;
     text-decoration:underline ;
 }
-
+.targeta{
+    text-decoration: none;
+}
 /*CSS de la NAV bar*/
 aside {
     float:left;
     width: 25%;
     padding: 25px;
-    border-color: black;
     margin-right: 2.5%;
     border-radius: 15px;
-    background-color: #ebee82;
-
 }
 nav > ol > ul {
     list-style-type:lower-alpha;
 }
-a {
+aside  a{
     color: black;
     text-decoration: none;
 }
@@ -57,18 +50,4 @@ img {
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-
-/*Footer*/
-#links{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 500px;
-}
-#copyright{
-    text-align: center;
-}
-#links>img{
-    object-fit: contain;
 }
