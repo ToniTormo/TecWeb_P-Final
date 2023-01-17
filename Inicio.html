@@ -59,7 +59,10 @@
         }
 
         try{
-            read("tema");
+            let t = read("tema")
+            if(t == undefined || t == null){
+                throw "no existe estilo";
+            }
         }catch{
             save("tema", "def");
             save("font_f", "Papyrus");
