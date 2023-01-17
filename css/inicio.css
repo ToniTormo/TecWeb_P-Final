@@ -13,28 +13,30 @@ body{
     flex-direction: row;
 
 }
-
 nav{
     background-color: burlywood;
     border: 3px solid brown;
     display: flex;
     flex-direction: column;
-    width: 20%;
-    height: auto;
-    padding: 2%;
-    margin-top: 3%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 275px;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 1%;
+    margin-bottom: 2%;
 }
-
-button{
+nav>button{
     background-color: lightsteelblue;
     border: 3px outset blue;
-    margin: auto;
-    width: 95%;
-    height: 95%;
-    padding: 0px;
-    text-align: center;
-    justify-content: center;
+    width: 90%;
+    height: 40px;
     font-size: larger;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 aside{
@@ -50,11 +52,14 @@ aside{
     border-radius: 10%;
     overflow: scroll;
     overflow-x: hidden;
+    
+}
+aside a{
+    text-decoration: none;
 }
 
 aside::-webkit-scrollbar{
-    background-color: burlywood;
-    width: 2px;
+    width: 2px; 
 }
 
 
