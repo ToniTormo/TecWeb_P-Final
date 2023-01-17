@@ -1,5 +1,4 @@
 *{
-    font-family: 'Papyrus';
     color: black;
 }
 .fondo{
@@ -36,6 +35,7 @@ nav{
     margin-bottom: 2%;
 }
 nav>button{
+    font-family: inherit;
     background-color: lightsteelblue;
     border: 3px outset blue;
     width: 70%;
