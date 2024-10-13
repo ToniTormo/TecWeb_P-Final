@@ -1,7 +1,5 @@
 # TecWeb_P-Final
-Vamos a organizarnos, yo he sido el primero en cagarla con esto.
-
-Sigamos las instrucciones vale?
+Vamos a organizarnos.
 
 Primero ejecuta lo siguiente: 
 $ git clone https://github.com/A-vidal/TecWeb_P-Final.git
